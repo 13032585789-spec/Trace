@@ -1,0 +1,100 @@
+"""Tests that run without any API key: Gemini and the vision model are faked."""
+from pathlib import Path
+
+import pytest
+from google.genai import types
+
+FIX = Path(__file__).parent / "fixtures"
+
+
+@pytest.fixture(autouse=True)
+def _data_dir(monkeypatch, tmp_path):
+    from agent import config
+
+    monkeypatch.setattr(config, "DATA_DIR", FIX.resolve())
+    monkeypatch.setattr(config, "CACHE_DIR", tmp_path / "cache")
+
+
+class _Resp:
+    def __init__(self, calls=None, text=""):
+        self.function_calls = calls or []
+        self.text = text
+        parts = [types.Part(function_call=c) for c in self.function_calls] or [types.Part.from_text(text=text)]
+        self.candidates = [types.Candidate(content=types.Content(role="model", parts=parts))]
+
+
+class FakeClient:
+    """Plays back a fixed list of responses."""
+
+    def __init__(self, responses):
+        self._r = list(responses)
+        self.models = self
+
+    def generate_content(self, **kw):
+        return self._r.pop(0)
+
+
+def test_drawings_resolve_and_render():
+    from agent import drawings
+
+    assert drawings.page_png("data/demo/plan.png").name == "plan.png"
+    png = drawings.page_png("data/demo/plan.pdf", 1)
+    assert png.exists() and drawings.image_size(png)[0] > 0
+    with pytest.raises(drawings.DrawingError):
+        drawings.resolve("../../etc/passwd")
+
+
+def test_tool_dispatch_uses_mock_until_engine_exists():
+    from agent import tools
+
+    r = tools.call("count_elements", {"path": "x.ifc", "category": "toilet"})
+    assert r["value"] == 2 and any("MOCK" in w for w in r["warnings"])
+
+
+def test_ask_loop_uses_tool_value(monkeypatch):
+    from agent import agent, vision
+
+    monkeypatch.setattr(vision, "_gemini_detect", lambda png, t: [{"box_2d": [100, 100, 200, 200], "label": "WC"}])
+    monkeypatch.setattr(vision, "_nemotron_count", lambda png, t: 1)
+    call = types.FunctionCall(name="count_in_drawing", args={"path": "data/demo/plan.png", "target": "toilet bowls"})
+    client = FakeClient([_Resp(calls=[call]), _Resp(text="1 toilet bowl is drawn on this plan.")])
+
+    out = agent.ask("How many toilet bowls are drawn?", "data/demo/plan.png", client=client)
+
+    assert out["answer_text"].startswith("1 toilet")
+    ev = out["evidence"][0]
+    assert ev["value"] == 1 and ev["sources"][0]["bbox"] == [40, 30, 80, 60]
+    assert ev["warnings"] == []
+
+
+def test_number_check_flags_invented_numbers(monkeypatch):
+    from agent import agent, vision
+
+    monkeypatch.setattr(vision, "_gemini_detect", lambda png, t: [])
+    monkeypatch.setattr(vision, "_nemotron_count", lambda png, t: 0)
+    call = types.FunctionCall(name="count_in_drawing", args={"path": "data/demo/plan.png", "target": "sauna"})
+    client = FakeClient([_Resp(calls=[call]), _Resp(text="There are 3 saunas."), _Resp(text="There are 7 saunas.")])
+
+    out = agent.ask("How many saunas?", "data/demo/plan.png", client=client)
+
+    assert out["evidence"][-1]["tool"] == "number_check"
+
+
+def test_nemotron_disagreement_is_warned(monkeypatch):
+    from agent import vision
+
+    monkeypatch.setattr(vision, "_gemini_detect", lambda png, t: [{"box_2d": [0, 0, 10, 10]}] * 2)
+    monkeypatch.setattr(vision, "_nemotron_count", lambda png, t: 3)
+    r = vision.count_in_drawing("data/demo/plan.png", "toilet")
+    assert r["value"] == 2 and "Nemotron counted 3" in r["warnings"][0]
+
+
+def test_api_health_and_drawing():
+    from fastapi.testclient import TestClient
+
+    from agent.app import app
+
+    c = TestClient(app)
+    assert c.get("/health").json()["ok"]
+    assert c.get("/drawing", params={"path": "data/demo/plan.pdf"}).headers["content-type"] == "image/png"
+    assert c.get("/questions").json()[0]["answer"] == 1

@@ -1,0 +1,16 @@
+{
+  "value": 2,
+  "unit": "count",
+  "items": [
+    {"id": "2O2Fr$t4X7Zf8NOew3FLOH", "guid": "2O2Fr$t4X7Zf8NOew3FLOH", "category": "toilet", "name": "WC 1",
+     "storey": "2. krs", "space_id": "B204", "space_name": "KPH", "xyz": [12.4, 3.1, 6.0]},
+    {"id": "1hT9pQx3z5Bf6NOew3FLAB", "guid": "1hT9pQx3z5Bf6NOew3FLAB", "category": "toilet", "name": "WC 2",
+     "storey": "2. krs", "space_id": "B208", "space_name": "WC", "xyz": [18.0, 3.4, 6.0]}
+  ],
+  "sources": [
+    {"file": "data/ifc_models/bsc-molio_molio-with-uris_plan-02-klder.pdf", "page": 1, "bbox": [410, 220, 470, 260], "label": "WC 1"},
+    {"file": "data/ifc_models/bsc-molio_molio-with-uris_plan-02-klder.pdf", "page": 1, "bbox": [610, 220, 670, 260], "label": "WC 2"}
+  ],
+  "method": "IfcSanitaryTerminal + name match, centroid-in-space",
+  "warnings": []
+}

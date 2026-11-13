@@ -1,0 +1,8 @@
+google-genai>=3.3,<4
+fastapi>=0.110
+uvicorn[standard]
+pymupdf
+openai>=1.40
+python-dotenv
+pytest
+httpx

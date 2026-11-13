@@ -1,0 +1,11 @@
+# data never goes into git
+/data/
+*.zip
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+cache/
+node_modules/
+web/dist/
+.DS_Store
