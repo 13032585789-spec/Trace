@@ -58,7 +58,11 @@ def _vlm(png_path):
 def _have_key():
     return bool(os.environ.get("GEMINI_API_KEY") or (os.environ.get("NVIDIA_API_KEY") and os.environ.get("NVIDIA_VLM_MODEL")))
 
+LOCAL = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "vlm_cache")
+
 def detections(png_path):
+    shared = os.path.join(LOCAL, os.path.basename(png_path) + ".json")   # written by vlm_pilot.py
+    if os.path.exists(shared): return json.load(open(shared))
     st = os.stat(png_path)
     key = hashlib.md5(f"{os.path.basename(png_path)}|{st.st_size}|{st.st_mtime}".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".json")

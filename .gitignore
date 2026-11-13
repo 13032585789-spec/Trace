@@ -4,3 +4,5 @@ data/
 junction-dataset/
 eval/results/fails_*.jsonl
 .cache/
+vlm_cache/
+.env
