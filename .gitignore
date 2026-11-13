@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+data/
+junction-dataset/
+eval/results/fails_*.jsonl
+.cache/
