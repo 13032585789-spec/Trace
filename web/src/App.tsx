@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ask, sampleQuestions } from './api'
 import DrawingViewer from './DrawingViewer'
+import IfcViewer from './IfcViewer'
 import type { AskResponse, DatasetQuestion, Role, Source } from './types'
 
 const SOURCES = ['', 'cubicasa5k', 'swiss_dwellings', 'ifc_models', 'ifc_bench', 'opening_design']
@@ -29,6 +30,10 @@ export default function App() {
   const page = sources[0]?.page ?? 1
   const warnings = (res?.evidence ?? []).flatMap((e) => e.warnings ?? [])
   const isIfc = path.toLowerCase().endsWith('.ifc')
+  const guids = useMemo(
+    () => [...new Set((res?.evidence ?? []).flatMap((e) => e.items ?? []).map((i) => i.guid).filter((g): g is string => !!g))],
+    [res],
+  )
 
   function pick(q: DatasetQuestion) {
     setQuestion(q.question)
@@ -129,7 +134,7 @@ export default function App() {
 
       <main className="stage">
         {isIfc ? (
-          <div className="viewer empty">IFC 3D 查看器待接入（That Open Engine，按 GUID 高亮）</div>
+          <IfcViewer path={path} guids={guids} />
         ) : (
           <DrawingViewer path={path} page={page} sources={sources} selected={selected} onSelect={setSelected} />
         )}

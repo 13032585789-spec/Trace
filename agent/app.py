@@ -49,6 +49,15 @@ def drawing(path: str, page: int = 1):
         raise HTTPException(404, str(e))
 
 
+@app.get("/file")
+def raw_file(path: str):
+    """Raw dataset file, e.g. an .ifc model for the browser 3D viewer."""
+    try:
+        return FileResponse(drawings.resolve(path))
+    except drawings.DrawingError as e:
+        raise HTTPException(404, str(e))
+
+
 @app.get("/questions")
 def questions(source: str | None = None, limit: int = 50):
     f = config.DATA_DIR / "questions.jsonl"

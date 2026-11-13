@@ -98,3 +98,13 @@ def test_api_health_and_drawing():
     assert c.get("/health").json()["ok"]
     assert c.get("/drawing", params={"path": "data/demo/plan.pdf"}).headers["content-type"] == "image/png"
     assert c.get("/questions").json()[0]["answer"] == 1
+
+
+def test_raw_file_endpoint():
+    from fastapi.testclient import TestClient
+
+    from agent.app import app
+
+    c = TestClient(app)
+    assert c.get("/file", params={"path": "data/demo/plan.pdf"}).status_code == 200
+    assert c.get("/file", params={"path": "../secret"}).status_code == 404

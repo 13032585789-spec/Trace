@@ -21,3 +21,6 @@ export async function sampleQuestions(source?: string): Promise<DatasetQuestion[
 
 export const drawingUrl = (path: string, page = 1) =>
   `${BASE}/drawing?${new URLSearchParams({ path, page: String(page) })}`
+
+// raw dataset file (e.g. an .ifc model for the 3D viewer)
+export const fileUrl = (path: string) => `${BASE}/file?${new URLSearchParams({ path })}`
