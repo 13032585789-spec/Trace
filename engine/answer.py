@@ -1,6 +1,6 @@
 """Single entry point: answer(path, question) -> evidence dict (see interface contract)."""
 import os, collections
-from . import swiss, questions, ifc, ifc_answer, swiss_view
+from . import swiss, questions, ifc, ifc_answer, swiss_view, cubicasa
 
 DATA = os.environ.get("JUNCTION_DATA", os.path.expanduser("~/work/junction-dataset"))
 
@@ -67,6 +67,11 @@ def answer_ifc(path, question, source):
             "sources": [{"file": os.path.relpath(mp, DATA).replace(os.sep, "/")}] + ([{"file": path}] if path.endswith(".pdf") else []),
             "method": method, "warnings": warn}
 
+def _png_size(png):
+    try:
+        import cv2; im = cv2.imread(png); return (im.shape[1], im.shape[0]) if im is not None else None
+    except Exception: return None
+
 def answer(path, question):
     src = path.replace("\\", "/").split("/")
     source = src[src.index("data") + 1] if "data" in src else src[0]
@@ -74,5 +79,9 @@ def answer(path, question):
         return answer_swiss(path, question)
     if source in ("ifc_models", "ifc_bench"):
         return answer_ifc(path, question, source)
+    if source == "cubicasa5k":
+        png = os.path.join(DATA, path) if not os.path.isabs(path) else path
+        v, items, method, warn = cubicasa.answer(png, question, _png_size)
+        return {"value": v, "unit": "count", "items": items, "sources": [{"file": path}], "method": method, "warnings": warn}
     return {"value": None, "unit": None, "items": [], "sources": [], "method": f"unsupported:{source}",
             "warnings": [f"no solver yet for source '{source}'"]}

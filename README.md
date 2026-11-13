@@ -22,7 +22,7 @@ First IFC load builds a cache in `~/.cache/junction-engine` (about 1 min for all
 |---|---|---|
 | swiss_dwellings | 37,584 | 98.6% (held-out test split 99.0%) |
 | ifc_models | 3,062 | 98.0% |
-| cubicasa5k | 85,514 | not started: raster only, needs a vision model |
+| cubicasa5k | 85,514 | 54.9% with priors only (no key); vision-model path ready, see below |
 | opening_design | 48 numeric | not started |
 | ifc_bench | 820 text | not scored automatically |
 
@@ -35,6 +35,16 @@ First IFC load builds a cache in `~/.cache/junction-engine` (about 1 min for all
   area from geometry (extrusion profiles, B-rep bottom faces). `engine/ifc_answer.py` maps 9 languages of question templates to queries.
   Space area priority: geometry > Qto NetFloorArea > national area property.
 * `engine/questions.py` multilingual (EN/DE/FR/IT) Swiss templates.
+
+## Raster plans (cubicasa5k)
+Scanned/raster Finnish plans: no vector data, and Tesseract OCR scored below the priors on a pilot.
+`engine/cubicasa.py` therefore has two modes:
+* **vision model** (set one of these in your own shell, never commit keys):
+  `GEMINI_API_KEY` (+ optional `GEMINI_MODEL`, default gemini-2.5-pro) or `NVIDIA_API_KEY` + `NVIDIA_VLM_MODEL`.
+  One call per image returns boxes for all 12 categories (doors, windows, toilets, sinks, showers/tubs, storeys,
+  saunas, kitchens, bedrooms, bathrooms, WC rooms, balconies); cached in `~/.cache/junction-engine/vlm/`.
+  The count is the number of boxes, and the boxes are the evidence (`png_bbox`).
+* **no key**: answers the most common value for the question type and returns a low-confidence warning.
 
 ## Known gaps
 * Swiss: unlabelled numbered rooms are sometimes counted in apartment/indoor totals and sometimes not (about 1% of Swiss questions).
