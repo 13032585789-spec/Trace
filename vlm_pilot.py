@@ -4,13 +4,15 @@ Reads images straight from the dataset zip; writes one JSON per image into ./vlm
 PowerShell:
     $env:GEMINI_API_KEY = "your key"
     python vlm_pilot.py --n 200
-Options: --zip PATH (default ../junction-dataset.zip)  --model NAME (default: auto-pick)  --n COUNT
+Options: --model NAME (default: newest Flash)   --workers 4   --zip PATH   --n COUNT
 """
-import os, sys, json, zipfile, hashlib, base64, time, argparse, urllib.request, urllib.error
+import os, sys, json, zipfile, hashlib, base64, time, argparse, threading, urllib.request, urllib.error
+from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine.cubicasa import PROMPT
 
 API = "https://generativelanguage.googleapis.com/v1beta"
+lock = threading.Lock()
 
 def http(url, body=None):
     req = urllib.request.Request(url, data=json.dumps(body).encode() if body is not None else None,
@@ -20,48 +22,69 @@ def http(url, body=None):
 def pick_model(key):
     names = [m["name"].split("/")[-1] for m in http(f"{API}/models?pageSize=1000&key={key}")["models"]
              if "generateContent" in m.get("supportedGenerationMethods", [])]
-    good = [n for n in names if n.startswith("gemini-") and not any(x in n for x in ("tts", "image", "embedding", "live", "audio", "lite"))]
-    def rank(n):  # newest version first, pro before flash
-        v = n.split("-")[1]
-        try: ver = float(v)
-        except ValueError: ver = 0
-        return (ver, "pro" in n, "preview" not in n and "exp" not in n)
-    good.sort(key=rank, reverse=True)
-    print("models available:", ", ".join(good[:8]))
-    return good[0]
+    good = [n for n in names if n.startswith("gemini-") and "flash" in n and
+            not any(x in n for x in ("tts", "image", "embedding", "live", "audio", "lite", "exp"))]
+    def ver(n):
+        try: return float(n.split("-")[1])
+        except ValueError: return 0
+    good.sort(key=lambda n: (ver(n), "preview" not in n), reverse=True)
+    print("flash models available:", ", ".join(good[:6]) or "(none)")
+    return good[0] if good else "gemini-2.5-flash"
+
+def call(key, model, png_bytes):
+    body = {"contents": [{"parts": [{"text": PROMPT}, {"inline_data": {"mime_type": "image/png",
+            "data": base64.b64encode(png_bytes).decode()}}]}],
+            "generationConfig": {"responseMimeType": "application/json", "temperature": 0}}
+    r = http(f"{API}/models/{model}:generateContent?key={key}", body)
+    return json.loads(r["candidates"][0]["content"]["parts"][0]["text"])
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--zip", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "junction-dataset.zip"))
-    ap.add_argument("--n", type=int, default=200); ap.add_argument("--model")
+    ap.add_argument("--n", type=int, default=200); ap.add_argument("--model"); ap.add_argument("--workers", type=int, default=4)
     a = ap.parse_args()
     key = os.environ.get("GEMINI_API_KEY")
     if not key: sys.exit('Set the key first:  $env:GEMINI_API_KEY = "your key"')
-    model = a.model or pick_model(key); print("using model:", model)
+    model = a.model or pick_model(key); print("using model:", model, flush=True)
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vlm_cache"); os.makedirs(out, exist_ok=True)
     z = zipfile.ZipFile(a.zip)
     paths = sorted({json.loads(l)["path"] for l in z.open("junction-dataset/questions.jsonl") if b"cubicasa5k" in l})
     test = [p for p in paths if int(hashlib.md5(p.encode()).hexdigest(), 16) % 5 == 0][:a.n]
-    done = 0
-    for i, p in enumerate(test):
+    todo = [p for p in test if not os.path.exists(os.path.join(out, os.path.basename(p) + ".json"))]
+    imgs = {p: z.read("junction-dataset/" + p) for p in todo}
+    print(f"{len(test) - len(todo)} already done, {len(todo)} to go", flush=True)
+    if not todo: return
+    # one test call first, so problems show up immediately
+    t = time.time()
+    try: call(key, model, imgs[todo[0]])
+    except urllib.error.HTTPError as e:
+        sys.exit(f"TEST CALL FAILED  HTTP {e.code}: {e.read()[:400].decode(errors='replace')}")
+    print(f"test call OK in {time.time() - t:.0f}s, starting {a.workers} workers", flush=True)
+    stats = {"ok": 0, "fail": 0, "t0": time.time()}
+    def work(p):
         dst = os.path.join(out, os.path.basename(p) + ".json")
-        if os.path.exists(dst): continue
-        b64 = base64.b64encode(z.read("junction-dataset/" + p)).decode()
-        body = {"contents": [{"parts": [{"text": PROMPT}, {"inline_data": {"mime_type": "image/png", "data": b64}}]}],
-                "generationConfig": {"responseMimeType": "application/json", "temperature": 0}}
-        for attempt in range(5):
+        for attempt in range(6):
             try:
-                r = http(f"{API}/models/{model}:generateContent?key={key}", body)
-                det = json.loads(r["candidates"][0]["content"]["parts"][0]["text"])
-                json.dump({"model": f"gemini:{model}", "boxes": det}, open(dst, "w")); done += 1; break
+                det = call(key, model, imgs[p])
+                json.dump({"model": f"gemini:{model}", "boxes": det}, open(dst, "w"))
+                with lock:
+                    stats["ok"] += 1; n = stats["ok"]; el = time.time() - stats["t0"]
+                    print(f"{n}/{len(todo)} done  ({el / n:.1f}s per image)  {os.path.basename(p)}", flush=True)
+                return
             except urllib.error.HTTPError as e:
-                msg = e.read()[:200]
-                if e.code in (429, 500, 503): time.sleep(10 * (attempt + 1)); continue
-                print("error", e.code, msg); break
+                msg = e.read()[:300].decode(errors="replace")
+                if e.code == 429:
+                    with lock: print(f"rate limited (429), waiting {20 * (attempt + 1)}s ... {msg[:150]}", flush=True)
+                    time.sleep(20 * (attempt + 1)); continue
+                if e.code in (500, 503): time.sleep(5); continue
+                with lock: print("error", e.code, msg, flush=True); stats["fail"] += 1
+                return
             except Exception as e:
-                print("error", p, repr(e)[:200]); time.sleep(3)
-        print(f"{i+1}/{len(test)} {os.path.basename(p)}", flush=True)
-    print("done, new results:", done, "->", out)
+                with lock: print("error", os.path.basename(p), repr(e)[:200], flush=True)
+                time.sleep(3)
+        with lock: stats["fail"] += 1
+    with ThreadPoolExecutor(a.workers) as ex: list(ex.map(work, todo))
+    print(f"finished: {stats['ok']} ok, {stats['fail']} failed -> {out}")
 
 if __name__ == "__main__":
     main()
