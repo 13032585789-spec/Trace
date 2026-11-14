@@ -11,6 +11,11 @@ Every route returns JSON. When `DOCS_TOKEN` is set, every request must send `Aut
 
 `POST /ask {"id": <document id>, "question": "How many doors are on this plan?"}`
 
+or by path, without filing the drawing first:
+`POST /ask {"path": "data/cubicasa5k/colorful-1077.png" | "uploads/<file>", "question": "..."}`.
+Paths resolve under `JUNCTION_DATA` (`data/...`) and `CACHE_DIR/uploads` (`uploads/...`, or `JUNCTION_UPLOADS`);
+anything else is refused (400). `/calibrate` and `/measure` accept `path` in the same way.
+
 The document id comes from an upload: `POST /docs` (multipart) returns `{"document": {"id": ...}}`.
 
 Response:
@@ -79,6 +84,10 @@ UI idea: a "Measure" tool where clicks build a polygon (area) or a polyline (len
 3. **Review mode:** click boxes to remove them, draw boxes to add, "Accept" saves. A small "reviewed" badge appears on the answer.
 4. **Measure mode:** calibrate the scale, then draw an area or length.
 
+Scans: area questions that cannot be read from the sheet return `value: null` and a warning that starts
+"no room areas / lengths printed" -> show the "Set scale" button. If the area's side lengths are printed as
+dimension strings, the answer is computed from them (`method: scan:vlm+dims`, items box the two dimensions).
+
 ## 6. Method strings you will see
 
 | method | where the number comes from |
@@ -89,6 +98,8 @@ UI idea: a "Measure" tool where clicks build a polygon (area) or a polyline (len
 | `sheet:lookup` | text read from the sheet |
 | `sheet:scanned+scan:vlm:tiled3x3` | scanned PDF counted tile by tile by the vision model |
 | `scan:vlm`, `scan:vlm:tiledNxM` | image / scan read by the vision model; `:uncertain` = readings disagree |
+| `scan:marks+vlm` / `scan:windows+vlm` / `scan:doors+vlm` | image analysis found the symbols (dots, window openings, door swings), the model confirmed |
+| `scan:vlm+dims` | area from two printed dimension strings |
 | `...+reviewed` | changed by a user in review |
 
 ## 7. Project flow (several buildings, many sheets)

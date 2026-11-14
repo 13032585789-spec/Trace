@@ -16,6 +16,7 @@ Routes (all JSON unless noted):
   GET  /project/sheets?project=P   every sheet with its kind / level / sheet number / title / building (indexed once)
   POST /project/building     {"id": N, "building": "A"}   (or send field 'building' with the upload)
   POST /project/ask          {"project": P, "question": ".."} -> total + per-sheet breakdown (each with its answer_id)
+  POST /ask                  {"id": N | "path": "data/..." | "uploads/...", "question": ".."}   (also /calibrate, /measure)
   POST /ask                  {"id": N, "question": ".."} -> answer with answer_id, item ids (boxes), alternatives
   GET  /answer?id=A          a stored answer (after reviews)
   POST /review               {"answer_id": A, "remove": [item ids], "add": [[x0,y0,x1,y1], ...], "choose": k, "user": ".."}
@@ -51,6 +52,19 @@ def _multipart(headers, body):
         if fn: files.append((name, fn, data))
         elif name: fields[name] = data.decode("utf-8", "replace")
     return fields, files
+
+def _resolve_path(p):
+    """'data/...' -> under JUNCTION_DATA, 'uploads/...' -> under CACHE_DIR/uploads (JUNCTION_UPLOADS overrides).
+    -> (absolute file, path for engine.answer) or (None, None). Nothing outside those two folders is reachable."""
+    p = p.replace("\\", "/").lstrip("/")
+    data = os.path.realpath(os.environ.get("JUNCTION_DATA", os.path.expanduser("~/work/junction-dataset")))
+    up = os.path.realpath(os.environ.get("JUNCTION_UPLOADS", os.path.join(os.environ.get("CACHE_DIR", os.path.expanduser("~/.cache/junction")), "uploads")))
+    if p.startswith("data/"): base, rest, rel = data, p, None
+    elif p.startswith("uploads/"): base, rest, rel = up, p[len("uploads/"):], None
+    else: return None, None
+    f = os.path.realpath(os.path.join(base, rest))
+    if not (f == base or f.startswith(base + os.sep)) or not os.path.isfile(f): return None, None
+    return f, (p if p.startswith("data/") else f)
 
 def handle(method, path, query, headers, body, S=None):
     S = S or docs_tools.store()
@@ -112,6 +126,16 @@ def handle(method, path, query, headers, body, S=None):
             if path == "/answer": r = R.get(q.get("id", "")); return _j(200 if r else 404, r or {"error": "no such answer"})
             if path == "/review":
                 return _j(200, R.review(a.get("answer_id", ""), a.get("remove") or [], a.get("add") or [], a.get("choose"), a.get("user", "web")))
+            if a.get("path") and not a.get("id"):            # dataset or upload path instead of a filed document
+                f, rel = _resolve_path(str(a["path"]))
+                if f is None: return _j(400, {"error": "path must be under data/ or uploads/ and exist"})
+                if path == "/ask":
+                    from engine import answer as A
+                    r = A.answer(rel, a.get("question", ""))
+                    return _j(200, R.register(r, f, a.get("question", "")))
+                if path == "/calibrate":
+                    return _j(200, R.calibrate(f, a["p1"], a["p2"], float(a["length_m"]), int(a.get("page", 0)), a.get("image_size")))
+                return _j(200, R.measure(f, a.get("points") or [], a.get("kind", "area"), int(a.get("page", 0))))
             d = S.get(int(a.get("id", 0)))
             if not d: return _j(404, {"error": "no such document"})
             if path == "/ask":

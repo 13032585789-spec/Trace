@@ -25,6 +25,11 @@ Rules:
   a swing arc is not a door. Box each swing arc.
 - For text you read (title, place, architect, date, scale), box that text and copy it into "quote".
 - If the sheet does not show the information, set found=false and answer=null. Never guess.
+- Rectangular area that is not printed but whose side lengths are written as dimension strings on the sheet: set
+  answer=null and add "dims": [<side 1 as written>, <side 2 as written>] (e.g. ["6200", "9950"] or ["52'-8\"", "137'-4\""]);
+  the code multiplies them. Box the two dimension strings.
+- Tag abbreviations on mechanical / fuel sheets: FP fuel pump, CV check valve, FSI filter separator (issue),
+  FSR filter separator (receipt), FSCV filter separator control valve, PS pipe support, PG pressure gauge.
 
 QUESTION: {q}"""
 
@@ -44,7 +49,19 @@ def normalise(resp, is_count):
     val = resp.get("answer") if found else None
     if found and is_count and ev and _num(val) is not None and len(ev) != int(_num(val)) and len(ev) > 1:
         val = len(ev)                         # the boxes are the evidence; a count must match them
-    return {"found": found, "value": val, "quote": resp.get("quote"), "items": ev, "reason": resp.get("reason")}
+    dims = resp.get("dims") if isinstance(resp.get("dims"), list) and len(resp.get("dims")) == 2 else None
+    return {"found": found, "value": val, "quote": resp.get("quote"), "items": ev, "reason": resp.get("reason"), "dims": dims}
+
+def _dim_m(t):
+    """'6200' (mm) -> 6.2 ; 52'-8\" -> metres. None if unreadable."""
+    t = str(t).strip().replace("\u2019", "'").replace("\u201d", '"').replace("''", '"')
+    m = re.match(r"^(\d+)\s*'\s*-?\s*(\d+(?:\.\d+)?)?\s*\"?$", t)
+    if m: return (int(m.group(1)) + float(m.group(2) or 0) / 12) * 0.3048
+    m = re.match(r"^(\d+(?:[.,]\d+)?)\s*(mm|m)?$", t)
+    if m:
+        v = float(m.group(1).replace(",", ".")); u = m.group(2)
+        return v if u == "m" or (u is None and v < 100) else v / 1000
+    return None
 
 GAMMA = 1.0
 
@@ -234,7 +251,11 @@ def _doors_answer(ds, resp):
     kept = [d for d in ds if not any(hit(d, w) for w in wrong)]
     items = [dict(d, label="door swing") for d in kept] + [dict(e, label="extra door (vision model)") for e in extra]
     for i, it in enumerate(items): it["id"] = i
-    return {"value": len(items), "unit": "count", "items": items, "method": "scan:doors+vlm", "warnings": [],
+    est = _num(resp.get("answer")); n = len(items)
+    unsure = est is not None and abs(est - n) > max(2, 0.15 * max(est, n))
+    return {"value": n, "unit": "count", "items": items, "method": "scan:doors+vlm" + (":uncertain" if unsure else ""),
+            "warnings": [f"uncertain: image analysis + model give {n}, the model's own estimate is {resp.get('answer')}; please review the boxes"] if unsure else [],
+            "alternatives": [{"label": "door swings found (boxes)", "value": n}, {"label": "vision model estimate", "value": resp.get("answer")}] if unsure else [],
             "evidence": {"reason": resp.get("reason"), "found_by_analysis": len(ds), "removed_by_model": len(ds) - len(kept),
                          "extra_from_model": len(extra), "readings": [len(items), resp.get("answer")]}}
 
@@ -281,6 +302,7 @@ def _marks_answer(groups, resp):
             "evidence": {"reason": resp.get("reason"), "mark_group": g["id"], "diameter_px": g["diameter_px"],
                          "readings": [g["count"], resp.get("answer")]}}
 
+ROOM_Q = re.compile(r"\brooms?\b|\boffices?\b|classrooms?|bedrooms?|toilets?\b|\bwc\b|stores?\b|\blabel", re.I)
 MEASURE_Q = re.compile(r"\barea\b|\bm2\b|m²|square (?:feet|metres|meters)|\bsq\.?\s?(?:ft|m)\b|baseboard|skirting|perimeter|\blength\b|how long|pinta-ala|fläche", re.I)
 DOOR_Q = re.compile(r"\bdoors?\b|door leaves|ovi|ovet|tür|porte|porta|dörr|puerta|门", re.I)
 WINDOW_Q = re.compile(r"window|ikkun|fenster|fenêtre|finestr|fönster|ventana|窗", re.I)
@@ -309,7 +331,9 @@ def tiles(image_bytes, grid, overlap=0.12, max_side=2400):
         for i in range(gx):
             x0 = max(0.0, i / gx - overlap / 2); x1 = min(1.0, (i + 1) / gx + overlap / 2)
             y0 = max(0.0, j / gy - overlap / 2); y1 = min(1.0, (j + 1) / gy + overlap / 2)
-            t = im.crop((int(x0 * W), int(y0 * H), int(x1 * W), int(y1 * H))); t.thumbnail((max_side, max_side))
+            t = im.crop((int(x0 * W), int(y0 * H), int(x1 * W), int(y1 * H)))
+            if max(t.size) < 1600: t = t.resize((int(t.size[0] * 1600 / max(t.size)), int(t.size[1] * 1600 / max(t.size))), Image.LANCZOS)
+            t.thumbnail((max_side, max_side))
             buf = io.BytesIO(); t.save(buf, "JPEG", quality=90)
             out.append((buf.getvalue(), (x0 * 1000, y0 * 1000, x1 * 1000, y1 * 1000)))
     return out
@@ -349,7 +373,8 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
     is_count = looks_like_count(question)
     try: W, H = _image_size(image_bytes)
     except Exception: W = H = 0
-    if is_count and max(W, H) > tile_from:
+    label_q = is_count and ROOM_Q.search(question) and not (DOOR_Q.search(question) or WINDOW_Q.search(question))
+    if is_count and (max(W, H) > tile_from or (label_q and W)):   # room names are small text: read them tile by tile
         grid = (3, 3) if max(W, H) > 5000 else (2, 2)
         if W > 1.6 * H: grid = (grid[0] + 1, grid[1])
         groups, ws = raster_marks(image_bytes), (raster_windows(image_bytes) if WINDOW_Q.search(question) else [])
@@ -363,7 +388,7 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
             return {"value": None, "unit": "count", "items": [], "method": "scan:vlm", "warnings": ["not shown on this drawing"],
                     "evidence": {"reason": whole["reason"], "readings": [None]}}
         b = _num(whole["value"])
-        if b is not None and b < SMALL_COUNT:
+        if b is not None and b < SMALL_COUNT and not label_q:
             # few, large or labelled items (5 pumps, 3 slab types): the whole sheet sees them; tiles only add look-alikes
             for i, it in enumerate(whole["items"]): it["id"] = i
             return {"value": whole["value"], "unit": "count", "items": whole["items"], "method": "scan:vlm", "warnings": [],
@@ -410,6 +435,14 @@ def answer_single(image_bytes, question, call_model, votes=2):
         if MEASURE_Q.search(question):
             warn.append("no room areas / lengths printed for this; calibrate the scale and measure (POST /calibrate, /measure)")
     for i, it in enumerate(a["items"]): it["id"] = i
+    if a["value"] is None and a.get("dims"):
+        d1, d2 = (_dim_m(x) for x in a["dims"])
+        if d1 and d2:
+            imperial = "'" in str(a["dims"][0])
+            v = d1 * d2 / (0.09290304 if imperial else 1)
+            return {"value": round(v, 2), "unit": "sq ft" if imperial else "m2", "items": a["items"], "method": "scan:vlm+dims",
+                    "warnings": [f"area = {a['dims'][0]} x {a['dims'][1]} read from dimension strings (rectangle assumed); check the outline"],
+                    "evidence": {"dims": a["dims"], "reason": a["reason"], "readings": [r["value"] for r in runs]}}
     return {"value": a["value"], "unit": "count" if is_count else None, "items": a["items"],
             "method": "scan:vlm" + ("" if agree else ":uncertain"), "warnings": warn,
             "evidence": {"quote": a["quote"], "reason": a["reason"], "readings": [r["value"] for r in runs], "agree": agree}}
