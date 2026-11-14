@@ -14,10 +14,10 @@ from engine.cubicasa import PROMPT
 API = "https://generativelanguage.googleapis.com/v1beta"
 lock = threading.Lock()
 
-def http(url, body=None):
+def http(url, body=None, timeout=180):
     req = urllib.request.Request(url, data=json.dumps(body).encode() if body is not None else None,
                                  headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=180) as r: return json.loads(r.read())
+    with urllib.request.urlopen(req, timeout=timeout) as r: return json.loads(r.read())
 
 def pick_model(key):
     names = [m["name"].split("/")[-1] for m in http(f"{API}/models?pageSize=1000&key={key}")["models"]
@@ -31,11 +31,11 @@ def pick_model(key):
     print("flash models available:", ", ".join(good[:6]) or "(none)")
     return good or ["gemini-2.5-flash"]
 
-def call(key, model, png_bytes):
+def call(key, model, png_bytes, timeout=180):
     body = {"contents": [{"parts": [{"text": PROMPT}, {"inline_data": {"mime_type": "image/png",
             "data": base64.b64encode(png_bytes).decode()}}]}],
             "generationConfig": {"responseMimeType": "application/json", "temperature": 0}}
-    r = http(f"{API}/models/{model}:generateContent?key={key}", body)
+    r = http(f"{API}/models/{model}:generateContent?key={key}", body, timeout)
     return json.loads(r["candidates"][0]["content"]["parts"][0]["text"])
 
 def main():
@@ -59,12 +59,16 @@ def main():
     for m in candidates:
         t = time.time()
         try:
-            call(key, m, imgs[todo[0]]); model = m; break
+            call(key, m, imgs[todo[0]], timeout=60); model = m; break
         except urllib.error.HTTPError as e:
             msg = e.read()[:400].decode(errors="replace")
-            if e.code in (503, 404) and m != candidates[-1]:
-                print(f"{m}: HTTP {e.code} (busy or unavailable), trying the next model", flush=True); continue
+            if e.code in (429, 503, 404) and m != candidates[-1]:
+                print(f"{m}: HTTP {e.code} (busy, rate-limited or unavailable), trying the next model", flush=True); continue
             sys.exit(f"TEST CALL FAILED with {m}  HTTP {e.code}: {msg}")
+        except Exception as e:   # timeouts, dropped connections
+            if m != candidates[-1]:
+                print(f"{m}: {type(e).__name__} (no answer within 60s), trying the next model", flush=True); continue
+            sys.exit(f"TEST CALL FAILED with {m}: {e!r}")
     print(f"using model: {model}  (test call OK in {time.time() - t:.0f}s), starting {a.workers} workers", flush=True)
     stats = {"ok": 0, "fail": 0, "t0": time.time()}
     def work(p):
