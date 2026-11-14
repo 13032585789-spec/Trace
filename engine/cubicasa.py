@@ -78,6 +78,15 @@ def detections(png_path):
 TILES_OUT = os.path.join(os.path.dirname(LOCAL), "vlm_tiles_out")
 TILES_IN = os.path.join(os.path.dirname(LOCAL), "vlm_tiles")
 
+DET_DIR = os.path.join(os.path.dirname(LOCAL), "det_cache")
+DETECTOR_CATS = ("door", "window", "toilet", "sink", "shower_tub")
+
+def detector_boxes(png_path, cat):
+    """Boxes from the YOLO detector trained on CubiCasa5k (train/predict_counts.py), if present for this image."""
+    p = os.path.join(DET_DIR, os.path.basename(png_path) + ".json")
+    if cat not in DETECTOR_CATS or not os.path.exists(p): return None
+    return json.load(open(p))["boxes"].get(cat, []) or []
+
 def tiled_boxes(png_path, cat):
     """Merge per-tile boxes (tile-normalised 0-1000) back to whole-image 0-1000 and drop duplicates in overlaps."""
     base = os.path.basename(png_path); meta_p = os.path.join(TILES_IN, base + ".tiles.json")
@@ -105,8 +114,13 @@ def answer(png_path, question, size_fn=None):
     try: det = detections(png_path)
     except Exception as e: det = None; err = repr(e)[:200]
     else: err = None
+    if det is None and detector_boxes(png_path, c) is not None:
+        det = {"model": "yolo-cubicasa", "boxes": {}}
     if det:
         boxes = det["boxes"].get(c, []) or []
+        yolo = detector_boxes(png_path, c)
+        if yolo is not None:
+            boxes = yolo; det = {**det, "model": "yolo-cubicasa"}
         tiled = tiled_boxes(png_path, c)
         if tiled is not None: boxes = tiled          # focused 2x2 tile pass (doors/windows) wins when present
         items = [{"category": c, "box_norm1000": b} for b in boxes]

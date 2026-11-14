@@ -8,3 +8,7 @@ vlm_cache/
 .env
 vlm_tiles/
 vlm_tiles_out/
+det_cache/
+det_cache.zip
+train/data/
+train/runs/
