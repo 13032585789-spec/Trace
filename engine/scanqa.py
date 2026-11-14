@@ -127,6 +127,87 @@ def raster_windows(image_bytes):
                         "panes": panes})
     return out
 
+def raster_doors(image_bytes):
+    """Door swings in a scanned plan: a quarter-circle arc + a straight leaf line from a hinge at a solid wall, with an
+    empty swing area. Openings without a swing arc are not doors. -> [{"box_norm1000"}] or [] (needs OpenCV)."""
+    try:
+        import cv2, numpy as np, math
+    except ImportError: return []
+    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    if im is None: return []
+    f = min(1.0, 5000 / max(im.shape)); im = cv2.resize(im, None, fx=f, fy=f) if f < 1 else im; H, W = im.shape
+    b0 = (im < 120).astype(np.uint8)
+    small = cv2.resize(cv2.morphologyEx(b0, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8)).astype(np.float32), None, fx=0.25, fy=0.25)
+    h2, w2 = small.shape; best = (0, 0.0)
+    for a in np.arange(-2, 2.01, 0.1):
+        R = cv2.warpAffine(small, cv2.getRotationMatrix2D((w2 / 2, h2 / 2), a, 1), (w2, h2)); sc = R.sum(1).var() + R.sum(0).var()
+        if sc > best[0]: best = (sc, float(a))
+    M = cv2.getRotationMatrix2D((W / 2, H / 2), best[1], 1); Mi = cv2.invertAffineTransform(M)
+    im = cv2.warpAffine(im, M, (W, H), borderValue=255)
+    b = (im < 120).astype(np.uint8); thick = cv2.morphologyEx(b, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    dt = cv2.distanceTransform(thick, cv2.DIST_L2, 3)
+    if not (dt > 0).any(): return []
+    t = float(np.percentile(dt[dt > 0], 90) * 2)
+    if t < 4: return []
+    ad = cv2.adaptiveThreshold(im, 1, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 31, 12).astype(np.uint8)
+    thin = cv2.dilate(ad & (1 - cv2.dilate(thick, np.ones((3, 3), np.uint8))), np.ones((2, 2), np.uint8))
+    near = cv2.dilate(thin, np.ones((5, 5), np.uint8)).astype(bool)
+    rmin, rmax = 1.6 * t, 4.0 * t
+    A = np.linspace(0, math.pi / 2, 26)[1:-1]; Ks = np.linspace(0.15, 0.95, 12); a2 = np.linspace(0.35, 1.22, 10)
+    def ok(xs, ys):
+        xs = np.round(xs).astype(int); ys = np.round(ys).astype(int)
+        m = (xs >= 0) & (xs < W) & (ys >= 0) & (ys < H); v = np.zeros(len(xs), bool); v[m] = near[ys[m], xs[m]]; return v.mean()
+    def door_at(cx, cy, sx, sy, r):
+        if ok(cx + sx * r * np.cos(A), cy + sy * r * np.sin(A)) < 0.8: return 0
+        leaf = max(ok(cx + sx * r * Ks, cy + 0 * Ks), ok(cx + 0 * Ks, cy + sy * r * Ks))
+        if leaf < 0.85 or ok(cx - sx * r * np.cos(A), cy - sy * r * np.sin(A)) > 0.5: return 0
+        if max(ok(cx + sx * k * r * np.cos(a2), cy + sy * k * r * np.sin(a2)) for k in (0.45, 0.65, 0.8)) > 0.25: return 0
+        if ok(cx + sx * 1.25 * r * np.cos(a2), cy + sy * 1.25 * r * np.sin(a2)) > 0.4: return 0
+        return 1 + leaf
+    found = []
+    cs = cv2.goodFeaturesToTrack((thick * 255).astype(np.uint8), maxCorners=8000, qualityLevel=0.02, minDistance=3)
+    for cx, cy in ([] if cs is None else cs.reshape(-1, 2)):       # hinges sit at wall ends (corners of solid walls)
+        for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+            bestd = max(((door_at(cx, cy, sx, sy, r), r) for r in np.arange(rmin, rmax, 2.0)), default=(0, 0))
+            if bestd[0]:
+                r = bestd[1]; found.append((bestd[0], (min(cx, cx + sx * r), min(cy, cy + sy * r), max(cx, cx + sx * r), max(cy, cy + sy * r))))
+    def iou(p, q):
+        x0, y0, x1, y1 = max(p[0], q[0]), max(p[1], q[1]), min(p[2], q[2]), min(p[3], q[3]); i = max(0, x1 - x0) * max(0, y1 - y0)
+        u = (p[2] - p[0]) * (p[3] - p[1]) + (q[2] - q[0]) * (q[3] - q[1]) - i; return i / u if u > 0 else 0
+    keep = []
+    for _, bx in sorted(found, key=lambda z: -z[0]):
+        if all(iou(bx, k) < 0.3 for k in keep): keep.append(bx)
+    out = []
+    for x0, y0, x1, y1 in keep:
+        pts = cv2.transform(np.array([[[x0, y0], [x1, y1]]], np.float32), Mi)[0]; p0, p1 = pts.min(0), pts.max(0)
+        out.append({"box_norm1000": [round(1000 * p0[0] / W, 1), round(1000 * p0[1] / H, 1), round(1000 * p1[0] / W, 1), round(1000 * p1[1] / H, 1)]})
+    return out
+
+DOORS_NOTE = """
+Image analysis also found {n} door swings (quarter-circle arc + door leaf hinged at a wall), e.g. at (0-1000 x,y):
+{ex}. If the question asks how many doors / door leaves there are and these look right, add "door_candidates": true
+to your JSON; the code counts them. Add boxes labelled "extra door" for swings the analysis missed and boxes labelled
+"not a door" for candidates that are wrong (copy their location)."""
+
+def _doors_prompt(ds):
+    ex = ", ".join(f"({int((d['box_norm1000'][0] + d['box_norm1000'][2]) / 2)},{int((d['box_norm1000'][1] + d['box_norm1000'][3]) / 2)})" for d in ds[:6])
+    return DOORS_NOTE.replace("{n}", str(len(ds))).replace("{ex}", ex)
+
+def _doors_answer(ds, resp):
+    if not resp.get("door_candidates"): return None
+    ev = normalise(resp, True)["items"]
+    extra = [e for e in ev if "extra" in str(e.get("label", "")).lower()]
+    wrong = [e for e in ev if "not a door" in str(e.get("label", "")).lower()]
+    def hit(d, e):
+        b, c = d["box_norm1000"], e["box_norm1000"]; cx, cy = (c[0] + c[2]) / 2, (c[1] + c[3]) / 2
+        return b[0] - 5 <= cx <= b[2] + 5 and b[1] - 5 <= cy <= b[3] + 5
+    kept = [d for d in ds if not any(hit(d, w) for w in wrong)]
+    items = [dict(d, label="door swing") for d in kept] + [dict(e, label="extra door (vision model)") for e in extra]
+    for i, it in enumerate(items): it["id"] = i
+    return {"value": len(items), "unit": "count", "items": items, "method": "scan:doors+vlm", "warnings": [],
+            "evidence": {"reason": resp.get("reason"), "found_by_analysis": len(ds), "removed_by_model": len(ds) - len(kept),
+                         "extra_from_model": len(extra), "readings": [len(items), resp.get("answer")]}}
+
 MARKS_NOTE = """
 Image analysis also found these groups of identical small FILLED marks (dots / solid squares), with example
 locations (0-1000 x,y): {groups}
@@ -170,6 +251,7 @@ def _marks_answer(groups, resp):
             "evidence": {"reason": resp.get("reason"), "mark_group": g["id"], "diameter_px": g["diameter_px"],
                          "readings": [g["count"], resp.get("answer")]}}
 
+DOOR_Q = re.compile(r"\bdoors?\b|door leaves|ovi|ovet|tür|porte|porta|dörr|puerta|门", re.I)
 WINDOW_Q = re.compile(r"window|ikkun|fenster|fenêtre|finestr|fönster|ventana|窗", re.I)
 
 def looks_like_count(q):
@@ -240,9 +322,10 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
         grid = (3, 3) if max(W, H) > 5000 else (2, 2)
         if W > 1.6 * H: grid = (grid[0] + 1, grid[1])
         groups, ws = raster_marks(image_bytes), (raster_windows(image_bytes) if WINDOW_Q.search(question) else [])
-        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else ""),
-                         _shrink(image_bytes), 0.0)
-        m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None)
+        ds = raster_doors(image_bytes) if DOOR_Q.search(question) else []
+        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else "")
+                         + (_doors_prompt(ds) if ds else ""), _shrink(image_bytes), 0.0)
+        m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None) or (_doors_answer(ds, raw) if ds else None)
         if m: return m
         whole = normalise(raw, True)
         if not whole["found"]:
@@ -278,9 +361,11 @@ def answer_single(image_bytes, question, call_model, votes=2):
     is_count = looks_like_count(question)
     groups = raster_marks(image_bytes) if is_count else []
     ws = raster_windows(image_bytes) if is_count and WINDOW_Q.search(question) else []
-    if groups or ws:
-        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else ""), image_bytes, 0.0)
-        m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None)
+    ds = raster_doors(image_bytes) if is_count and DOOR_Q.search(question) else []
+    if groups or ws or ds:
+        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else "")
+                         + (_doors_prompt(ds) if ds else ""), image_bytes, 0.0)
+        m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None) or (_doors_answer(ds, raw) if ds else None)
         if m: return m
     runs = [normalise(call_model(PROMPT.replace("{q}", question), image_bytes, t), is_count) for t in (0.0, 0.6)[:votes]]
     a = runs[0]
