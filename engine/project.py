@@ -114,7 +114,23 @@ Rules: for totals over floors or buildings use "sum" and ask each relevant sheet
 floor plans of building A for doors). Use "list" to report per-sheet values without adding. Use "single" when one sheet
 answers it. Never pick sheets of another building than the one asked about. Do not compute anything yourself."""
 
-def answer(sheets, question, ask_sheet, call_model):
+def answer(sheets, question, ask_sheet, call_model=None):
+    """call_model=None (or a failing model): rules only - engine.sheetset.pick chooses the sheet."""
+    if call_model is None:
+        from . import sheetset
+        ss = {"projects": [{"id": "p", "buildings": [{"id": str(s.get("building") or "-"), "sheets": [
+            {"path": s["path"], "page": 0, "kind": {"floor_plan": "plan"}.get(s["class"].get("kind"), s["class"].get("kind")),
+             "discipline": s["class"].get("discipline"), "level": None if s["class"].get("level") is None else "%02d" % int(s["class"]["level"]),
+             "title": s["class"].get("title") or s.get("title"), "sheet_no": s["class"].get("sheet_no"), "confidence": 0.5, "_id": s["id"]}]}
+            for s in sheets]}]}
+        best = sheetset.pick(question, ss, n=1)
+        s = next(x for x in sheets if x["path"] == best[0]["path"]) if best else None
+        if s is None: return {"value": None, "unit": None, "items": [], "method": "project:none", "warnings": ["no sheet matches"]}
+        r = ask_sheet(s, question)
+        return {"value": r.get("value"), "unit": r.get("unit"), "method": "project:pick",
+                "items": [{"sheet": s["id"], "value": r.get("value"), "unit": r.get("unit"), "method": r.get("method"),
+                           "answer_id": r.get("answer_id"), "warnings": r.get("warnings"), "why": best[0]["why"]}],
+                "warnings": r.get("warnings") or [], "evidence": {"rule": "rules: " + "; ".join(best[0]["why"]), "sheets_used": [s["id"]]}}
     idx = "\n".join(f"{s['id']} | {s.get('building') or '-'} | {s['class'].get('kind')} | {s['class'].get('level')} | "
                     f"{s['class'].get('sheet_no') or '-'} | {s['class'].get('title') or s.get('title') or '-'}" for s in sheets)
     plan = call_model(PLAN_PROMPT.replace("{sheets}", idx).replace("{q}", question))

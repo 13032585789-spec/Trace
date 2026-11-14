@@ -21,6 +21,8 @@ Rules:
 - For a count, give exactly one evidence box per counted item, and "answer" must equal the number of boxes.
   Count only what is drawn or labelled; do not infer hidden items.
 - Windows: count every pane separately - a window opening divided by a thin line (mullion) is 2 windows.
+- Doors: count only doors drawn with a swing arc (the curved line of the opening door leaf); a wall opening without
+  a swing arc is not a door. Box each swing arc.
 - For text you read (title, place, architect, date, scale), box that text and copy it into "quote".
 - If the sheet does not show the information, set found=false and answer=null. Never guess.
 
