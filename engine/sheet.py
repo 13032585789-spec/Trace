@@ -309,7 +309,8 @@ filled-mark group; use it when a note on the sheet says what those marks mean (c
 door swing arcs (doorsets: a double door = 1; leaves: a double door = 2). count_windows uses the window symbols
 found in the walls (if 0, the sheet draws windows differently: use vision). count_labels counts text labels equal to
 the given text (case-insensitive), e.g. rooms by name. rooms sums a field over the listed ROOMS (floor area,
-perimeter, baseboard length); pick every room the question means (e.g. all rooms named Group Room). expr evaluates numbers from DIMENSIONS (mm values stay mm; divide by 1e6 for m2). lookup = a value
+perimeter, baseboard length); pick every room the question means (e.g. all rooms named Group Room); a room whose label contains ' + ' is a region
+holding several rooms: leave it out unless the question asks for all of them. expr evaluates numbers from DIMENSIONS (mm values stay mm; divide by 1e6 for m2). lookup = a value
 written in a text line (answer = that text). Use "schedule" when the answer is in a table / schedule /
 area summary on the sheet that needs adding or selecting rows. Use "vision" if the answer needs looking at the drawing (e.g. windows,
 regions with no dimension strings); "none" if the sheet does not contain it.
@@ -361,6 +362,8 @@ def compute(f, r):
             except Exception: warn.append(f"unknown room {rid}")
         if not sel: return r.get("answer"), r.get("unit"), [], warn + ["no rooms selected"]
         warn.append("rooms are traced from the drawn walls; openings without a door leaf are not deducted from baseboards")
+        for R in sel:
+            if " + " in R["name"]: warn.append(f"'{R['name']}' is one traced region holding several labels (a wall between them was not found); its value covers all of them")
         return round(sum(R[fld] for R in sel), 2), "m2" if fld == "area_m2" else "m", \
             [{"room": R["name"], fld: R[fld], "box": R["box"]} for R in sel], warn
     if op == "count_labels":
