@@ -294,9 +294,21 @@ def _door_check(m, image_bytes, question, call_model):
     if not str(m.get("method", "")).startswith("scan:doors") or DOOR_SECOND_READING is False: return m
     try:
         W, H = _image_size(image_bytes); grid = (3, 3) if max(W, H) > 5000 else (2, 2)
-        t = len(count_tiled(image_bytes, question, call_model, grid))
+        tiled = count_tiled(image_bytes, question, call_model, grid); t = len(tiled)
     except Exception: return m
     n = m["value"]; m.setdefault("evidence", {})["tiled_vision_count"] = t
+    if t > 1.5 * max(n, 1):
+        # image analysis clearly missed most swings (faint arcs): the model's tile-by-tile boxes, plus any analysis box
+        # it did not cover, become the answer - still boxed, still flagged for review
+        items = merge_boxes([dict(it, label="door (vision, tile by tile)") for it in tiled] +
+                            [dict(it, label="door swing (image analysis)") for it in m["items"]])
+        for i, it in enumerate(items): it["id"] = i
+        m.update(value=len(items), items=items, method="scan:doors+vlm:tiled:uncertain",
+                 warnings=[f"image analysis found only {n} door swings (faint arcs?); the vision model counted {t} tile by tile; "
+                           f"answer = {len(items)} boxes merged from both; please review"],
+                 alternatives=[{"label": "merged boxes", "value": len(items)}, {"label": "tile-by-tile vision count", "value": t},
+                               {"label": "image analysis only", "value": n}])
+        return m
     if abs(t - n) > max(2, 0.15 * max(t, n)):
         m["method"] = m["method"].split(":uncertain")[0] + ":uncertain"
         m["warnings"] = [w for w in m.get("warnings", []) if not w.startswith("uncertain")] + [
