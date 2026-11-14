@@ -17,7 +17,7 @@ The RT-DETR weights are not redistributed because their repository states no lic
 
 | | before | after |
 |---|---|---|
-| CubiCasa questions, engine end to end | 79.9 % (VLM only + priors) | **85.02 %** with VLM, **80.84 % with zero API calls** |
+| CubiCasa questions, engine end to end | 83.57 % with VLM / 79.90 % zero-API (round 1 + room model) | **85.02 %** with VLM / **80.84 %** zero-API (+ round 2, VLM × room-detector rules) |
 | windows (exact count per plan) | 45.6 % | 53.8 % (r2std + RT-DETR ensemble; fair subset 51.5 → 57.4) |
 | doors | 72.8 % | 73.1 % (r1 + r2std ensemble; fair subset 70.6 → 71.3) |
 | sauna / bedroom / kitchen (VLM × room detector) | 91.8 / 86.7 / 95.0 % | 95.1 / 87.8 / 95.6 % |
