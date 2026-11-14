@@ -80,6 +80,7 @@ TILES_IN = os.path.join(os.path.dirname(LOCAL), "vlm_tiles")
 
 DET_DIR = os.path.join(os.path.dirname(LOCAL), "det_cache")
 DETECTOR_CATS = ("door", "window", "toilet", "sink", "shower_tub")
+VLM_PREFERRED = ("toilet", "shower_tub")   # on the pilot the vision model beat the detector on these two
 
 def detector_boxes(png_path, cat):
     """Boxes from the YOLO detector trained on CubiCasa5k (train/predict_counts.py), if present for this image."""
@@ -119,7 +120,8 @@ def answer(png_path, question, size_fn=None):
     if det:
         boxes = det["boxes"].get(c, []) or []
         yolo = detector_boxes(png_path, c)
-        if yolo is not None:
+        vlm_better = c in VLM_PREFERRED and det.get("model", "").startswith(("gemini", "nvidia")) and c in det.get("boxes", {})
+        if yolo is not None and not vlm_better:
             boxes = yolo; det = {**det, "model": "yolo-cubicasa"}
         tiled = tiled_boxes(png_path, c)
         if tiled is not None: boxes = tiled          # focused 2x2 tile pass (doors/windows) wins when present
