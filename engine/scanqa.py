@@ -143,6 +143,8 @@ def count_tiled(image_bytes, question, call_model, grid):
                                                                      round(x0 + b[2] * sx, 1), round(y0 + b[3] * sy, 1)], "tile": k})
     return merge_boxes(items)
 
+SMALL_COUNT = int(os.environ.get("JUNCTION_SMALL_COUNT", 12))   # below this the whole-sheet count is kept (no tiling)
+
 def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.get("JUNCTION_TILE_FROM", 2600))):
     """Large scans + count questions: the whole sheet is read once (legend, context) and counted again tile by tile
     at full resolution, because small symbols vanish when a big sheet is shrunk for the model. The tiled count is the
@@ -161,11 +163,17 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
         if not whole["found"]:
             return {"value": None, "unit": "count", "items": [], "method": "scan:vlm", "warnings": ["not shown on this drawing"],
                     "evidence": {"reason": whole["reason"], "readings": [None]}}
+        b = _num(whole["value"])
+        if b is not None and b < SMALL_COUNT:
+            # few, large or labelled items (5 pumps, 3 slab types): the whole sheet sees them; tiles only add look-alikes
+            for i, it in enumerate(whole["items"]): it["id"] = i
+            return {"value": whole["value"], "unit": "count", "items": whole["items"], "method": "scan:vlm", "warnings": [],
+                    "evidence": {"reason": whole["reason"], "readings": [whole["value"]]}}
         items = count_tiled(image_bytes, question, call_model, grid)
         for i, it in enumerate(items): it["id"] = i
-        a, b = len(items), _num(whole["value"])
+        a = len(items)
         agree = b is not None and abs(a - b) <= max(1, 0.1 * a)
-        warn = [] if agree else [f"uncertain: tile-by-tile count {a}, whole-sheet count {whole['value']}"]
+        warn = [] if agree else [f"uncertain: tile-by-tile count {a}, whole-sheet count {whole['value']}; please review the boxes"]
         return {"value": a, "unit": "count", "items": items, "method": f"scan:vlm:tiled{grid[0]}x{grid[1]}" + ("" if agree else ":uncertain"),
                 "warnings": warn, "evidence": {"reason": whole["reason"], "readings": [a, whole["value"]], "agree": agree,
                                                "whole_sheet_items": whole["items"]}}
