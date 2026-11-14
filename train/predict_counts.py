@@ -7,15 +7,18 @@
 import os, sys, json, glob, collections, shutil
 from ultralytics import YOLO
 
-CLASSES = ["door", "window", "toilet", "sink", "shower", "bathtub"]
+TASK = os.environ.get("TASK", "fixtures")
+CLASSES = (["bedroom", "kitchen", "balcony", "sauna", "label_wc", "label_ss", "floor"] if TASK == "rooms"
+           else ["door", "window", "toilet", "sink", "shower", "bathtub"])
+SFX = "_rooms" if TASK == "rooms" else ""
 here = os.path.dirname(os.path.abspath(__file__))
 split = json.load(open(os.path.join(here, "data", "split.json")))
-ann = json.load(open(os.path.join(here, "data", "annotation_counts.json")))
+ann = json.load(open(os.path.join(here, "data", f"annotation_counts{SFX}.json")))
 def find_weights():
     """Newer Ultralytics versions may nest the run under runs/detect/...; take the newest best.pt (or last.pt)."""
+    run = "cubi_rooms*" if TASK == "rooms" else "cubi"
     for pat in ("best.pt", "last.pt"):
-        c = [p for p in glob.glob(os.path.join(here, "runs", "**", pat), recursive=True)] + \
-            [p for p in glob.glob(os.path.join(os.path.expanduser("~"), "**", "cubi*", "weights", pat), recursive=True)
+        c = [p for p in glob.glob(os.path.join(os.path.expanduser("~"), "**", run, "weights", pat), recursive=True)
              if ".venv" not in p]
         if c: return max(c, key=os.path.getmtime)
     sys.exit("no trained weights found (best.pt / last.pt) - training probably did not finish; see train.log")
@@ -43,23 +46,23 @@ for c in CLASSES:
         scores[t] = ok / len(val)
     best[c] = max(scores, key=scores.get)
     print(f"{c:8s} best conf {best[c]:.2f}  exact-count accuracy on val {100 * scores[best[c]]:.1f}%")
-json.dump(best, open(os.path.join(here, "thresholds.json"), "w"))
+json.dump(best, open(os.path.join(here, f"thresholds{SFX}.json"), "w"))
 
 print("junction test images:", len(split["junction_test"]))
 test = detect(split["junction_test"])
-dst = os.path.join(here, "det_cache"); os.makedirs(dst, exist_ok=True)
+dst = os.path.join(here, f"det_cache{SFX}"); os.makedirs(dst, exist_ok=True)
 for n, (dets, (W, H)) in test.items():
     boxes = collections.defaultdict(list)
     for k, p, (x0, y0, x1, y1) in dets:
         if p < best[k]: continue
-        cat = "shower_tub" if k in ("shower", "bathtub") else k
+        cat = "shower_tub" if (TASK != "rooms" and k in ("shower", "bathtub")) else k
         boxes[cat].append([round(x0 * 1000 / W, 1), round(y0 * 1000 / H, 1), round(x1 * 1000 / W, 1), round(y1 * 1000 / H, 1)])
     json.dump({"model": "yolo-cubicasa", "boxes": boxes}, open(os.path.join(dst, n + ".json"), "w"))
-shutil.copy(os.path.join(here, "data", "annotation_counts.json"), dst)
+shutil.copy(os.path.join(here, "data", f"annotation_counts{SFX}.json"), dst)
 # raw detections (every box >= 0.05 with its score) for val + test, so thresholds can be re-tuned
 # offline against the Junction question answers instead of the SVG annotation counts
 raw = {n: {"size": wh, "dets": [[k, round(p, 3)] + [round(v, 1) for v in b] for k, p, b in d]}
        for n, (d, wh) in {**val, **test}.items()}
 json.dump({"val": sorted(val), "test": sorted(test), "raw": raw}, open(os.path.join(dst, "_raw_detections.json"), "w"))
-shutil.make_archive(os.path.join(here, "det_cache"), "zip", dst)
-print("wrote", len(test), "results ->", os.path.join(here, "det_cache.zip"))
+shutil.make_archive(os.path.join(here, f"det_cache{SFX}"), "zip", dst)
+print("wrote", len(test), "results ->", os.path.join(here, f"det_cache{SFX}.zip"))

@@ -6,6 +6,28 @@ import os, re, sys, json, glob, math, hashlib, argparse, collections
 import xml.etree.ElementTree as ET
 
 CLASSES = ["door", "window", "toilet", "sink", "shower", "bathtub"]
+# Room task: rules found by search_rules.py against the Junction answers (100% except sauna 98.9%)
+#   bedroom=Space Bedroom, kitchen=Space Kitchen*, balcony=Space Outdoor Balcony*, floors=Floor,
+#   wc_room=text "WC", sauna=text "SS" + Space Sauna
+ROOM_CLASSES = ["bedroom", "kitchen", "balcony", "sauna", "label_wc", "label_ss", "floor"]
+TASK = os.environ.get("TASK", "fixtures")
+
+def classify_room(cls):
+    t = cls.split()
+    if not t: return None
+    if t[0] == "Floor" and len(t) == 1: return "floor"
+    if t[0] != "Space" or len(t) < 2: return None
+    if t[1] == "Bedroom": return "bedroom"
+    if t[1] == "Kitchen": return "kitchen"
+    if t[1] == "Sauna": return "sauna"
+    if t[1] == "Outdoor" and len(t) > 2 and t[2] == "Balcony": return "balcony"
+    return None
+
+def _font_size(el):
+    fs = el.get("font-size") or ""
+    m = re.search(r"font-size\s*:\s*([\d.]+)", el.get("style") or "")
+    v = re.findall(r"[\d.]+", fs) or ([m.group(1)] if m else [])
+    return float(v[0]) if v else 12.0
 
 def classify(cls):
     t = cls.split()
@@ -83,20 +105,38 @@ def shape_points(el):
 def objects(svg_path):
     root = ET.parse(svg_path).getroot()
     out = []; seen_cls = collections.Counter()
-    def walk(el, M, owner):
+    def grow(b, X, Y): b[0], b[1], b[2], b[3] = min(b[0], X), min(b[1], Y), max(b[2], X), max(b[3], Y)
+    def walk(el, M, owners):
         M = mul(M, parse_transform(el.get("transform")))
         cls = el.get("class")
         if cls:
             seen_cls[" ".join(cls.split()[:2])] += 1
-            c = classify(cls)
-            if c and owner is None:          # outermost annotated group owns all its geometry
-                box = [math.inf, math.inf, -math.inf, -math.inf]; owner = (c, box); out.append(owner)
-        if owner is not None:
+            if TASK == "rooms":
+                c = classify_room(cls)
+                if c: owners = owners + [(c, [math.inf, math.inf, -math.inf, -math.inf])]; out.append(owners[-1])
+            else:
+                c = classify(cls)
+                if c and not owners:          # outermost annotated group owns all its geometry
+                    owners = [(c, [math.inf, math.inf, -math.inf, -math.inf])]; out.append(owners[0])
+        tag = el.tag.split("}")[-1]
+        if TASK == "rooms" and tag == "text":
+            word = re.sub(r"[^A-ZÄÖ/]", "", "".join(el.itertext()).strip().upper())
+            lab = {"WC": "label_wc", "SS": "label_ss"}.get(word)
+            if lab:
+                xs = re.findall(r"-?[\d.]+", el.get("x") or "0"); ys = re.findall(r"-?[\d.]+", el.get("y") or "0")
+                x, y = float(xs[0]) if xs else 0.0, float(ys[0]) if ys else 0.0; fs = _font_size(el)
+                anchor = el.get("text-anchor") or ""
+                w = 0.65 * fs * len(word); x0 = x - w / 2 if anchor == "middle" else (x - w if anchor == "end" else x)
+                b = [math.inf, math.inf, -math.inf, -math.inf]
+                for px, py in ((x0, y - fs), (x0 + w, y - fs), (x0, y + 0.2 * fs), (x0 + w, y + 0.2 * fs)):
+                    grow(b, *apply(M, px, py))
+                out.append((lab, b))
+        if owners:
             for x, y in shape_points(el):
-                X, Y = apply(M, x, y); b = owner[1]
-                b[0], b[1], b[2], b[3] = min(b[0], X), min(b[1], Y), max(b[2], X), max(b[3], Y)
-        for ch in el: walk(ch, M, owner)
-    walk(root, I, None)
+                X, Y = apply(M, x, y)
+                for _, b in owners: grow(b, X, Y)
+        for ch in el: walk(ch, M, owners)
+    walk(root, I, [])
     w, h = root.get("width"), root.get("height")
     size = (float(re.sub(r"[^\d.]", "", w)), float(re.sub(r"[^\d.]", "", h))) if w and h else None
     return [(c, b) for c, b in out if b[0] < math.inf], seen_cls, size
@@ -126,7 +166,8 @@ def main():
         return
     from PIL import Image
     Image.MAX_IMAGE_PIXELS = None
-    out = os.path.join(a.root, "yolo"); inside_n = outside_n = 0; split = {"train": [], "val": [], "junction_test": []}; counts = {}
+    NAMES = ROOM_CLASSES if TASK == "rooms" else CLASSES
+    out = os.path.join(a.root, "yolo_rooms" if TASK == "rooms" else "yolo"); inside_n = outside_n = 0; split = {"train": [], "val": [], "junction_test": []}; counts = {}
     for sub in ("images/train", "images/val", "labels/train", "labels/val"): os.makedirs(os.path.join(out, sub), exist_ok=True)
     for s in samples:
         name = junction_name(s); img = os.path.join(s, "F1_scaled.png")
@@ -147,9 +188,17 @@ def main():
                 else: outside_n += 1
                 x0, x1 = max(0, x0 * sx), min(W, x1 * sx); y0, y1 = max(0, y0 * sy), min(H, y1 * sy)
                 if x1 - x0 < 2 or y1 - y0 < 2: continue
-                f.write(f"{CLASSES.index(c)} {(x0+x1)/2/W:.6f} {(y0+y1)/2/H:.6f} {(x1-x0)/W:.6f} {(y1-y0)/H:.6f}\n")
-    json.dump(split, open(os.path.join(a.root, "split.json"), "w")); json.dump(counts, open(os.path.join(a.root, "annotation_counts.json"), "w"))
-    open(os.path.join(a.root, "cubi.yaml"), "w").write(f"path: {os.path.abspath(out)}\ntrain: images/train\nval: images/val\nnames: {json.dumps(dict(enumerate(CLASSES)))}\n")
+                f.write(f"{NAMES.index(c)} {(x0+x1)/2/W:.6f} {(y0+y1)/2/H:.6f} {(x1-x0)/W:.6f} {(y1-y0)/H:.6f}\n")
+    sfx = "_rooms" if TASK == "rooms" else ""
+    json.dump(split, open(os.path.join(a.root, "split.json"), "w")); json.dump(counts, open(os.path.join(a.root, f"annotation_counts{sfx}.json"), "w"))
+    open(os.path.join(a.root, f"cubi{sfx}.yaml"), "w").write(f"path: {os.path.abspath(out)}\ntrain: images/train\nval: images/val\nnames: {json.dumps(dict(enumerate(NAMES)))}\n")
+    if TASK == "rooms" and os.path.exists("room_gold.json"):   # self-check: do our boxes reproduce the answers?
+        gold = json.load(open("room_gold.json")); rule = {"bedroom": ["bedroom"], "kitchen": ["kitchen"], "balcony": ["balcony"],
+               "floors": ["floor"], "wc_room": ["label_wc"], "sauna": ["label_ss", "sauna"]}
+        for cat, ks in rule.items():
+            ns = [n for n in gold if cat in gold[n] and n in counts]
+            ok = sum(sum(counts[n].get(k, 0) for k in ks) == gold[n][cat] for n in ns)
+            print(f"  {cat:8s} box counts == answers: {100 * ok / max(1, len(ns)):.1f}%  (n={len(ns)})")
     print({k: len(v) for k, v in split.items()}, "->", out)
     print(f"coordinate check: {inside_n} box centres inside the image, {outside_n} outside "
           f"({100 * outside_n / max(1, inside_n + outside_n):.2f}% outside; should be close to 0)")
