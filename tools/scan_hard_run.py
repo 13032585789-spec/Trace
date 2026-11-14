@@ -8,8 +8,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.ins
 mode = sys.argv[1] if len(sys.argv) > 1 else "tiled"
 if mode == "single": os.environ["JUNCTION_TILE_FROM"] = "999999"
 from engine.answer import answer_sheet
-missing = [m for m in ("PIL", "pypdfium2", "pdfplumber") if __import__("importlib").util.find_spec(m) is None]
-if missing: sys.exit(f"missing packages {missing}: pip install pillow pypdfium2 pdfplumber  (tiling needs Pillow, scanned PDFs need pypdfium2)")
+import importlib.util
+missing = [m for m in ("PIL", "pypdfium2", "pdfplumber", "cv2") if importlib.util.find_spec(m) is None]
+if missing: sys.exit(f"missing packages {missing}: pip install pillow pypdfium2 pdfplumber opencv-python  (tiling needs Pillow, scanned PDFs need pypdfium2)")
 out = open(os.path.join(ROOT, "eval", "_scan_hard_answers.jsonl"), "a"); ok = 0
 qs = [json.loads(l) for l in open(os.path.join(ROOT, "eval", "scan_hard.jsonl"))]
 pick = [int(a) for a in sys.argv[2:]]
