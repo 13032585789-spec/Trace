@@ -44,10 +44,12 @@ def answer_swiss(path, question):
     rooms = f["rooms"]
     if it in ("doors", "windows"):
         items = [_item(it[:-1], d["bbox"]) for d in f[it]]; value = len(items)
-    elif it in ("wc", "washbasin", "bathtub", "shower"):
+    elif it == "bathtub":
+        items = [_item(it, x["bbox"]) for x in f["bathtubs"]]; value = len(items)
+    elif it in ("wc", "washbasin", "shower"):
         items = [_item(it, x["bbox"]) for x in f["fixtures"] if x["kind"] == it]; value = len(items)
     elif it == "apartments":
-        letters = sorted({u["letter"] for u in f["units"] if u["letter"]})
+        letters = f.get("apartment_letters") or sorted({u["letter"] for u in f["units"] if u["letter"]})
         items = [_item("apartment", u["bbox"], label=u["label"]) for u in f["units"] if u["letter"]]; value = len(letters)
     elif it == "label_count":
         sel = [r for r in rooms if r["name"] == q["label"]]
