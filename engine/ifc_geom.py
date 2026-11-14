@@ -26,13 +26,14 @@ GEOM = {"IFCLOCALPLACEMENT", "IFCAXIS2PLACEMENT3D", "IFCAXIS2PLACEMENT2D", "IFCD
         "IFCPROJECT", "IFCUNITASSIGNMENT", "IFCCONVERSIONBASEDUNIT", "IFCMEASUREWITHUNIT", "IFCRELSPACEBOUNDARY",
         "IFCRELSPACEBOUNDARY1STLEVEL", "IFCRELSPACEBOUNDARY2NDLEVEL", "IFCTRIANGULATEDFACESET", "IFCCIRCLEPROFILEDEF",
         "IFCFACEBASEDSURFACEMODEL", "IFCSHELLBASEDSURFACEMODEL", "IFCCONNECTEDFACESET", "IFCOPENSHELL",
-        "IFCFACETEDBREPWITHVOIDS", "IFCGEOMETRICREPRESENTATIONCONTEXT", "IFCSURFACEOFLINEAREXTRUSION", "IFCHALFSPACESOLID", "IFCPOLYGONALBOUNDEDHALFSPACE"}
+        "IFCFACETEDBREPWITHVOIDS", "IFCGEOMETRICREPRESENTATIONCONTEXT", "IFCRELFILLSELEMENT", "IFCRELVOIDSELEMENT",
+        "IFCFLOWSEGMENT", "IFCPIPESEGMENT", "IFCDUCTSEGMENT", "IFCCABLECARRIERSEGMENT", "IFCCABLESEGMENT", "IFCSWEPTDISKSOLID", "IFCSURFACEOFLINEAREXTRUSION", "IFCHALFSPACESOLID", "IFCPOLYGONALBOUNDEDHALFSPACE"}
 
 def _r(v): return v[1] if isinstance(v, tuple) and v[0] == "ref" else None
 
 @lru_cache(maxsize=8)
 def _records(path):
-    st = os.stat(path); key = hashlib.md5(f"{path}|{st.st_size}|{st.st_mtime}|g4".encode()).hexdigest()
+    st = os.stat(path); key = hashlib.md5(f"{path}|{st.st_size}|{st.st_mtime}|g5".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".pkl")
     if os.path.exists(cp):
         with open(cp, "rb") as f: return pickle.load(f)
@@ -305,7 +306,8 @@ def element_geometry(path, guid):
     if k is None: return None
     pts, uns, M = _product(R, k)
     return {"id": k, "class": R[k][0], "name": R[k][1][2], "pts": [[p[0] * s, p[1] * s, p[2] * s] for p in pts],
-            "unsupported": sorted(uns), "axes": [[M[0][0], M[1][0]], [M[0][1], M[1][1]]], "origin": [M[0][3] * s, M[1][3] * s, M[2][3] * s]}
+            "unsupported": sorted(uns), "axes": [[M[0][0], M[1][0]], [M[0][1], M[1][1]]],
+            "axes3": [[M[0][j], M[1][j], M[2][j]] for j in range(3)], "origin": [M[0][3] * s, M[1][3] * s, M[2][3] * s]}
 
 def north(path):
     """-> (unit north vector in IFC plan x/y, basis). basis "true_north" when the model states IfcGeometricRepresentation

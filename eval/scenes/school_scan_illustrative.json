@@ -1,0 +1,4747 @@
+{
+ "project_id": "school_L00_scan",
+ "source_kind": "scan",
+ "unit": "norm1000",
+ "coordinate_system": "image: origin top-left, X right, Y up, Z down the image (plan-up = -Z)",
+ "plan_up_vector": [
+  0,
+  -1
+ ],
+ "north_vector": null,
+ "north_basis": "page (north arrow not read)",
+ "quality": "illustrative",
+ "warnings": [
+  "no calibration for this image: positions are 0-1000 image units, not metres; calibrate in the review panel to measure",
+  "fixture detector not installed here (ultralytics): WC / sink not exported; ask the counting questions instead",
+  "rooms and walls are not traced from scans yet: use the 2D image as the base layer"
+ ],
+ "sources": [
+  {
+   "file": "eval/scans_synth/school_L00_scan.jpg",
+   "page": 1
+  }
+ ],
+ "image_size_px": [
+  4714,
+  3359
+ ],
+ "storeys": [
+  {
+   "id": "s1",
+   "name": "page 1",
+   "elevation_m": 0.0,
+   "height_m": null,
+   "outline": [
+    [
+     0.0,
+     0.0
+    ],
+    [
+     1000.0,
+     0.0
+    ],
+    [
+     1000.0,
+     1000.0
+    ],
+    [
+     0.0,
+     1000.0
+    ]
+   ],
+   "outline_from": "image border"
+  }
+ ],
+ "rooms": [],
+ "walls": [],
+ "openings": [
+  {
+   "id": "s1-door-0",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    430.65,
+    0.0,
+    858.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     426.9,
+     852.9,
+     434.4,
+     863.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-1",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    618.35,
+    0.0,
+    855.55
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     615.2,
+     851.2,
+     621.5,
+     859.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-2",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    655.0,
+    0.0,
+    840.5
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     651.4,
+     835.6,
+     658.6,
+     845.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-3",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    617.9,
+    0.0,
+    842.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     614.3,
+     837.5,
+     621.5,
+     847.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-4",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    600.0,
+    0.0,
+    842.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     596.4,
+     837.7,
+     603.6,
+     847.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-5",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    434.0,
+    0.0,
+    829.85
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     429.8,
+     824.0,
+     438.2,
+     835.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-6",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    492.1,
+    0.0,
+    840.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     488.1,
+     834.6,
+     496.1,
+     845.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-7",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    505.6,
+    0.0,
+    825.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     501.8,
+     820.4,
+     509.4,
+     830.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-8",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    618.25,
+    0.0,
+    828.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     615.1,
+     824.1,
+     621.4,
+     832.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-9",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    599.95,
+    0.0,
+    829.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     596.4,
+     824.3,
+     603.5,
+     834.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-10",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    482.6,
+    0.0,
+    827.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     478.4,
+     821.3,
+     486.8,
+     832.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-11",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    536.7,
+    0.0,
+    811.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     532.9,
+     806.4,
+     540.5,
+     816.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-12",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    618.15,
+    0.0,
+    815.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     615.0,
+     811.3,
+     621.3,
+     820.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-13",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    599.45,
+    0.0,
+    814.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     596.5,
+     810.9,
+     602.4,
+     819.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-14",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    360.35,
+    0.0,
+    816.7
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     356.8,
+     811.8,
+     363.9,
+     821.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-15",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    435.2,
+    0.0,
+    811.8
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     431.4,
+     806.6,
+     439.0,
+     817.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-16",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    505.45,
+    0.0,
+    800.3
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     501.7,
+     795.1,
+     509.2,
+     805.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-17",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    370.1,
+    0.0,
+    802.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     366.3,
+     797.4,
+     373.9,
+     807.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-18",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    369.85,
+    0.0,
+    787.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     366.3,
+     782.1,
+     373.4,
+     792.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-19",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    347.0,
+    0.0,
+    782.3
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     342.8,
+     776.5,
+     351.2,
+     788.1
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-20",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    482.15,
+    0.0,
+    780.7
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     477.7,
+     774.6,
+     486.6,
+     786.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-21",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    359.75,
+    0.0,
+    780.4
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     355.8,
+     774.9,
+     363.7,
+     785.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-22",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    450.1,
+    0.0,
+    778.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     446.3,
+     773.4,
+     453.9,
+     783.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-23",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    536.55,
+    0.0,
+    777.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     532.8,
+     772.2,
+     540.3,
+     782.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-24",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    416.2,
+    0.0,
+    766.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     412.4,
+     761.7,
+     420.0,
+     772.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-25",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    506.35,
+    0.0,
+    769.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     502.6,
+     763.9,
+     510.1,
+     774.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-26",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    620.05,
+    0.0,
+    767.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     616.3,
+     762.2,
+     623.8,
+     772.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-27",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    596.7,
+    0.0,
+    767.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     592.7,
+     762.4,
+     600.7,
+     773.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-28",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    481.4,
+    0.0,
+    754.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     477.8,
+     749.7,
+     485.0,
+     759.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-29",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    328.4,
+    0.0,
+    746.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     324.6,
+     741.5,
+     332.2,
+     752.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-30",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    376.8,
+    0.0,
+    746.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     372.6,
+     740.8,
+     381.0,
+     752.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-31",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    482.0,
+    0.0,
+    745.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     477.8,
+     739.4,
+     486.2,
+     751.1
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-32",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    642.85,
+    0.0,
+    742.2
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     639.1,
+     737.0,
+     646.6,
+     747.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-33",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    527.7,
+    0.0,
+    730.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     523.5,
+     724.3,
+     531.9,
+     735.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-34",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    509.5,
+    0.0,
+    730.3
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     505.3,
+     724.5,
+     513.7,
+     736.1
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-35",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    503.4,
+    0.0,
+    730.35
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     499.2,
+     724.5,
+     507.6,
+     736.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-36",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    176.7,
+    0.0,
+    744.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     172.9,
+     738.8,
+     180.5,
+     749.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-37",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    169.6,
+    0.0,
+    744.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     165.8,
+     738.9,
+     173.4,
+     749.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-38",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    151.05,
+    0.0,
+    744.35
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     147.3,
+     739.1,
+     154.8,
+     749.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-39",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    595.25,
+    0.0,
+    725.85
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     591.3,
+     720.3,
+     599.2,
+     731.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-40",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    571.0,
+    0.0,
+    724.0
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     567.0,
+     718.5,
+     575.0,
+     729.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-41",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    620.9,
+    0.0,
+    717.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     618.0,
+     713.6,
+     623.8,
+     721.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-42",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    611.05,
+    0.0,
+    706.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     607.3,
+     701.4,
+     614.8,
+     711.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-43",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    418.55,
+    0.0,
+    708.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     415.0,
+     703.3,
+     422.1,
+     713.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-44",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    642.65,
+    0.0,
+    702.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     638.9,
+     697.5,
+     646.4,
+     708.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-45",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    159.6,
+    0.0,
+    717.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     155.4,
+     711.6,
+     163.8,
+     723.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-46",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    418.3,
+    0.0,
+    697.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     414.7,
+     693.0,
+     421.9,
+     702.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-47",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    176.25,
+    0.0,
+    698.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     172.5,
+     693.0,
+     180.0,
+     703.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-48",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    169.35,
+    0.0,
+    698.3
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     165.6,
+     693.1,
+     173.1,
+     703.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-49",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    642.4,
+    0.0,
+    692.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     638.6,
+     687.5,
+     646.2,
+     698.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-50",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    226.5,
+    0.0,
+    678.4
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     222.5,
+     672.9,
+     230.5,
+     683.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-51",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    117.2,
+    0.0,
+    645.7
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     113.0,
+     639.9,
+     121.4,
+     651.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-52",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    215.6,
+    0.0,
+    634.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     211.8,
+     629.2,
+     219.4,
+     639.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-53",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    227.8,
+    0.0,
+    633.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     223.6,
+     627.3,
+     232.0,
+     638.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-54",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    236.85,
+    0.0,
+    620.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     233.1,
+     614.9,
+     240.6,
+     625.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-55",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    571.25,
+    0.0,
+    609.7
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     567.0,
+     603.9,
+     575.5,
+     615.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-56",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    204.6,
+    0.0,
+    602.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     200.4,
+     596.4,
+     208.8,
+     608.1
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-57",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    226.7,
+    0.0,
+    600.85
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     222.9,
+     595.6,
+     230.5,
+     606.1
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-58",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    571.2,
+    0.0,
+    600.9
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     567.0,
+     595.1,
+     575.4,
+     606.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-59",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    117.2,
+    0.0,
+    593.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     113.4,
+     588.5,
+     121.0,
+     599.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-60",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    214.75,
+    0.0,
+    573.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     211.0,
+     568.4,
+     218.5,
+     578.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-61",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    517.75,
+    0.0,
+    580.0
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     512.5,
+     572.7,
+     523.0,
+     587.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-62",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    465.45,
+    0.0,
+    562.8
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     461.7,
+     557.6,
+     469.2,
+     568.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-63",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    472.6,
+    0.0,
+    562.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     469.0,
+     557.8,
+     476.2,
+     567.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-64",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    562.75,
+    0.0,
+    561.55
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     559.2,
+     556.6,
+     566.3,
+     566.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-65",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    555.4,
+    0.0,
+    561.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     551.8,
+     556.7,
+     559.0,
+     566.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-66",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    81.7,
+    0.0,
+    533.35
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     77.3,
+     527.2,
+     86.1,
+     539.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-67",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    131.7,
+    0.0,
+    530.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     127.9,
+     524.9,
+     135.5,
+     535.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-68",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    94.6,
+    0.0,
+    518.2
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     90.8,
+     513.0,
+     98.4,
+     523.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-69",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    158.2,
+    0.0,
+    515.2
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     154.0,
+     509.4,
+     162.4,
+     521.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-70",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    191.95,
+    0.0,
+    509.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     188.2,
+     504.7,
+     195.7,
+     515.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-71",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    261.55,
+    0.0,
+    509.85
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     257.1,
+     503.7,
+     266.0,
+     516.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-72",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    226.25,
+    0.0,
+    495.45
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     222.5,
+     490.2,
+     230.0,
+     500.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-73",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    141.5,
+    0.0,
+    489.9
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     137.3,
+     484.1,
+     145.7,
+     495.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-74",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    93.6,
+    0.0,
+    489.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     89.6,
+     483.6,
+     97.6,
+     494.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-75",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    131.0,
+    0.0,
+    476.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     126.8,
+     470.9,
+     135.2,
+     482.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-76",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    174.3,
+    0.0,
+    476.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     170.1,
+     470.2,
+     178.5,
+     481.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-77",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    167.4,
+    0.0,
+    475.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     163.8,
+     470.3,
+     171.0,
+     480.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-78",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    81.4,
+    0.0,
+    474.0
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     77.2,
+     468.2,
+     85.6,
+     479.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-79",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    225.9,
+    0.0,
+    465.55
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     222.1,
+     460.3,
+     229.7,
+     470.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-80",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    191.45,
+    0.0,
+    452.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     187.7,
+     446.8,
+     195.2,
+     457.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-81",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    260.6,
+    0.0,
+    450.8
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     256.6,
+     445.3,
+     264.6,
+     456.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-82",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    116.05,
+    0.0,
+    412.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     112.5,
+     407.7,
+     119.6,
+     417.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-83",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    80.3,
+    0.0,
+    343.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     76.1,
+     337.3,
+     84.5,
+     348.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-84",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    190.7,
+    0.0,
+    341.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     186.9,
+     335.9,
+     194.5,
+     346.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-85",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    150.5,
+    0.0,
+    342.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     146.3,
+     336.3,
+     154.7,
+     347.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-86",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    260.3,
+    0.0,
+    340.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     255.9,
+     334.6,
+     264.7,
+     346.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-87",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    115.0,
+    0.0,
+    329.55
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     111.0,
+     324.0,
+     119.0,
+     335.1
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-88",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    225.4,
+    0.0,
+    327.6
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     221.2,
+     321.8,
+     229.6,
+     333.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-89",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    114.9,
+    0.0,
+    298.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     111.1,
+     292.9,
+     118.7,
+     303.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-90",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    224.6,
+    0.0,
+    296.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     220.8,
+     291.5,
+     228.4,
+     302.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-91",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    189.75,
+    0.0,
+    283.0
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     184.9,
+     276.3,
+     194.6,
+     289.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-92",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    80.0,
+    0.0,
+    284.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     75.8,
+     278.2,
+     84.2,
+     289.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-93",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    149.4,
+    0.0,
+    283.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     145.8,
+     279.0,
+     153.0,
+     288.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-94",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    259.75,
+    0.0,
+    281.4
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     255.3,
+     275.3,
+     264.2,
+     287.5
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-95",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    173.05,
+    0.0,
+    222.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     169.5,
+     217.2,
+     176.6,
+     227.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-96",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    182.4,
+    0.0,
+    202.65
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     178.4,
+     197.1,
+     186.4,
+     208.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-97",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    114.25,
+    0.0,
+    202.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     110.9,
+     197.5,
+     117.6,
+     206.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-98",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    154.1,
+    0.0,
+    211.1
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     150.5,
+     206.2,
+     157.7,
+     216.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-99",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    121.65,
+    0.0,
+    210.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     118.3,
+     205.6,
+     125.0,
+     214.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-100",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    199.95,
+    0.0,
+    176.0
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     196.4,
+     171.1,
+     203.5,
+     180.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-101",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    192.65,
+    0.0,
+    176.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     189.1,
+     171.1,
+     196.2,
+     181.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-102",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    172.6,
+    0.0,
+    176.25
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     169.0,
+     171.3,
+     176.2,
+     181.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-103",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    165.5,
+    0.0,
+    176.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     161.7,
+     170.8,
+     169.3,
+     181.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-104",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    144.1,
+    0.0,
+    744.7
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     140.1,
+     739.2,
+     148.1,
+     750.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-105",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    566.65,
+    0.0,
+    777.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     562.7,
+     771.6,
+     570.6,
+     782.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-106",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    328.65,
+    0.0,
+    756.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     324.9,
+     751.5,
+     332.4,
+     762.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-107",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    377.25,
+    0.0,
+    756.0
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     373.5,
+     750.8,
+     381.0,
+     761.2
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-108",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    642.7,
+    0.0,
+    752.2
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     638.9,
+     747.0,
+     646.5,
+     757.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-109",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    521.45,
+    0.0,
+    729.85
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     517.2,
+     724.0,
+     525.7,
+     735.7
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-110",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    152.9,
+    0.0,
+    642.35
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     148.9,
+     636.8,
+     156.9,
+     647.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-111",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    614.65,
+    0.0,
+    801.15
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     611.3,
+     796.5,
+     618.0,
+     805.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-112",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    129.7,
+    0.0,
+    211.35
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     126.8,
+     207.3,
+     132.6,
+     215.4
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-113",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    629.55,
+    0.0,
+    717.95
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     626.4,
+     713.6,
+     632.7,
+     722.3
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-114",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    102.3,
+    0.0,
+    707.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     98.5,
+     702.5,
+     106.1,
+     713.0
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-115",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    240.1,
+    0.0,
+    212.35
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     236.3,
+     207.1,
+     243.9,
+     217.6
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-116",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    606.5,
+    0.0,
+    856.75
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     603.6,
+     852.7,
+     609.4,
+     860.8
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-door-117",
+   "kind": "door",
+   "wall_id": null,
+   "position": [
+    166.1,
+    0.0,
+    223.05
+   ],
+   "rotation_deg": null,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.6,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     161.9,
+     217.2,
+     170.3,
+     228.9
+    ]
+   },
+   "warnings": [
+    "swing box centre, not the opening centre; orientation not read"
+   ]
+  },
+  {
+   "id": "s1-window-0",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    431.75,
+    0.0,
+    571.25
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     426.1,
+     568.5,
+     437.4,
+     574.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-1",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    446.9,
+    0.0,
+    571.1
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     441.4,
+     568.3,
+     452.4,
+     573.9
+    ]
+   }
+  },
+  {
+   "id": "s1-window-2",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    491.85,
+    0.0,
+    570.35
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     486.3,
+     567.6,
+     497.4,
+     573.1
+    ]
+   }
+  },
+  {
+   "id": "s1-window-3",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    506.95,
+    0.0,
+    570.2
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     501.4,
+     567.4,
+     512.5,
+     573.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-4",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    522.0,
+    0.0,
+    569.9
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     516.5,
+     567.3,
+     527.5,
+     572.5
+    ]
+   }
+  },
+  {
+   "id": "s1-window-5",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    537.05,
+    0.0,
+    569.75
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     531.5,
+     567.1,
+     542.6,
+     572.4
+    ]
+   }
+  },
+  {
+   "id": "s1-window-6",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    194.65,
+    0.0,
+    735.95
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     189.1,
+     733.3,
+     200.2,
+     738.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-7",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    387.9,
+    0.0,
+    735.4
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     382.4,
+     732.6,
+     393.4,
+     738.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-8",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    402.95,
+    0.0,
+    735.25
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     397.4,
+     732.5,
+     408.5,
+     738.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-9",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    357.75,
+    0.0,
+    736.0
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     352.2,
+     733.2,
+     363.3,
+     738.8
+    ]
+   }
+  },
+  {
+   "id": "s1-window-10",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    373.35,
+    0.0,
+    735.85
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     367.3,
+     733.1,
+     379.4,
+     738.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-11",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    609.15,
+    0.0,
+    864.55
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     603.8,
+     860.9,
+     614.5,
+     868.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-12",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    569.4,
+    0.0,
+    865.8
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     563.8,
+     863.0,
+     575.0,
+     868.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-13",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    584.35,
+    0.0,
+    865.65
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     578.8,
+     862.9,
+     589.9,
+     868.4
+    ]
+   }
+  },
+  {
+   "id": "s1-window-14",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    434.25,
+    0.0,
+    867.75
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     428.6,
+     865.0,
+     439.9,
+     870.5
+    ]
+   }
+  },
+  {
+   "id": "s1-window-15",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    449.2,
+    0.0,
+    867.6
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     443.7,
+     864.8,
+     454.7,
+     870.4
+    ]
+   }
+  },
+  {
+   "id": "s1-window-16",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    464.05,
+    0.0,
+    867.45
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     458.5,
+     864.7,
+     469.6,
+     870.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-17",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    479.15,
+    0.0,
+    867.3
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     473.6,
+     864.5,
+     484.7,
+     870.1
+    ]
+   }
+  },
+  {
+   "id": "s1-window-18",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    493.75,
+    0.0,
+    866.85
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     487.8,
+     864.1,
+     499.7,
+     869.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-19",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    509.15,
+    0.0,
+    866.7
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     503.5,
+     863.9,
+     514.8,
+     869.5
+    ]
+   }
+  },
+  {
+   "id": "s1-window-20",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    524.2,
+    0.0,
+    866.55
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     518.6,
+     863.8,
+     529.8,
+     869.3
+    ]
+   }
+  },
+  {
+   "id": "s1-window-21",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    343.8,
+    0.0,
+    869.2
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     338.3,
+     866.4,
+     349.3,
+     872.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-22",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    358.85,
+    0.0,
+    869.05
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     353.3,
+     866.3,
+     364.4,
+     871.8
+    ]
+   }
+  },
+  {
+   "id": "s1-window-23",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    373.7,
+    0.0,
+    868.6
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     368.0,
+     865.8,
+     379.4,
+     871.4
+    ]
+   }
+  },
+  {
+   "id": "s1-window-24",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    388.75,
+    0.0,
+    868.45
+   ],
+   "rotation_deg": 0.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     383.2,
+     865.7,
+     394.3,
+     871.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-25",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    253.25,
+    0.0,
+    236.25
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     251.1,
+     227.5,
+     255.4,
+     245.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-26",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    85.75,
+    0.0,
+    239.85
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     83.7,
+     232.1,
+     87.8,
+     247.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-27",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    253.45,
+    0.0,
+    258.45
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     251.4,
+     250.7,
+     255.5,
+     266.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-28",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    85.85,
+    0.0,
+    261.0
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     83.8,
+     253.3,
+     87.9,
+     268.7
+    ]
+   }
+  },
+  {
+   "id": "s1-window-29",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    254.2,
+    0.0,
+    364.1
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     252.1,
+     356.4,
+     256.3,
+     371.8
+    ]
+   }
+  },
+  {
+   "id": "s1-window-30",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    86.75,
+    0.0,
+    366.65
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     84.8,
+     358.9,
+     88.7,
+     374.4
+    ]
+   }
+  },
+  {
+   "id": "s1-window-31",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    254.3,
+    0.0,
+    385.1
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     252.2,
+     377.2,
+     256.4,
+     393.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-32",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    86.95,
+    0.0,
+    387.5
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     84.9,
+     379.8,
+     89.0,
+     395.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-33",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    254.45,
+    0.0,
+    406.25
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     252.4,
+     398.4,
+     256.5,
+     414.1
+    ]
+   }
+  },
+  {
+   "id": "s1-window-34",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    254.75,
+    0.0,
+    427.25
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     252.7,
+     419.5,
+     256.8,
+     435.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-35",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    87.15,
+    0.0,
+    429.75
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     85.1,
+     422.0,
+     89.2,
+     437.5
+    ]
+   }
+  },
+  {
+   "id": "s1-window-36",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    87.35,
+    0.0,
+    450.9
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     85.4,
+     443.2,
+     89.3,
+     458.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-37",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    87.65,
+    0.0,
+    493.2
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     85.6,
+     485.5,
+     89.7,
+     500.9
+    ]
+   }
+  },
+  {
+   "id": "s1-window-38",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    87.75,
+    0.0,
+    514.15
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     85.7,
+     506.3,
+     89.8,
+     522.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-39",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    255.45,
+    0.0,
+    532.9
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     253.4,
+     525.2,
+     257.5,
+     540.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-40",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    255.55,
+    0.0,
+    554.05
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     253.5,
+     546.3,
+     257.6,
+     561.8
+    ]
+   }
+  },
+  {
+   "id": "s1-window-41",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    88.2,
+    0.0,
+    556.45
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     86.1,
+     548.6,
+     90.3,
+     564.3
+    ]
+   }
+  },
+  {
+   "id": "s1-window-42",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    255.75,
+    0.0,
+    574.0
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     253.6,
+     565.4,
+     257.9,
+     582.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-43",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    88.35,
+    0.0,
+    577.4
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     86.3,
+     569.7,
+     90.4,
+     585.1
+    ]
+   }
+  },
+  {
+   "id": "s1-window-44",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    255.85,
+    0.0,
+    596.0
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     253.7,
+     588.3,
+     258.0,
+     603.7
+    ]
+   }
+  },
+  {
+   "id": "s1-window-45",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    423.15,
+    0.0,
+    595.0
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     421.1,
+     587.3,
+     425.2,
+     602.7
+    ]
+   }
+  },
+  {
+   "id": "s1-window-46",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    88.75,
+    0.0,
+    619.85
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     86.7,
+     610.8,
+     90.8,
+     628.9
+    ]
+   }
+  },
+  {
+   "id": "s1-window-47",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    256.0,
+    0.0,
+    618.05
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     253.8,
+     609.4,
+     258.2,
+     626.7
+    ]
+   }
+  },
+  {
+   "id": "s1-window-48",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    423.35,
+    0.0,
+    616.1
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     421.4,
+     608.4,
+     425.3,
+     623.8
+    ]
+   }
+  },
+  {
+   "id": "s1-window-49",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    256.2,
+    0.0,
+    638.3
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     254.1,
+     630.6,
+     258.3,
+     646.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-50",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    423.55,
+    0.0,
+    636.95
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     421.5,
+     628.9,
+     425.6,
+     645.0
+    ]
+   }
+  },
+  {
+   "id": "s1-window-51",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    88.85,
+    0.0,
+    640.65
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     86.8,
+     632.8,
+     90.9,
+     648.5
+    ]
+   }
+  },
+  {
+   "id": "s1-window-52",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    256.3,
+    0.0,
+    660.15
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     254.2,
+     651.7,
+     258.4,
+     668.6
+    ]
+   }
+  },
+  {
+   "id": "s1-window-53",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    423.65,
+    0.0,
+    658.4
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     421.6,
+     650.7,
+     425.7,
+     666.1
+    ]
+   }
+  },
+  {
+   "id": "s1-window-54",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    88.95,
+    0.0,
+    661.95
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     86.9,
+     654.2,
+     91.0,
+     669.7
+    ]
+   }
+  },
+  {
+   "id": "s1-window-55",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    636.65,
+    0.0,
+    663.3
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     634.6,
+     655.4,
+     638.7,
+     671.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-56",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    256.65,
+    0.0,
+    680.55
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     254.6,
+     672.8,
+     258.7,
+     688.3
+    ]
+   }
+  },
+  {
+   "id": "s1-window-57",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    423.75,
+    0.0,
+    679.35
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     421.7,
+     671.5,
+     425.8,
+     687.2
+    ]
+   }
+  },
+  {
+   "id": "s1-window-58",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    89.05,
+    0.0,
+    683.1
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     87.0,
+     675.4,
+     91.1,
+     690.8
+    ]
+   }
+  },
+  {
+   "id": "s1-window-59",
+   "kind": "window",
+   "wall_id": null,
+   "position": [
+    256.75,
+    0.0,
+    701.7
+   ],
+   "rotation_deg": 90.0,
+   "panes": 1,
+   "width_m": null,
+   "height_m": null,
+   "confidence": 0.65,
+   "source": {
+    "file": "eval/scans_synth/school_L00_scan.jpg",
+    "page": 1,
+    "bbox_norm1000": [
+     254.7,
+     694.0,
+     258.8,
+     709.4
+    ]
+   }
+  }
+ ],
+ "objects": [],
+ "systems": []
+}

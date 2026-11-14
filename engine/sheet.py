@@ -206,8 +206,12 @@ def rooms(pdf_path, page, facts, res=0.02):
             doors = [L["radius_m"] for L in facts["door_leaves"]
                      if 0 <= P(L["hinge"])[1] < near.shape[0] and 0 <= P(L["hinge"])[0] < near.shape[1] and near[P(L["hinge"])[1], P(L["hinge"])[0]]]
             x, y, w, h = st[i, 0], st[i, 1], st[i, 2], st[i, 3]
+            big = max(cs, key=cv2.contourArea)
+            poly = cv2.approxPolyDP(big, max(1.0, 0.05 / res), True).reshape(-1, 2)      # 5 cm tolerance
             seen[i] = {"name": B["t"], "area_m2": round(area, 2), "perimeter_m": round(per, 2), "doors": doors,
-                       "baseboard_m": round(per - sum(doors), 2), "box": [round(v / s, 1) for v in (x, y, x + w, y + h)]}
+                       "baseboard_m": round(per - sum(doors), 2), "box": [round(v / s, 1) for v in (x, y, x + w, y + h)],
+                       "polygon": [[round(float(px) / s, 1), round(float(py) / s, 1)] for px, py in poly],
+                       "label_box": B["box"]}
             out.append(seen[i])
         elif B["t"] not in seen[i]["name"].split(" + "):
             seen[i]["name"] += " + " + B["t"]          # two labels in one region: the split between them was not found
@@ -235,7 +239,7 @@ def load(pdf_path, page=0):
     side = f"{pdf_path}.p{page + 1}.facts.json"
     if os.path.exists(side): return json.load(open(side))
     st = os.stat(pdf_path)
-    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v11".encode()).hexdigest()
+    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v12".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".json")
     if os.path.exists(cp): return json.load(open(cp))
     import pdfplumber

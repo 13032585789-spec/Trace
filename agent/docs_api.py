@@ -120,6 +120,29 @@ def handle(method, path, query, headers, body, S=None):
             pj = a.get("project") or proj
             if path == "/project/sheets": return _j(200, {"project": pj, "sheets": docs_tools.project_sheets(pj, S)})
             if path == "/project/ask": return _j(200, docs_tools.ask_project(pj, a.get("question", ""), S))
+        if path in ("/scene", "/api/scene") and method == "GET":
+            f, _ = _resolve_path(str(q.get("path", "")))
+            if f is None: return _j(400, {"error": "path must be under data/ or uploads/ and exist"})
+            rel = q["path"]; ext = os.path.splitext(f)[1].lower()
+            if ext == ".ifc":
+                from engine import scene_ifc
+                sm = None
+                if q.get("space_model"):
+                    sm, _ = _resolve_path(q["space_model"])
+                    if sm is None: return _j(400, {"error": "space_model must be an .ifc under data/ or uploads/"})
+                r = scene_ifc.scene(f, q.get("storey"), q.get("room"), sm, rel_path=rel, rel_space_model=q.get("space_model"))
+            elif ext == ".pdf" and q.get("kind") != "scan":
+                from engine import scene_pdf, sheet
+                page = int(q.get("page", 1))
+                try: vector = len(sheet.load(f, page - 1).get("lines", [])) >= 8
+                except Exception: vector = False
+                if vector: r = scene_pdf.scene(f, page, rel_path=rel)
+                else:
+                    from engine import scene_scan; r = scene_scan.scene(f, page, rel_path=rel)
+            else:
+                from engine import scene_scan
+                r = scene_scan.scene(f, int(q.get("page", 1)), rel_path=rel)
+            return _j(400 if "error" in r else 200, r)
         if path in ("/ifc/spaces", "/ifc/storeys", "/ifc/room_of", "/ifc/clearances"):
             from engine import ifc_geom as G
             a = json.loads(body or b"{}") if method == "POST" else dict(q)
