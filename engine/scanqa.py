@@ -303,9 +303,10 @@ def _door_check(m, image_bytes, question, call_model):
         items = merge_boxes([dict(it, label="door (vision, tile by tile)") for it in tiled] +
                             [dict(it, label="door swing (image analysis)") for it in m["items"]])
         for i, it in enumerate(items): it["id"] = i
-        m.update(value=len(items), items=items, method="scan:doors+vlm:tiled:uncertain",
+        v = len(items) if len(items) <= 1.1 * t else t     # boxes from the two methods that did not line up: keep the model's count
+        m.update(value=v, items=items, method="scan:doors+vlm:tiled:uncertain",
                  warnings=[f"image analysis found only {n} door swings (faint arcs?); the vision model counted {t} tile by tile; "
-                           f"answer = {len(items)} boxes merged from both; please review"],
+                           f"answer = {v} ({len(items)} boxes merged from both); please review"],
                  alternatives=[{"label": "merged boxes", "value": len(items)}, {"label": "tile-by-tile vision count", "value": t},
                                {"label": "image analysis only", "value": n}])
         return m
