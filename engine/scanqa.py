@@ -288,6 +288,24 @@ def _windows_answer(ws, resp):
             "evidence": {"reason": resp.get("reason"), "openings": len(ws), "panes": n - len(extra), "extra_from_model": len(extra),
                          "readings": [n, resp.get("answer")]}}
 
+def _door_check(m, image_bytes, question, call_model):
+    """Door swings are the weakest symbol on poor scans (faint arcs). Count them a second, independent way - tile by
+    tile by the vision model - and flag the answer for review when the two disagree by more than 15 %."""
+    if not str(m.get("method", "")).startswith("scan:doors") or DOOR_SECOND_READING is False: return m
+    try:
+        W, H = _image_size(image_bytes); grid = (3, 3) if max(W, H) > 5000 else (2, 2)
+        t = len(count_tiled(image_bytes, question, call_model, grid))
+    except Exception: return m
+    n = m["value"]; m.setdefault("evidence", {})["tiled_vision_count"] = t
+    if abs(t - n) > max(2, 0.15 * max(t, n)):
+        m["method"] = m["method"].split(":uncertain")[0] + ":uncertain"
+        m["warnings"] = [w for w in m.get("warnings", []) if not w.startswith("uncertain")] + [
+            f"uncertain: {n} door swings found by image analysis (boxed), {t} counted tile by tile by the vision model; please review"]
+        m["alternatives"] = [{"label": "door swings found (boxes)", "value": n}, {"label": "tile-by-tile vision count", "value": t}]
+    return m
+
+DOOR_SECOND_READING = True
+
 def _marks_prompt(groups):
     return MARKS_NOTE.replace("{groups}", "; ".join(
         f"{g['id']}: {g['count']} marks, ~{g['diameter_px']} px, e.g. " + ", ".join(
@@ -382,7 +400,7 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
         raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else "")
                          + (_doors_prompt(ds) if ds else ""), _shrink(image_bytes), 0.0)
         m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None) or (_doors_answer(ds, raw) if ds else None)
-        if m: return m
+        if m: return _door_check(m, image_bytes, question, call_model)
         whole = normalise(raw, True)
         if not whole["found"]:
             return {"value": None, "unit": "count", "items": [], "method": "scan:vlm", "warnings": ["not shown on this drawing"],
@@ -422,7 +440,7 @@ def answer_single(image_bytes, question, call_model, votes=2):
         raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else "")
                          + (_doors_prompt(ds) if ds else ""), image_bytes, 0.0)
         m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None) or (_doors_answer(ds, raw) if ds else None)
-        if m: return m
+        if m: return _door_check(m, image_bytes, question, call_model)
     runs = [normalise(call_model(PROMPT.replace("{q}", question), image_bytes, t), is_count) for t in (0.0, 0.6)[:votes]]
     a = runs[0]
     same = lambda x, y: (x["value"] is None and y["value"] is None) or (
