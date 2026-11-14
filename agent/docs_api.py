@@ -120,6 +120,21 @@ def handle(method, path, query, headers, body, S=None):
             pj = a.get("project") or proj
             if path == "/project/sheets": return _j(200, {"project": pj, "sheets": docs_tools.project_sheets(pj, S)})
             if path == "/project/ask": return _j(200, docs_tools.ask_project(pj, a.get("question", ""), S))
+        if path in ("/ifc/spaces", "/ifc/storeys", "/ifc/room_of", "/ifc/clearances"):
+            from engine import ifc_geom as G
+            a = json.loads(body or b"{}") if method == "POST" else dict(q)
+            f, _ = _resolve_path(str(a.get("path", "")))
+            if f is None or not f.lower().endswith(".ifc"): return _j(400, {"error": "path must be an .ifc under data/ or uploads/"})
+            sm = None
+            if a.get("space_model"):
+                sm, _ = _resolve_path(str(a["space_model"]))
+                if sm is None: return _j(400, {"error": "space_model must be an .ifc under data/ or uploads/"})
+            if path == "/ifc/spaces": return _j(200, {"spaces": G.spaces(f)})
+            if path == "/ifc/storeys": return _j(200, {"storeys": G.storeys(f)})
+            if path == "/ifc/room_of":
+                g = a.get("guids") or []; g = g.split(",") if isinstance(g, str) else g
+                return _j(200, {"rooms": G.room_of(f, list(g), space_model=sm)})
+            return _j(200, G.clearances(f, str(a.get("guid", "")), space_model=sm))
         if path in ("/ask", "/review", "/calibrate", "/measure", "/answer"):
             from engine import review as R
             a = json.loads(body or b"{}") if method == "POST" else {}
@@ -131,6 +146,7 @@ def handle(method, path, query, headers, body, S=None):
                 if f is None: return _j(400, {"error": "path must be under data/ or uploads/ and exist"})
                 if path == "/ask":
                     from engine import answer as A
+                    if a.get("page"): rel = f"{rel}#p{int(a['page'])}"        # 1-based PDF page
                     r = A.answer(rel, a.get("question", ""))
                     return _j(200, R.register(r, f, a.get("question", "")))
                 if path == "/calibrate":
