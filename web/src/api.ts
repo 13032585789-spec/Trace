@@ -1,4 +1,4 @@
-import type { AskResponse, DatasetQuestion, Role } from './types'
+import type { AskResponse, CollabState, DatasetQuestion, Evidence, Role, RoomStatus } from './types'
 
 const BASE = '/api'
 
@@ -24,3 +24,28 @@ export const drawingUrl = (path: string, page = 1) =>
 
 // raw dataset file (e.g. an .ifc model for the 3D viewer)
 export const fileUrl = (path: string) => `${BASE}/file?${new URLSearchParams({ path })}`
+
+export async function inventory(path: string, page = 1): Promise<Evidence> {
+  const r = await fetch(`${BASE}/inventory?${new URLSearchParams({ path, page: String(page) })}`)
+  if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`)
+  return { tool: 'scan_drawing_inventory', ...(await r.json()) }
+}
+
+export async function getCollab(): Promise<CollabState> {
+  const r = await fetch(`${BASE}/collab`)
+  return r.ok ? r.json() : { status: {}, messages: [] }
+}
+
+async function post(url: string, body: unknown): Promise<CollabState> {
+  const r = await fetch(`${BASE}${url}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  })
+  if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`)
+  return r.json()
+}
+
+export const setRoomStatus = (space_id: string, status: RoomStatus, author = '') =>
+  post('/collab/status', { space_id, status, author })
+
+export const postRoomMessage = (space_id: string, text: string, role = '', notify: string[] = []) =>
+  post('/collab/message', { space_id, text, role, notify })

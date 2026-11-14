@@ -14,6 +14,7 @@ Hard rules:
 2. Choose tools by file type: IFC models -> list_spaces / count_elements / elements_in_space / space_area /
    locate_elements / element_status. PNG, JPG or scanned PDF drawings -> count_in_drawing.
    Vector PDF text, room names and schedules -> search_drawings.
+   "What is on this plan / list everything" on an image drawing -> scan_drawing_inventory.
 3. If a question names a room loosely ("bathroom", "WC", "KPH", "Bad"), call list_spaces first to find the exact rooms.
 4. If a tool result has warnings, mention them briefly. If the data does not contain the answer, say so plainly.
 5. Answer in the language of the question. Lead with the answer (number + unit), then one short sentence on where it comes from.
@@ -22,6 +23,8 @@ Hard rules:
 ROLE_HINTS = {
     "architect": "The person asking is an architect: emphasise position, type and appearance.",
     "electrician": "The person asking is an electrician: emphasise quantities, power/voltage and circuits if available.",
+    "plumber": "The person asking is a plumber: emphasise sanitary fixtures, water supply and drainage points, and which rooms they are in.",
+    "owner": "The person asking is the building owner/client: keep it plain-language, short, no jargon.",
 }
 
 _NUM = re.compile(r"-?\d+(?:[.,]\d+)?")

@@ -45,6 +45,9 @@ DECLARATIONS = [
           {"path": _S, "category": _S, "space_id": _S}, ["path"]),
     _decl("search_drawings", "Search the text written on a PDF/vector drawing (room names, tags, schedules).",
           {"path": _S, "text": _S}, ["path", "text"]),
+    _decl("scan_drawing_inventory", "List and number EVERY element on a raster drawing in one pass "
+          "(WC 1, WC 2, Door 1 ...). Use for 'what is on this plan' / 'list everything' questions on image drawings.",
+          {"path": _S, "page": _I}, ["path"]),
     _decl("count_in_drawing", "Count objects drawn on a raster drawing (PNG/JPG scan or a PDF page) using vision. "
           "Use for image and scanned drawings, where there is no model to query. "
           "`target` is a short English description, e.g. 'toilet bowls (WC seats)'.",
@@ -77,6 +80,8 @@ def call(name: str, args: dict[str, Any]) -> dict:
     try:
         if name == "count_in_drawing":
             return vision.count_in_drawing(**args)
+        if name == "scan_drawing_inventory":
+            return vision.scan_drawing_inventory(**args)
         if name in ENGINE_TOOLS:
             fn = _engine_fn(name)
             return fn(**args) if fn else _mock(name)

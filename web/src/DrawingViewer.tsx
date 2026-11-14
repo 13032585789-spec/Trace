@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { drawingUrl } from './api'
+import LicenseBadge from './components/LicenseBadge'
 import type { Source } from './types'
 
 interface Props {
@@ -8,10 +9,11 @@ interface Props {
   sources: Source[]
   selected: number | null
   onSelect: (i: number) => void
+  flash?: Set<number> // boxes of a room that just changed (Room Board)
 }
 
 /** Shows one drawing page as an image with an SVG layer on top; every source bbox becomes a numbered box. */
-export default function DrawingViewer({ path, page, sources, selected, onSelect }: Props) {
+export default function DrawingViewer({ path, page, sources, selected, onSelect, flash }: Props) {
   const [size, setSize] = useState<[number, number] | null>(null)
   const [error, setError] = useState('')
   const [zoom, setZoom] = useState(1)
@@ -60,10 +62,11 @@ export default function DrawingViewer({ path, page, sources, selected, onSelect 
               {sources.map((s, i) => {
                 const [x0, y0, x1, y1] = s.bbox
                 const on = i === selected
+                const cls = `box${on ? ' on' : ''}${flash?.has(i) ? ' flash' : ''}`
                 return (
-                  <g key={i} onClick={() => onSelect(i)} className={on ? 'box on' : 'box'}>
+                  <g key={i} onClick={() => onSelect(i)} className={cls}>
                     <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} vectorEffect="non-scaling-stroke" />
-                    <text x={x0} y={y0 - 4} fontSize={Math.max(12, size[0] / 80)}>{i + 1}</text>
+                    <text x={x0} y={y0 - 4} fontSize={Math.max(12, size[0] / 80)}>{s.label ?? i + 1}</text>
                   </g>
                 )
               })}
@@ -71,6 +74,7 @@ export default function DrawingViewer({ path, page, sources, selected, onSelect 
           )}
         </div>
       </div>
+      <LicenseBadge path={path} />
     </div>
   )
 }

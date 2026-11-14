@@ -1,0 +1,17 @@
+{
+  "value": 3,
+  "unit": "count",
+  "items": [
+    {"id": "mock#1#toilet-1", "category": "toilet", "name": "WC 1"},
+    {"id": "mock#1#door-1", "category": "door", "name": "Door 1"},
+    {"id": "mock#1#door-2", "category": "door", "name": "Door 2"}
+  ],
+  "sources": [
+    {"file": "data/demo/plan.png", "page": 1, "bbox": [40, 30, 80, 60], "label": "WC 1"},
+    {"file": "data/demo/plan.png", "page": 1, "bbox": [100, 30, 120, 70], "label": "Door 1"},
+    {"file": "data/demo/plan.png", "page": 1, "bbox": [140, 30, 160, 70], "label": "Door 2"}
+  ],
+  "by_category": {"toilet": 1, "door": 2},
+  "method": "mock",
+  "warnings": []
+}

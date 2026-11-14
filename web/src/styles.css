@@ -47,3 +47,32 @@ pre { white-space: pre-wrap; font-size: 11px; background: #f5f5f3; padding: 8px;
 .box.on rect { fill: rgba(228, 87, 46, .35); stroke-width: 4; }
 .three { flex: 1; min-height: 0; position: relative; }
 .status { padding: 8px 12px; font-size: 13px; color: #555; background: #fff8e6; border-bottom: 1px solid var(--line); }
+.small { font-size: 12px; }
+.panel h3 { font-size: 12px; color: #555; margin: 8px 0 6px; }
+.tree, .tree ul { list-style: none; margin: 0; padding-left: 14px; font-size: 13px; }
+.tree { padding-left: 0; }
+.tree-node { display: inline-flex; gap: 4px; align-items: center; cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+.tree-node.room.on { background: #e8f0fe; }
+.tree-leaf { cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+.tree-leaf.on, .tree-leaf:hover { background: #fdeee9; }
+.tag { font-size: 10px; padding: 1px 6px; border-radius: 8px; background: #eee; text-transform: uppercase; }
+.tag.built { background: #dff3e4; color: #1e6b33; }
+.tag.missing_wall { background: #fde2e1; color: #a1251c; }
+.tag.pending { background: #fff2cc; color: #8a6200; }
+.scope { color: #1a56db; }
+.scope a { cursor: pointer; margin-left: 4px; }
+.collab { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.tag-btn { font-size: 12px; padding: 4px 8px; }
+.tag-btn.on.built { background: #dff3e4; } .tag-btn.on.missing_wall { background: #fde2e1; } .tag-btn.on.pending { background: #fff2cc; }
+.msgs { list-style: none; margin: 0; padding: 0; font-size: 12px; max-height: 160px; overflow-y: auto; }
+.msgs li { padding: 3px 0; border-bottom: 1px dashed #eee; }
+.notify { color: #1a56db; }
+.chk { flex-direction: row; align-items: center; gap: 3px; flex: 0 0 auto; }
+.badge { font-size: 12px; padding: 6px 8px; border-radius: 6px; margin: 4px 0; font-weight: 600; }
+.badge.green { background: #dff3e4; color: #1e6b33; }
+.badge.amber { background: #fff2cc; color: #8a6200; }
+.badge.grey { background: #eee; color: #666; font-weight: 400; }
+.mock { background: #b00020; color: #fff; font-weight: 700; font-size: 12px; padding: 6px 8px; border-radius: 6px; }
+.license { font-size: 11px; color: #777; padding: 4px 12px; border-top: 1px solid var(--line); background: #fff; }
+.box.flash rect { fill: rgba(26, 86, 219, .3); stroke: #1a56db; stroke-width: 4; animation: pulse 0.8s ease-in-out 5; }
+@keyframes pulse { 50% { opacity: .3; } }

@@ -3,6 +3,10 @@
 POST /ask      {question, path?, role?} -> {answer_text, evidence, tool_calls}
 GET  /drawing  ?path=...&page=1         -> PNG of that drawing page (bbox pixel space)
 GET  /questions?source=...&limit=...    -> sample questions from questions.jsonl, for the demo picker
+GET  /inventory?path=...&page=1         -> every element on a drawing, numbered per category (module 1)
+GET  /collab?space_id=...               -> room status + message board (modules 3 & 4)
+POST /collab/status  {space_id, status, author?}
+POST /collab/message {space_id, text, author?, role?, notify?}
 """
 from __future__ import annotations
 
@@ -13,7 +17,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from . import agent, config, drawings
+from . import agent, collab, config, drawings, vision
 
 app = FastAPI(title="Trace API")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -92,3 +96,46 @@ def models():
         if "gemini" in m.name and (not actions or "generateContent" in actions):
             out.append(m.name)
     return {"current": config.GEMINI_MODEL, "models": out}
+
+
+@app.get("/inventory")
+def inventory(path: str, page: int = 1):
+    try:
+        return vision.scan_drawing_inventory(path, page)
+    except drawings.DrawingError as e:
+        raise HTTPException(404, str(e))
+
+
+class StatusIn(BaseModel):
+    space_id: str
+    status: str
+    author: str = ""
+
+
+class MessageIn(BaseModel):
+    space_id: str
+    text: str
+    author: str = ""
+    role: str = ""
+    notify: list[str] = []
+
+
+@app.get("/collab")
+def collab_get(space_id: str | None = None):
+    return {"statuses": collab.STATUSES, **collab.for_space(space_id)}
+
+
+@app.post("/collab/status")
+def collab_status(body: StatusIn):
+    try:
+        return collab.set_status(body.space_id, body.status, body.author)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.post("/collab/message")
+def collab_message(body: MessageIn):
+    try:
+        return collab.post_message(body.space_id, body.text, body.author, body.role, body.notify)
+    except ValueError as e:
+        raise HTTPException(400, str(e))

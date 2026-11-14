@@ -1,10 +1,20 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ask, sampleQuestions } from './api'
+import { ask, getCollab, inventory, sampleQuestions } from './api'
 import DrawingViewer from './DrawingViewer'
 import IfcViewer from './IfcViewer'
-import type { AskResponse, DatasetQuestion, Role, Source } from './types'
+import RoomCollabPanel from './components/RoomCollabPanel'
+import SpaceTree, { type TreeEntry } from './components/SpaceTree'
+import VerifyBadge from './components/VerifyBadge'
+import type { AskResponse, CollabState, DatasetQuestion, Evidence, Role, Source } from './types'
 
 const SOURCES = ['', 'cubicasa5k', 'swiss_dwellings', 'ifc_models', 'ifc_bench', 'opening_design']
+const ROLES: { v: Role; label: string }[] = [
+  { v: '', label: '任何角色' },
+  { v: 'architect', label: '建筑师 Architect' },
+  { v: 'electrician', label: '电工 Electrician' },
+  { v: 'plumber', label: '水管工 Plumber' },
+  { v: 'owner', label: '业主 Owner' },
+]
 
 export default function App() {
   const [question, setQuestion] = useState('')
@@ -14,25 +24,62 @@ export default function App() {
   const [source, setSource] = useState('cubicasa5k')
   const [expected, setExpected] = useState<DatasetQuestion | null>(null)
   const [res, setRes] = useState<AskResponse | null>(null)
+  const [inv, setInv] = useState<Evidence | null>(null)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
   const [selected, setSelected] = useState<number | null>(null)
+  const [collab, setCollab] = useState<CollabState>({ status: {}, messages: [] })
+  const [space, setSpace] = useState<{ id: string; name: string } | null>(null)
+  const [flashSpace, setFlashSpace] = useState<string | null>(null)
 
   useEffect(() => {
     sampleQuestions(source || undefined).then(setSamples)
   }, [source])
+  useEffect(() => {
+    getCollab().then(setCollab)
+  }, [])
+  useEffect(() => {
+    if (!flashSpace) return
+    const t = setTimeout(() => setFlashSpace(null), 4000)
+    return () => clearTimeout(t)
+  }, [flashSpace])
 
-  // boxes that belong to the drawing currently on screen
-  const sources: Source[] = useMemo(
-    () => (res?.evidence ?? []).flatMap((e) => e.sources ?? []).filter((s) => s.file === path),
-    [res, path],
+  const evidence: Evidence[] = useMemo(() => [...(inv ? [inv] : []), ...(res?.evidence ?? [])], [inv, res])
+
+  // every box on the current drawing, paired with its item when the tool returned them in order
+  const { sources, entries } = useMemo(() => {
+    const sources: Source[] = []
+    const entries: TreeEntry[] = []
+    for (const e of evidence) {
+      const paired = (e.items?.length ?? 0) === (e.sources?.length ?? 0)
+      ;(e.sources ?? []).forEach((s, i) => {
+        if (s.file !== path) return
+        const it = paired ? e.items[i] : undefined
+        entries.push({ index: sources.length, name: s.label ?? it?.name ?? `#${sources.length + 1}`,
+          category: it?.category, storey: it?.storey, space_id: it?.space_id, space_name: it?.space_name })
+        sources.push(s)
+      })
+      if (!paired) {
+        for (const it of e.items ?? []) if (it.space_id && it.name) {
+          entries.push({ index: -1, name: it.name, category: it.category, storey: it.storey,
+            space_id: it.space_id, space_name: it.space_name })
+        }
+      }
+    }
+    return { sources, entries }
+  }, [evidence, path])
+
+  const flash = useMemo(
+    () => new Set(entries.filter((e) => flashSpace && e.space_id === flashSpace && e.index >= 0).map((e) => e.index)),
+    [entries, flashSpace],
   )
   const page = sources[0]?.page ?? 1
   const warnings = (res?.evidence ?? []).flatMap((e) => e.warnings ?? [])
+  const mock = evidence.some((e) => (e.warnings ?? []).some((w) => w.includes('MOCK DATA')))
   const isIfc = path.toLowerCase().endsWith('.ifc')
   const guids = useMemo(
-    () => [...new Set((res?.evidence ?? []).flatMap((e) => e.items ?? []).map((i) => i.guid).filter((g): g is string => !!g))],
-    [res],
+    () => [...new Set(evidence.flatMap((e) => e.items ?? []).map((i) => i.guid).filter((g): g is string => !!g))],
+    [evidence],
   )
 
   function pick(q: DatasetQuestion) {
@@ -40,23 +87,30 @@ export default function App() {
     setPath(q.path)
     setExpected(q)
     setRes(null)
+    setInv(null)
     setSelected(null)
   }
 
-  async function submit() {
-    if (!question.trim()) return
+  async function run<T>(f: () => Promise<T>, set: (v: T) => void) {
     setBusy(true)
     setErr('')
-    setRes(null)
     setSelected(null)
     try {
-      setRes(await ask(question, path, role))
+      set(await f())
     } catch (e) {
       setErr(String(e))
     } finally {
       setBusy(false)
     }
   }
+
+  const submit = () => {
+    if (!question.trim()) return
+    const q = space ? `In room ${space.name} (space_id ${space.id}): ${question}` : question
+    setRes(null)
+    run(() => ask(q, path, role), setRes)
+  }
+  const scan = () => path && run(() => inventory(path, page), setInv)
 
   return (
     <div className="app">
@@ -83,52 +137,59 @@ export default function App() {
 
         <label>
           图纸 / 模型路径
-          <input value={path} onChange={(e) => setPath(e.target.value)} placeholder="data/cubicasa5k/high_quality-108.png" />
+          <input value={path} onChange={(e) => { setPath(e.target.value); setInv(null) }}
+            placeholder="data/cubicasa5k/high_quality-108.png" />
         </label>
 
         <label>
-          问题
+          问题{space && <span className="scope"> · 限定房间：{space.name} <a onClick={() => setSpace(null)}>×</a></span>}
           <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows={3}
             onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) submit() }} />
         </label>
 
         <div className="row">
           <select value={role} onChange={(e) => setRole(e.target.value as Role)}>
-            <option value="">任何角色</option>
-            <option value="architect">建筑师</option>
-            <option value="electrician">电工</option>
+            {ROLES.map((r) => <option key={r.v} value={r.v}>{r.label}</option>)}
           </select>
           <button className="primary" onClick={submit} disabled={busy}>{busy ? '思考中…' : '提问'}</button>
         </div>
+        {!isIfc && path && <button onClick={scan} disabled={busy}>识别全部构件并编号</button>}
 
         {err && <div className="error">{err}</div>}
+        {mock && <div className="mock">MOCK DATA — engine not connected, numbers are placeholders</div>}
 
         {res && (
           <section className="answer">
             <p className="answer-text">{res.answer_text}</p>
+            {res.evidence.map((e, i) => <VerifyBadge key={i} ev={e} />)}
             {expected && (
               <p className="expected">题库标准答案：{String(expected.answer)} {expected.unit ?? ''}</p>
             )}
             {warnings.length > 0 && (
               <ul className="warnings">{warnings.map((w, i) => <li key={i}>⚠ {w}</li>)}</ul>
             )}
-            {sources.length > 0 && (
-              <>
-                <h3>证据（点击在图纸上定位）</h3>
-                <ol className="evidence">
-                  {sources.map((s, i) => (
-                    <li key={i} className={i === selected ? 'on' : ''} onClick={() => setSelected(i)}>
-                      {s.label ?? `#${i + 1}`} <span className="dim">p.{s.page}</span>
-                    </li>
-                  ))}
-                </ol>
-              </>
-            )}
             <details>
-              <summary>工具调用（{res.tool_calls.length}）</summary>
+              <summary>工具调用（{res.tool_calls.length}）：{res.tool_calls.map((t) => t.name).join(' → ')}</summary>
               <pre>{JSON.stringify(res.tool_calls, null, 2)}</pre>
             </details>
           </section>
+        )}
+
+        {(entries.length > 0 || inv) && (
+          <section>
+            <h3>建筑目录（点击定位 / 点房间限定提问）</h3>
+            {inv?.by_category && (
+              <p className="dim small">{Object.entries(inv.by_category).map(([c, n]) => `${n} ${c}`).join(' · ')}</p>
+            )}
+            <SpaceTree entries={entries} collab={collab} selected={selected} activeSpace={space?.id ?? null}
+              onSelectElement={(i) => i >= 0 && setSelected(i)}
+              onSelectSpace={(id, name) => setSpace({ id, name })} />
+          </section>
+        )}
+
+        {space && (
+          <RoomCollabPanel spaceId={space.id} spaceName={space.name} role={role} collab={collab}
+            onChange={setCollab} onHighlightSpace={setFlashSpace} />
         )}
       </aside>
 
@@ -136,7 +197,8 @@ export default function App() {
         {isIfc ? (
           <IfcViewer path={path} guids={guids} />
         ) : (
-          <DrawingViewer path={path} page={page} sources={sources} selected={selected} onSelect={setSelected} />
+          <DrawingViewer path={path} page={page} sources={sources} selected={selected} onSelect={setSelected}
+            flash={flash} />
         )}
       </main>
     </div>

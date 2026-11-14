@@ -25,6 +25,9 @@ export interface Evidence {
   sources: Source[]
   method?: string
   warnings?: string[]
+  by_category?: Record<string, number>
+  cached?: boolean
+  verified_by?: { nemotron_count: number | null; agreement: boolean | null; model?: string | null }
 }
 
 export interface AskResponse {
@@ -41,4 +44,22 @@ export interface DatasetQuestion {
   type: string
 }
 
-export type Role = '' | 'architect' | 'electrician'
+export type Role = '' | 'architect' | 'electrician' | 'plumber' | 'owner'
+
+export type RoomStatus = 'built' | 'missing_wall' | 'pending'
+
+export interface CollabMessage {
+  space_id: string
+  text: string
+  author?: string
+  role?: string
+  notify?: string[]
+  ts: number
+  changed?: boolean
+}
+
+export interface CollabState {
+  statuses?: RoomStatus[]
+  status: Record<string, { status: RoomStatus; author?: string; ts: number }>
+  messages: CollabMessage[]
+}
