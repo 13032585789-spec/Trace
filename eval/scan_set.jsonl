@@ -1,0 +1,45 @@
+{"id":"s01","image":"habs_00.jpg","question":"What is the name of the structure shown on this sheet?","type":"text","accept":["milligan mill"]}
+{"id":"s02","image":"habs_00.jpg","question":"How many hoppers are labelled on this floor plan?","type":"count","answer":2}
+{"id":"s03","image":"habs_00.jpg","question":"What is the scale of the floor plan?","type":"text","accept":["1/4"]}
+{"id":"s04","image":"habs_00.jpg","question":"How many sheets does this drawing set have in total?","type":"count","answer":9}
+{"id":"s05","image":"habs_00.jpg","question":"In which county is the structure located?","type":"text","accept":["westmoreland"]}
+{"id":"s06","image":"habs_09.jpg","question":"How many separate floor plans are drawn on this sheet?","type":"count","answer":3}
+{"id":"s07","image":"habs_09.jpg","question":"In which town is the building located?","type":"text","accept":["kennebunkport"]}
+{"id":"s08","image":"habs_09.jpg","question":"In which year was this sheet drawn?","type":"count","answer":1965}
+{"id":"s09","image":"habs_09.jpg","question":"How many rooms are labelled with a name on the first floor plan?","type":"count","answer":2}
+{"id":"s10","image":"habs_08.jpg","question":"How many elevations of the building are drawn on this sheet?","type":"count","answer":3}
+{"id":"s11","image":"habs_08.jpg","question":"How many rooms are named in the floor plan?","type":"count","answer":3}
+{"id":"s12","image":"habs_08.jpg","question":"In which county and state is the barn located?","type":"text","accept":["jackson"]}
+{"id":"s13","image":"habs_08.jpg","question":"What is the width of the barn written on the floor plan?","type":"text","accept":["30'-5","30' - 5","30'5","30′-5"]}
+{"id":"s14","image":"habs_12.jpg","question":"How many posts stand at the corners of the octagonal platform in the plan?","type":"count","answer":8}
+{"id":"s15","image":"habs_12.jpg","question":"In which year was this drawing made?","type":"count","answer":2012}
+{"id":"s16","image":"habs_12.jpg","question":"How many separate views (plans, elevations and sections) are drawn on this sheet?","type":"count","answer":4}
+{"id":"s17","image":"habs_12.jpg","question":"What is the scale of the drawings?","type":"text","accept":["1/2","1:24"]}
+{"id":"s18","image":"habs_04.jpg","question":"Which elevation of the building is shown?","type":"text","accept":["west"]}
+{"id":"s19","image":"habs_04.jpg","question":"What is the name of the mill?","type":"text","accept":["arista"]}
+{"id":"s20","image":"habs_04.jpg","question":"In which year was the drawing delineated?","type":"count","answer":1976}
+{"id":"s21","image":"wikimedia_00.jpg","question":"How many rooms are marked with the hypocaust symbol in the plan (not counting the legend)?","type":"count","answer":4}
+{"id":"s22","image":"wikimedia_00.jpg","question":"How many building phases (szakasz) are listed in the legend?","type":"count","answer":6}
+{"id":"s23","image":"wikimedia_00.jpg","question":"How many spaces are labelled Peristylium?","type":"count","answer":2}
+{"id":"s24","image":"wikimedia_00.jpg","question":"How many metres does the scale bar span?","type":"count","answer":20}
+{"id":"s25","image":"wikimedia_03.jpg","question":"How many floor plans are shown on this sheet?","type":"count","answer":3}
+{"id":"s26","image":"wikimedia_03.jpg","question":"Who were the architects?","type":"text","accept":["waterhouse"]}
+{"id":"s27","image":"wikimedia_03.jpg","question":"What building do these plans show?","type":"text","accept":["margaret"]}
+{"id":"s28","image":"wikimedia_13.jpg","question":"How many rooms are labelled BUTIK?","type":"count","answer":4}
+{"id":"s29","image":"wikimedia_13.jpg","question":"How many spiral staircases are drawn?","type":"count","answer":2}
+{"id":"s30","image":"wikimedia_13.jpg","question":"In which year was this drawing signed?","type":"count","answer":1905}
+{"id":"s31","image":"wikimedia_13.jpg","question":"Which floor of the building does this plan show?","type":"text","accept":["souterrain","basement","lower ground"]}
+{"id":"s32","image":"wikimedia_11.jpg","question":"How many floor plans are drawn on this sheet?","type":"count","answer":2}
+{"id":"s33","image":"wikimedia_11.jpg","question":"How many room types are listed in the legend of the ground-floor plan (Bottenplan)?","type":"count","answer":18}
+{"id":"s34","image":"wikimedia_11.jpg","question":"How many items are listed in the legend of the upper-floor plan (Plan af vån. 1, 2, 3, o. 4 tr. upp)?","type":"count","answer":13}
+{"id":"s35","image":"finna_11.jpg","question":"How many facades (elevations) are drawn on this sheet?","type":"count","answer":3}
+{"id":"s36","image":"finna_11.jpg","question":"How many floor plans are drawn on this sheet?","type":"count","answer":2}
+{"id":"s37","image":"finna_11.jpg","question":"Near which city is the villa to be built?","type":"text","accept":["helsingfors","helsinki"]}
+{"id":"s38","image":"finna_11.jpg","question":"How many rooms are labelled RUM on the first-floor plan?","type":"count","answer":3}
+{"id":"s39","image":"finna_11.jpg","question":"In which year is the drawing dated?","type":"count","answer":1911}
+{"id":"s40","image":"europeana_00.jpg","question":"What is the scale of the site plan? Give the denominator, e.g. 500 for 1:500.","type":"count","answer":200}
+{"id":"s41","image":"europeana_00.jpg","question":"What kind of mill is this site plan for?","type":"text","accept":["rye","roggen"]}
+{"id":"s42","image":"europeana_00.jpg","question":"Which company made this drawing?","type":"text","accept":["wetzig"]}
+{"id":"s43","image":"habs_04.jpg","question":"How many rooms are on the second floor?","type":"none"}
+{"id":"s44","image":"wikimedia_10.jpg","question":"What is the name of this building?","type":"none"}
+{"id":"s45","image":"europeana_00.jpg","question":"How many storeys does the mill building have?","type":"none"}

@@ -16,3 +16,5 @@ train/.venv/
 .pytest_cache/
 eval/_docqa_cache/
 eval/_docqa_answers.jsonl
+eval/scans/
+eval/_scan_answers.jsonl
