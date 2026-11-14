@@ -26,32 +26,33 @@ Frame: web-ifc world (X, Y up, Z = -y_ifc), metres. Polygon = [X, Z] on the floo
 - spaces: 1; outline {'profile': 1}
 - label_point inside polygon: 1/1
 
-fixtures (16, first 16; rooms from bsc-duplex_duplex-a-20110907.ifc):
+fixtures (16, first 16; rooms from bsc-duplex_duplex-a-20110907.ifc; north: project_north):
 
-| fixture | room | method | exact | nearest walls (m) |
+| fixture | room | method | exact | nearest walls: compass m (local dir) |
 |---|---|---|---|---|
-| M_Shower Stall - Rectangular:865 mmx815  | Bathroom 1 | point-in-polygon | True | left 0.0, left 0.0, right 0.591, back 1.356 |
-| M_Water Closet - Flush Tank:Private - 6. | Bathroom 1 | point-in-polygon | True | left 0.0, back 0.221, right 0.713, front 1.493 |
-| M_Shower Stall - Rectangular:865 mmx815  | Bathroom 1 | point-in-polygon | True | left 0.0, left 0.0, right 0.591, back 1.356 |
-| M_Water Closet - Flush Tank:Private - 6. | Bathroom 1 | point-in-polygon | True | left 0.0, back 0.222, right 0.713, front 1.493 |
-| M_Lavatory - Oval:535 mmx485 mm - Privat | Bathroom 1 | point-in-polygon | True | left 0.0, right 0.815, left 0.821, left 0.971 |
-| M_Sink - Island - Single:455 mmx455 mm - | Kitchen | point-in-polygon | True | front 0.061, right 1.577, left 2.321, right 3.031 |
-| M_Sink - Island - Single:455 mmx455 mm - | Kitchen | point-in-polygon | True | front 0.061, right 1.577, left 2.32, right 3.032 |
-| M_Bath Tub:1525 mmx760 mm - Private:1525 | Bathroom 2 | point-in-polygon | True | right 0.0, right 0.0, right 0.001, front 2.361 |
-| M_Water Closet - Flush Tank:Private - 6. | Bathroom 2 | point-in-polygon | True | right 0.001, right 0.783, back 1.056, front 1.592 |
-| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | left 0.0, right 0.65, left 1.039, left 1.805 |
-| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | left 0.0, left 0.0, left 1.039, left 2.455 |
-| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | left 0.0, left 0.0, left 1.039, left 2.47 |
-| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | left 0.0, right 0.65, left 1.039, left 1.82 |
-| M_Water Closet - Flush Tank:Private - 6. | Bathroom 2 | point-in-polygon | True | left 0.0, right 0.781, back 1.072, front 1.592 |
-| M_Bath Tub:1525 mmx760 mm - Private:1525 | Bathroom 2 | point-in-polygon | True | left 0.0, left 0.0, left 0.0, front 2.36 |
-| M_Lavatory - Oval:535 mmx485 mm - Privat | Bathroom 1 | point-in-polygon | True | left 0.0, right 0.815, left 0.821, left 0.971 |
+| M_Shower Stall - Rectangular:865 mmx815  | Bathroom 1 | point-in-polygon | True | N 0.0 (left), S 0.0 (left), N 0.591 (right), E 1.356 (back) |
+| M_Water Closet - Flush Tank:Private - 6. | Bathroom 1 | point-in-polygon | True | S 0.0 (left), E 0.221 (back), N 0.713 (right), W 1.493 (front) |
+| M_Shower Stall - Rectangular:865 mmx815  | Bathroom 1 | point-in-polygon | True | S 0.0 (left), N 0.0 (left), S 0.591 (right), W 1.356 (back) |
+| M_Water Closet - Flush Tank:Private - 6. | Bathroom 1 | point-in-polygon | True | N 0.0 (left), W 0.222 (back), S 0.713 (right), E 1.493 (front) |
+| M_Lavatory - Oval:535 mmx485 mm - Privat | Bathroom 1 | point-in-polygon | True | E 0.0 (left), E 0.815 (right), W 0.821 (left), S 0.971 (left) |
+| M_Sink - Island - Single:455 mmx455 mm - | Kitchen | point-in-polygon | True | W 0.061 (front), N 1.577 (right), S 2.321 (left), N 3.031 (right) |
+| M_Sink - Island - Single:455 mmx455 mm - | Kitchen | point-in-polygon | True | E 0.061 (front), S 1.577 (right), N 2.32 (left), S 3.032 (right) |
+| M_Bath Tub:1525 mmx760 mm - Private:1525 | Bathroom 2 | point-in-polygon | True | N 0.0 (right), N 0.0 (right), N 0.001 (right), W 2.361 (front) |
+| M_Water Closet - Flush Tank:Private - 6. | Bathroom 2 | point-in-polygon | True | N 0.001 (right), N 0.783 (right), E 1.056 (back), W 1.592 (front) |
+| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | E 0.0 (left), W 0.65 (right), N 1.039 (left), E 1.805 (left) |
+| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | W 0.0 (left), E 0.0 (left), N 1.039 (left), E 2.455 (left) |
+| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | E 0.0 (left), E 0.0 (left), S 1.039 (left), W 2.47 (left) |
+| M_Lavatory - Oval:650 mmx485 mm - Privat | Bathroom 2 | point-in-polygon | True | E 0.0 (left), E 0.65 (right), S 1.039 (left), W 1.82 (left) |
+| M_Water Closet - Flush Tank:Private - 6. | Bathroom 2 | point-in-polygon | True | N 0.0 (left), S 0.781 (right), W 1.072 (back), E 1.592 (front) |
+| M_Bath Tub:1525 mmx760 mm - Private:1525 | Bathroom 2 | point-in-polygon | True | S 0.0 (left), N 0.0 (left), N 0.0 (left), E 2.36 (front) |
+| M_Lavatory - Oval:535 mmx485 mm - Privat | Bathroom 1 | point-in-polygon | True | E 0.0 (left), W 0.815 (right), E 0.821 (left), N 0.971 (left) |
 
 ## Notes
 - Distance 0.0 = the fixture's mesh touches the wall face (WC tank, shower tray, tub in an alcove). Cross-checked against
   the room outline: footprint-to-outline distance equals the minimum wall distance on every duplex fixture tested.
-- front/back/left/right are the element's own local axes (+Y = front). Revit families usually put the user side at +Y;
-  this is not guaranteed, so the direction is a label, the distance is the fact.
+- Direction: `compass` N/E/S/W is the one common direction, from the model's TrueNorth when stated, else model +Y
+  (project north = plan-up, flagged `north_basis: project_north`). `dir` front/back/left/right is the element's own
+  local axes, reference only (Revit families usually face +Y, not guaranteed). The distance is the fact.
 - Outlines are convex hulls in plan; an L-shaped wall body could read too close. `exact=False` whenever any geometry
   item was unsupported.
 - Not checked here: Tallinn, Hitos (files not available to us). web-ifc COORDINATE_TO_ORIGIN shift is not applied.

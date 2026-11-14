@@ -29,16 +29,17 @@ for f, arch in MODELS:
             r = G.room_of(p, [e["guid"]], space_model=A)[e["guid"]]
             c = G.clearances(p, e["guid"], space_model=A)
             rows.append((str(e["name"])[:40], r.get("space_name"), r.get("method"), c["exact"],
-                         ", ".join(f"{s['dir']} {s['distance_m']}" for s in c["sides"][:4])))
-        print(f"\nfixtures ({len(fx)}, first 16; rooms from {arch or 'same file'}):\n")
-        print("| fixture | room | method | exact | nearest walls (m) |\n|---|---|---|---|---|")
+                         ", ".join(f"{s['compass']} {s['distance_m']} ({s['dir']})" for s in c["sides"][:4])))
+        print(f"\nfixtures ({len(fx)}, first 16; rooms from {arch or 'same file'}; north: {G.north(p)[1]} in fixture model, {G.north(A or p)[1]} in room model):\n")
+        print("| fixture | room | method | exact | nearest walls: compass m (local dir) |\n|---|---|---|---|---|")
         for r in rows: print("| " + " | ".join(str(x) for x in r) + " |")
     print()
 print("""## Notes
 - Distance 0.0 = the fixture's mesh touches the wall face (WC tank, shower tray, tub in an alcove). Cross-checked against
   the room outline: footprint-to-outline distance equals the minimum wall distance on every duplex fixture tested.
-- front/back/left/right are the element's own local axes (+Y = front). Revit families usually put the user side at +Y;
-  this is not guaranteed, so the direction is a label, the distance is the fact.
+- Direction: `compass` N/E/S/W is the one common direction, from the model's TrueNorth when stated, else model +Y
+  (project north = plan-up, flagged `north_basis: project_north`). `dir` front/back/left/right is the element's own
+  local axes, reference only (Revit families usually face +Y, not guaranteed). The distance is the fact.
 - Outlines are convex hulls in plan; an L-shaped wall body could read too close. `exact=False` whenever any geometry
   item was unsupported.
 - Not checked here: Tallinn, Hitos (files not available to us). web-ifc COORDINATE_TO_ORIGIN shift is not applied.""")

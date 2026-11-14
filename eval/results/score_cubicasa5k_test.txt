@@ -1,13 +1,17 @@
-overall 13952/16694 = 83.57%  (98s)
-cubicasa5k       cubicasa:detector[yolo-cubicasa]:window    850/1866    45.55%
+overall 14354/16694 = 85.98%  (54s)
+cubicasa5k       cubicasa:detector[yolo-cubicasa]:window   1068/1866    57.23%
 cubicasa5k       cubicasa:detector[yolo-cubicasa]:toilet   1754/1866    94.00%
 cubicasa5k       cubicasa:vlm[gemini:gemini-3.6-flash]:floors   1826/1866    97.86%
 cubicasa5k       cubicasa:detector[yolo-cubicasa]:sink   1526/1846    82.67%
-cubicasa5k       cubicasa:detector[yolo-cubicasa]:shower_tub   1316/1712    76.87%
-cubicasa5k       cubicasa:detector[yolo-cubicasa]:door   1002/1376    72.82%
-cubicasa5k       cubicasa:vlm[gemini:gemini-3.6-flash]:sauna   1162/1284    90.50%
-cubicasa5k       cubicasa:prior:kitchen         1220/1276    95.61%
-cubicasa5k       cubicasa:rooms[yolo-cubicasa-rooms]:bedroom    990/1132    87.46%
+cubicasa5k       cubicasa:detector[yolo-cubicasa]:shower_tub   1412/1712    82.48%
+cubicasa5k       cubicasa:detector[yolo-cubicasa]:door   1006/1376    73.11%
+cubicasa5k       cubicasa:agree[vlm+rooms]:kitchen   1074/1100    97.64%
 cubicasa5k       cubicasa:vlm[gemini:gemini-3.6-flash]:bathroom    904/972     93.00%
+cubicasa5k       cubicasa:min(vlm[gemini:gemini-3.6-flash]):bedroom    922/968     95.25%
 cubicasa5k       cubicasa:vlm[gemini:gemini-3.6-flash]:wc_room    892/924     96.54%
+cubicasa5k       cubicasa:agree[vlm+rooms]:sauna    752/800     94.00%
 cubicasa5k       cubicasa:vlm[gemini:gemini-3.6-flash]:balcony    510/574     88.85%
+cubicasa5k       cubicasa:prior:sauna            466/484     96.28%
+cubicasa5k       cubicasa:prior:kitchen          158/176     89.77%
+cubicasa5k       cubicasa:min(rooms[yolo-cubicasa-rooms]):bedroom     84/164     51.22%
+by confidence: high 8590/8980 = 95.7%, low 1152/2030 = 56.7%, medium 4612/5684 = 81.1%

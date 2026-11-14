@@ -1,0 +1,18 @@
+overall 495/503 = 98.41%  (1s)
+ifc_models       ifc:space_area[Qto:NetFloorArea]    160/160    100.00%
+ifc_models       ifc:space_area[geometry:footprint]     94/96      97.92%
+ifc_models       ifc:count_door                   34/34     100.00%
+ifc_models       ifc:count_space                  32/32     100.00%
+ifc_models       ifc:count_wall                   28/28     100.00%
+ifc_models       ifc:wall_volume                  18/20      90.00%
+ifc_models       ifc:wall_length                  18/18     100.00%
+ifc_models       ifc:wall_area                    14/18      77.78%
+ifc_models       ifc:slab_volume                  18/18     100.00%
+ifc_models       ifc:count_stair                  18/18     100.00%
+ifc_models       ifc:count_window                 16/16     100.00%
+ifc_models       ifc:count_column                 16/16     100.00%
+ifc_models       ifc:storey_space_area            14/14     100.00%
+ifc_models       ifc:count_beam                    8/8      100.00%
+ifc_models       ifc:count_sanitary                6/6      100.00%
+ifc_models       ifc:count_light                   1/1      100.00%
+by confidence: high 495/503 = 98.4%

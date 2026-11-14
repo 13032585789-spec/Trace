@@ -26,13 +26,13 @@ GEOM = {"IFCLOCALPLACEMENT", "IFCAXIS2PLACEMENT3D", "IFCAXIS2PLACEMENT2D", "IFCD
         "IFCPROJECT", "IFCUNITASSIGNMENT", "IFCCONVERSIONBASEDUNIT", "IFCMEASUREWITHUNIT", "IFCRELSPACEBOUNDARY",
         "IFCRELSPACEBOUNDARY1STLEVEL", "IFCRELSPACEBOUNDARY2NDLEVEL", "IFCTRIANGULATEDFACESET", "IFCCIRCLEPROFILEDEF",
         "IFCFACEBASEDSURFACEMODEL", "IFCSHELLBASEDSURFACEMODEL", "IFCCONNECTEDFACESET", "IFCOPENSHELL",
-        "IFCFACETEDBREPWITHVOIDS", "IFCSURFACEOFLINEAREXTRUSION", "IFCHALFSPACESOLID", "IFCPOLYGONALBOUNDEDHALFSPACE"}
+        "IFCFACETEDBREPWITHVOIDS", "IFCGEOMETRICREPRESENTATIONCONTEXT", "IFCSURFACEOFLINEAREXTRUSION", "IFCHALFSPACESOLID", "IFCPOLYGONALBOUNDEDHALFSPACE"}
 
 def _r(v): return v[1] if isinstance(v, tuple) and v[0] == "ref" else None
 
 @lru_cache(maxsize=8)
 def _records(path):
-    st = os.stat(path); key = hashlib.md5(f"{path}|{st.st_size}|{st.st_mtime}|g3".encode()).hexdigest()
+    st = os.stat(path); key = hashlib.md5(f"{path}|{st.st_size}|{st.st_mtime}|g4".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".pkl")
     if os.path.exists(cp):
         with open(cp, "rb") as f: return pickle.load(f)
@@ -307,6 +307,22 @@ def element_geometry(path, guid):
     return {"id": k, "class": R[k][0], "name": R[k][1][2], "pts": [[p[0] * s, p[1] * s, p[2] * s] for p in pts],
             "unsupported": sorted(uns), "axes": [[M[0][0], M[1][0]], [M[0][1], M[1][1]]], "origin": [M[0][3] * s, M[1][3] * s, M[2][3] * s]}
 
+def north(path):
+    """-> (unit north vector in IFC plan x/y, basis). basis "true_north" when the model states IfcGeometricRepresentation
+    Context.TrueNorth, else "project_north" (+Y of the model, i.e. plan-up; not confirmed as geographic north)."""
+    R, T, s = _records(path)
+    for k in T.get("IFCGEOMETRICREPRESENTATIONCONTEXT", []):
+        a = R[k][1]
+        if len(a) > 5 and _r(a[5]) in R:
+            v = _vec(R, _r(a[5]), (0, 1, 0))
+            if math.hypot(v[0], v[1]) > 1e-9: n = _norm([v[0], v[1], 0]); return (n[0], n[1]), "true_north"
+    return (0.0, 1.0), "project_north"
+
+def compass(v, n):
+    """Bearing (deg, clockwise from north) and N/E/S/W of plan vector v given north n."""
+    e = (n[1], -n[0]); b = math.degrees(math.atan2(v[0] * e[0] + v[1] * e[1], v[0] * n[0] + v[1] * n[1])) % 360
+    return round(b, 1), "NESW"[int(((b + 45) % 360) // 90)]
+
 def room_of(path, guids, frame="webifc", space_model=None):
     """space_model: another IFC of the same project holding the rooms (e.g. the architectural model when the
     fixtures are in a plumbing model); both must share coordinates."""
@@ -334,7 +350,7 @@ def room_of(path, guids, frame="webifc", space_model=None):
 
 def clearances(path, guid, frame="webifc", space_model=None):
     """Shortest horizontal distance from the element's own geometry to each wall bounding its room."""
-    base = {"guid": guid, "room_guid": None, "sides": [], "exact": False, "method": "geometry:mesh-to-wall-face", "warnings": []}
+    base = {"guid": guid, "room_guid": None, "north_basis": None, "sides": [], "exact": False, "method": "geometry:mesh-to-wall-face", "warnings": []}
     e = element_geometry(path, guid)
     if e is None: return {**base, "warnings": ["no element with this GlobalId"]}
     if not e["pts"]: return {**base, "warnings": ["element geometry not supported: " + (", ".join(e["unsupported"]) or "none")]}
@@ -345,7 +361,16 @@ def clearances(path, guid, frame="webifc", space_model=None):
     if not walls["walls"]: return {**base, "warnings": ["room walls unknown: " + "; ".join(walls["warnings"])]}
     R, T, s = _records(wpath)
     foot = _hull([(p[0], p[1]) for p in e["pts"]]); zmin = min(p[2] for p in e["pts"]) + 0.01
-    ax, ay = e["axes"]; o = e["origin"]
+    ax, ay = e["axes"]; o = e["origin"]; N, basis = north(path)
+    if space_model:
+        N2, b2 = north(space_model)
+        if basis != "true_north": N, basis = N2, b2
+        if b2 == "true_north" and basis == "true_north" and abs(N[0] * N2[0] + N[1] * N2[1] - 1) > 1e-3:
+            warn_n = "the two models state different true north; using the fixture model's"
+        elif (b2 == "true_north") != (north(path)[1] == "true_north"):
+            warn_n = "only one of the two models states true north; using it - confirm the models share orientation"
+        else: warn_n = None
+    else: warn_n = None
     sides, warn, exact = [], [], not e["unsupported"]
     for w in walls["walls"]:
         wk = next((k for k, (t, a) in R.items() if t in I.ELEMENTS and a and a[0] == w["guid"]), None)
@@ -365,9 +390,18 @@ def clearances(path, guid, frame="webifc", space_model=None):
         d, p, q = best; v = (q[0] - p[0], q[1] - p[1])
         lx = v[0] * ax[0] + v[1] * ax[1]; ly = v[0] * ay[0] + v[1] * ay[1]   # in the element's own axes
         dirn = ("right" if lx > 0 else "left") if abs(lx) >= abs(ly) else ("front" if ly > 0 else "back")
-        sides.append({"dir": dirn, "distance_m": round(d, 3), "wall_guid": w["guid"], "wall_name": w["name"],
+        bearing, cp = compass(v, N) if math.hypot(*v) > 1e-9 else (None, None)
+        if cp is None:     # touching: direction from the element centre to the contact point
+            cxy = (sum(x[0] for x in foot) / len(foot), sum(x[1] for x in foot) / len(foot)); v2 = (q[0] - cxy[0], q[1] - cxy[1])
+            bearing, cp = compass(v2, N) if math.hypot(*v2) > 1e-9 else (None, None)
+        sides.append({"dir": dirn, "compass": cp, "bearing_deg": bearing, "basis": basis,
+                      "distance_m": round(d, 3), "wall_guid": w["guid"], "wall_name": w["name"],
                       "from": _to(frame, [p[0], p[1], zmin], 1.0), "to": _to(frame, [q[0], q[1], zmin], 1.0)})
     sides.sort(key=lambda x: x["distance_m"])
+    if warn_n: warn.append(warn_n)
     if e["unsupported"]: warn.append("element geometry partly unsupported: " + ", ".join(e["unsupported"]))
-    warn.append("front/back/left/right are the element's own local axes (+Y = front); outlines are convex hulls in plan")
-    return {**base, "sides": sides, "exact": exact and bool(sides), "warnings": warn + walls["warnings"]}
+    warn.append("compass (N/E/S/W, bearing clockwise from north) is the common direction: " +
+                ("true north stated in the model" if basis == "true_north" else
+                 "the model states no true north, so north = model +Y (project north, plan-up), not confirmed") +
+                "; dir (front/back/left/right) is the element's own local axes, reference only; outlines are convex hulls in plan")
+    return {**base, "north_basis": basis, "sides": sides, "exact": exact and bool(sides), "warnings": warn + walls["warnings"]}

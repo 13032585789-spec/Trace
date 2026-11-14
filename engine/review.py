@@ -59,6 +59,7 @@ def review(answer_id, remove=(), add=(), choose=None, user="user"):
         except (TypeError, ValueError): pass
     rv["by"] = user; rv["at"] = time.time()
     a["method"] = a["method"].split("+reviewed")[0] + "+reviewed"
+    a["confidence"], a["confidence_reason"] = "high", "checked and corrected by a person in the review panel"
     _save(a)
     with open(_p("corrections.jsonl"), "a") as f:
         f.write(json.dumps({"answer_id": answer_id, "file": a["file"], "question": a["question"], "model_value": a["model_value"],
