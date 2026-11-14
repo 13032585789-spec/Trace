@@ -127,6 +127,8 @@ def raster_windows(image_bytes):
                         "panes": panes})
     return out
 
+DOOR_LEAF, DOOR_INNER, DOOR_THIN_WALLS, RING = 0.85, 0.35, False, 0.4   # set on the synthetic school scan only
+
 def raster_doors(image_bytes):
     """Door swings in a scanned plan: a quarter-circle arc + a straight leaf line from a hinge at a solid wall, with an
     empty swing area. Openings without a swing arc are not doors. -> [{"box_norm1000"}] or [] (needs OpenCV)."""
@@ -160,13 +162,16 @@ def raster_doors(image_bytes):
     def door_at(cx, cy, sx, sy, r):
         if ok(cx + sx * r * np.cos(A), cy + sy * r * np.sin(A)) < 0.8: return 0
         leaf = max(ok(cx + sx * r * Ks, cy + 0 * Ks), ok(cx + 0 * Ks, cy + sy * r * Ks))
-        if leaf < 0.85 or ok(cx - sx * r * np.cos(A), cy - sy * r * np.sin(A)) > 0.5: return 0
-        if max(ok(cx + sx * k * r * np.cos(a2), cy + sy * k * r * np.sin(a2)) for k in (0.45, 0.65, 0.8)) > 0.25: return 0
-        if ok(cx + sx * 1.25 * r * np.cos(a2), cy + sy * 1.25 * r * np.sin(a2)) > 0.4: return 0
+        if leaf < DOOR_LEAF: return 0
+        if ok(cx - sx * r * np.cos(A), cy - sy * r * np.sin(A)) > 0.5 and ok(cx - sx * r * np.cos(A), cy + sy * r * np.sin(A)) > 0.5 \
+                and ok(cx + sx * r * np.cos(A), cy - sy * r * np.sin(A)) > 0.5: return 0          # a full circle, not a swing
+        if max(ok(cx + sx * k * r * np.cos(a2), cy + sy * k * r * np.sin(a2)) for k in (0.45, 0.65, 0.8)) > DOOR_INNER: return 0
+        if RING and ok(cx + sx * 1.25 * r * np.cos(a2), cy + sy * 1.25 * r * np.sin(a2)) > RING: return 0
         return 1 + leaf
     found = []
-    cs = cv2.goodFeaturesToTrack((thick * 255).astype(np.uint8), maxCorners=8000, qualityLevel=0.02, minDistance=3)
-    for cx, cy in ([] if cs is None else cs.reshape(-1, 2)):       # hinges sit at wall ends (corners of solid walls)
+    walls = cv2.morphologyEx(b, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8)) if DOOR_THIN_WALLS else thick
+    cs = cv2.goodFeaturesToTrack((walls * 255).astype(np.uint8), maxCorners=12000, qualityLevel=0.02, minDistance=3)
+    for cx, cy in ([] if cs is None else cs.reshape(-1, 2)):       # hinges sit at wall ends (corners of walls)
         for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
             bestd = max(((door_at(cx, cy, sx, sy, r), r) for r in np.arange(rmin, rmax, 2.0)), default=(0, 0))
             if bestd[0]:
