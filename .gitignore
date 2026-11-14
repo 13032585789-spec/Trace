@@ -13,3 +13,4 @@ det_cache.zip
 train/data/
 train/runs/
 train/.venv/
+.pytest_cache/
