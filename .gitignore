@@ -21,3 +21,4 @@ eval/_scan_answers.jsonl
 models/rtdetr_l_cubi.pt
 eval/_sheet_answers.jsonl
 eval/_scan_hard_answers.jsonl
+eval/stoa_samples/

@@ -46,13 +46,27 @@ def normalise(resp, is_count):
         val = len(ev)                         # the boxes are the evidence; a count must match them
     return {"found": found, "value": val, "quote": resp.get("quote"), "items": ev, "reason": resp.get("reason")}
 
+GAMMA = 1.0
+
+def _gray(image_bytes, target=4800):
+    """Decode to grey and bring small images up to ~target px (the analysis thresholds assume an A1/A2 sheet at
+    ~150-200 dpi; low-resolution JPEGs are upscaled instead of re-tuning every kernel)."""
+    import cv2, numpy as np
+    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    if im is None: return None
+    m = max(im.shape)
+    if m < 0.75 * target: im = cv2.resize(im, None, fx=target / m, fy=target / m, interpolation=cv2.INTER_CUBIC)
+    if GAMMA != 1:     # faint hairlines (light-grey arcs in low-resolution exports) darkened; white paper stays white
+        lut = (255 * (np.arange(256) / 255.0) ** GAMMA).astype(np.uint8); im = cv2.LUT(im, lut)
+    return im
+
 def raster_marks(image_bytes, min_count=5):
     """Repeated small filled marks found by image analysis (dots, solid squares), grouped by size.
     -> [{"id": "g0", "count", "diameter_px", "items": [{box_norm1000}]}] largest group first; [] without OpenCV."""
     try:
         import cv2, numpy as np
     except ImportError: return []
-    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    im = _gray(image_bytes)
     if im is None: return []
     H, W = im.shape
     b = (im < 110).astype(np.uint8)
@@ -71,6 +85,8 @@ def raster_marks(image_bytes, min_count=5):
     return [{"id": f"g{i}", "count": len(g["items"]), "diameter_px": round(sum(g["d"]) / len(g["d"]), 1), "items": g["items"]}
             for i, g in enumerate(groups)]
 
+WIN_ALONG = 0.4
+
 def raster_windows(image_bytes):
     """Window symbols in a scanned plan: openings in thick (solid) walls that are bridged by 2+ thin lines running
     along the wall, on the building's outside wall. Mullions (thin lines across the opening) split it into panes;
@@ -78,7 +94,7 @@ def raster_windows(image_bytes):
     try:
         import cv2, numpy as np
     except ImportError: return []
-    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    im = _gray(image_bytes)
     if im is None: return []
     H0, W0 = im.shape
     f = min(1.0, 5000 / max(H0, W0)); im = cv2.resize(im, None, fx=f, fy=f) if f < 1 else im; H, W = im.shape
@@ -105,7 +121,15 @@ def raster_windows(image_bytes):
         o = int(1.5 * t)
         A, B = ((outside[max(0, y - o):y, x:x + w], outside[y + h:y + h + o, x:x + w]) if axis == "h"
                 else (outside[y:y + h, max(0, x - o):x], outside[y:y + h, x + w:x + w + o]))
-        return (A.size and A.mean() > 0.5) or (B.size and B.mean() > 0.5)
+        a_out = bool(A.size and A.mean() > 0.5); b_out = bool(B.size and B.mean() > 0.5)
+        return a_out != b_out                     # outside on exactly one side (logos / title-block marks have it on both)
+    nT, labT, stT, _ = cv2.connectedComponentsWithStats(thick)
+    big = np.zeros(nT, bool); tot = stT[1:, cv2.CC_STAT_AREA].sum() if nT > 1 else 0
+    for j in range(1, nT): big[j] = stT[j, cv2.CC_STAT_AREA] >= 0.01 * tot      # the building's wall network, not logos
+    def on_walls(axis, x, y, w, h):
+        if axis == "h": A, B = labT[y:y + h, max(0, x - 3):x], labT[y:y + h, x + w:x + w + 3]
+        else: A, B = labT[max(0, y - 3):y, x:x + w], labT[y + h:y + h + 3, x:x + w]
+        return any(big[v] for v in np.unique(A) if v) and any(big[v] for v in np.unique(B) if v)
     out = []; L = int(t * 7)
     for axis in ("h", "v"):
         k = np.ones((1, L), np.uint8) if axis == "h" else np.ones((L, 1), np.uint8)
@@ -117,17 +141,18 @@ def raster_windows(image_bytes):
             if not (0.5 * t <= th <= 2.2 * t and ln >= t): continue
             reg = thin[y:y + h, x:x + w]
             along = reg.mean(axis=1) if axis == "h" else reg.mean(axis=0)
-            if int(np.sum(np.diff(np.r_[0, (along > 0.4).astype(int)]) == 1)) < 2 or not outer(axis, x, y, w, h): continue
+            if int(np.sum(np.diff(np.r_[0, (along > WIN_ALONG).astype(int)]) == 1)) < 2 or not outer(axis, x, y, w, h): continue
             cross = reg.mean(axis=0) if axis == "h" else reg.mean(axis=1)
             inner = cross[2:-2] if len(cross) > 4 else cross
             panes = int(np.sum(np.diff(np.r_[0, (inner > 0.7).astype(int)]) == 1)) + 1
+            if panes > 3: continue                # text / logos / glazed screens, not a window opening
             pts = cv2.transform(np.array([[[x, y], [x + w, y + h]]], np.float32), Mi)[0]
             x0, y0 = pts.min(0); x1, y1 = pts.max(0)
             out.append({"box_norm1000": [round(1000 * x0 / W, 1), round(1000 * y0 / H, 1), round(1000 * x1 / W, 1), round(1000 * y1 / H, 1)],
                         "panes": panes})
     return out
 
-DOOR_LEAF, DOOR_INNER, DOOR_THIN_WALLS, RING = 0.85, 0.35, False, 0.4   # set on the synthetic school scan only
+DOOR_LEAF, DOOR_INNER, DOOR_THIN_WALLS, RING, DOOR_C, DOOR_NEAR = 0.85, 0.35, False, 0.4, 12, 5   # set on the synthetic school scan only
 
 def raster_doors(image_bytes):
     """Door swings in a scanned plan: a quarter-circle arc + a straight leaf line from a hinge at a solid wall, with an
@@ -135,7 +160,7 @@ def raster_doors(image_bytes):
     try:
         import cv2, numpy as np, math
     except ImportError: return []
-    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    im = _gray(image_bytes)
     if im is None: return []
     f = min(1.0, 5000 / max(im.shape)); im = cv2.resize(im, None, fx=f, fy=f) if f < 1 else im; H, W = im.shape
     b0 = (im < 120).astype(np.uint8)
@@ -151,9 +176,9 @@ def raster_doors(image_bytes):
     if not (dt > 0).any(): return []
     t = float(np.percentile(dt[dt > 0], 90) * 2)
     if t < 4: return []
-    ad = cv2.adaptiveThreshold(im, 1, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 31, 12).astype(np.uint8)
+    ad = cv2.adaptiveThreshold(im, 1, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 31, DOOR_C).astype(np.uint8)
     thin = cv2.dilate(ad & (1 - cv2.dilate(thick, np.ones((3, 3), np.uint8))), np.ones((2, 2), np.uint8))
-    near = cv2.dilate(thin, np.ones((5, 5), np.uint8)).astype(bool)
+    near = cv2.dilate(thin, np.ones((DOOR_NEAR, DOOR_NEAR), np.uint8)).astype(bool)
     rmin, rmax = 1.6 * t, 4.0 * t
     A = np.linspace(0, math.pi / 2, 26)[1:-1]; Ks = np.linspace(0.15, 0.95, 12); a2 = np.linspace(0.35, 1.22, 10)
     def ok(xs, ys):
@@ -256,6 +281,7 @@ def _marks_answer(groups, resp):
             "evidence": {"reason": resp.get("reason"), "mark_group": g["id"], "diameter_px": g["diameter_px"],
                          "readings": [g["count"], resp.get("answer")]}}
 
+MEASURE_Q = re.compile(r"\barea\b|\bm2\b|m²|square (?:feet|metres|meters)|\bsq\.?\s?(?:ft|m)\b|baseboard|skirting|perimeter|\blength\b|how long|pinta-ala|fläche", re.I)
 DOOR_Q = re.compile(r"\bdoors?\b|door leaves|ovi|ovet|tür|porte|porta|dörr|puerta|门", re.I)
 WINDOW_Q = re.compile(r"window|ikkun|fenster|fenêtre|finestr|fönster|ventana|窗", re.I)
 
@@ -379,7 +405,10 @@ def answer_single(image_bytes, question, call_model, votes=2):
         x["value"] is not None and y["value"] is not None and str(x["value"]).strip().lower() == str(y["value"]).strip().lower())
     agree = len(runs) < 2 or same(runs[0], runs[1])
     warn = [] if agree else [f"uncertain: two readings disagree ({runs[0]['value']!r} vs {runs[1]['value']!r})"]
-    if not a["found"]: warn.append("not shown on this drawing")
+    if not a["found"]:
+        warn.append("not shown on this drawing")
+        if MEASURE_Q.search(question):
+            warn.append("no room areas / lengths printed for this; calibrate the scale and measure (POST /calibrate, /measure)")
     for i, it in enumerate(a["items"]): it["id"] = i
     return {"value": a["value"], "unit": "count" if is_count else None, "items": a["items"],
             "method": "scan:vlm" + ("" if agree else ":uncertain"), "warnings": warn,
