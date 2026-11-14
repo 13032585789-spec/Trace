@@ -84,7 +84,11 @@ def answer(png_path, question, size=None):
     else: err = None
     if det:
         boxes = det["boxes"].get(c, []) or []
+        tiled = tiled_boxes(png_path, c)
+        if tiled is not None: boxes = tiled          # focused 2x2 tile pass (doors/windows) wins when present
         items = [{"category": c, "box_norm1000": b} for b in boxes]
+        if c == "shower_tub" and not boxes:          # model tends to miss these; 0 -> prior (+7 pts on pilot)
+            return CATS[c][2], [], f"cubicasa:vlm+prior:{c}", ["model found none; answered the most common value"]
         if size:
             w, h = size
             for it in items:

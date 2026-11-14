@@ -6,3 +6,5 @@ eval/results/fails_*.jsonl
 .cache/
 vlm_cache/
 .env
+vlm_tiles/
+vlm_tiles_out/
