@@ -35,9 +35,40 @@ def _room_ev(dxf, r, **kw):
         pass
     d.update(kw); return d
 
+def _full(path):
+    return path if os.path.isabs(path) or os.path.exists(path) else os.path.join(DATA, path)
+
+def _is_swiss_dxf(dxf):
+    """A DXF with the semantic layers the Swiss parser reads (ROOM_OUTLINE + ROOM_TEXT)."""
+    try:
+        with open(dxf, "r", errors="ignore") as f: head = f.read(4_000_000)
+        return "ROOM_OUTLINE" in head and "ROOM_TEXT" in head
+    except OSError:
+        return False
+
+def swiss_dxf(path):
+    """The DXF for a Swiss plan: the dataset copy, the file itself (upload), or a .dxf next to an uploaded PDF/PNG."""
+    stem = os.path.splitext(os.path.basename(path))[0]
+    ds = os.path.join(DATA, "data", "swiss_dwellings", stem + ".dxf")
+    if "swiss_dwellings" in path.replace("\\", "/") and os.path.exists(ds): return ds
+    full = _full(path)
+    cand = full if full.lower().endswith(".dxf") else os.path.splitext(full)[0] + ".dxf"
+    return cand if os.path.exists(cand) else ds
+
+def resolve_source(path):
+    """Dataset paths keep their folder name; uploads are recognised by file type and content."""
+    p = path.replace("\\", "/").split("/")
+    if "data" in p and p.index("data") + 1 < len(p) - 1: return p[p.index("data") + 1]
+    full = _full(path); ext = os.path.splitext(full)[1].lower()
+    if ext == ".ifc" and os.path.exists(full): return "ifc_models"
+    if ext in (".dxf", ".pdf", ".png", ".jpg", ".jpeg"):
+        d = full if ext == ".dxf" else os.path.splitext(full)[0] + ".dxf"
+        if os.path.exists(d) and _is_swiss_dxf(d): return "swiss_dwellings"
+    return p[0] if len(p) > 1 else "upload"
+
 def answer_swiss(path, question):
     stem = os.path.splitext(os.path.basename(path))[0]
-    dxf = os.path.join(DATA, "data", "swiss_dwellings", stem + ".dxf")
+    dxf = swiss_dxf(path)
     f = swiss.parse(dxf)
     q = questions.parse_swiss(question)
     it, items, value, unit, warn = q["intent"], [], None, "count", []
@@ -88,7 +119,8 @@ def answer_swiss(path, question):
             x["png_bbox"] = swiss_view.to_png(dxf, x["bbox_m"]); x["pdf_bbox_pt"] = swiss_view.to_pdf(dxf, x["bbox_m"])
         except Exception:
             pass
-    rel = lambda ext: f"data/swiss_dwellings/{stem}.{ext}"
+    in_ds = os.path.abspath(dxf).startswith(os.path.abspath(os.path.join(DATA, "data")))
+    rel = (lambda ext: f"data/swiss_dwellings/{stem}.{ext}") if in_ds else (lambda ext: os.path.splitext(dxf)[0] + "." + ext)
     sources = [{"file": rel("dxf"), "role": "computed from layers ROOM_OUTLINE/ROOM_TEXT/DOOR/WINDOW/FIXTURE/UNIT_OUTLINE"},
                {"file": rel("png"), "boxes": [x.get("png_bbox") for x in items if x.get("png_bbox")]},
                {"file": rel("pdf"), "page": 1, "boxes_pt": [x.get("pdf_bbox_pt") for x in items if x.get("pdf_bbox_pt")]}]
@@ -99,6 +131,9 @@ def answer_swiss(path, question):
 
 _MODELS = {}
 def _model_path(path, source):
+    full = _full(path)
+    if full.lower().endswith(".ifc") and os.path.exists(full):
+        return full                                    # the model itself (dataset or upload)
     d = os.path.join(DATA, "data", source); stem = os.path.splitext(os.path.basename(path))[0]
     if path.endswith(".ifc"): return os.path.join(d, stem + ".ifc")
     if source not in _MODELS: _MODELS[source] = sorted(f[:-4] for f in os.listdir(d) if f.endswith(".ifc"))
@@ -120,7 +155,7 @@ def answer_ifc(path, question, source):
               "formula": _formula(terms, v, {"m2": "m²", "m3": "m³", "m": "m"}[unit]),
               "rule": f"summed from {src}; each term is one IFC element, identified by GlobalId"}
     out = {"value": v, "unit": unit, "items": items,
-            "sources": [{"file": os.path.relpath(mp, DATA).replace(os.sep, "/")}] + ([{"file": path}] if path.endswith(".pdf") else []),
+            "sources": [{"file": os.path.relpath(mp, DATA).replace(os.sep, "/") if os.path.abspath(mp).startswith(os.path.abspath(DATA)) else mp}] + ([{"file": path}] if path.endswith(".pdf") else []),
             "method": method, "warnings": warn}
     if ev: out["evidence"] = ev
     return out
@@ -149,8 +184,7 @@ def answer(path, question, _fallback=True):
     return r
 
 def _answer_templates(path, question):
-    src = path.replace("\\", "/").split("/")
-    source = src[src.index("data") + 1] if "data" in src else src[0]
+    source = resolve_source(path)
     if source == "swiss_dwellings":
         return answer_swiss(path, question)
     if source in ("ifc_models", "ifc_bench"):
