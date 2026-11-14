@@ -15,16 +15,16 @@ CACHE = os.path.join(os.environ.get("JUNCTION_CACHE", os.path.expanduser("~/.cac
 def _clean(c):
     return re.sub(r"\s+", " ", str(c or "")).strip()
 
-def extract(pdf_path, max_pages=4):
+def extract(pdf_path, max_pages=4, first=0):
     """-> {"file", "pages": [{"page", "size", "text", "tables": [{"id", "bbox", "rows": [[str]]}]}]} (cached)."""
     st = os.stat(pdf_path)
-    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}".encode()).hexdigest()
+    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}" .encode() + (f"|{first}".encode() if first else b"")).hexdigest()
     cp = os.path.join(CACHE, key + ".json")
     if os.path.exists(cp): return json.load(open(cp))
     import pdfplumber
     out = {"file": os.path.basename(pdf_path), "pages": []}
     with pdfplumber.open(pdf_path) as pdf:
-        for pi, pg in enumerate(pdf.pages[:max_pages]):
+        for pi, pg in enumerate(pdf.pages[first:first + max_pages], start=first):
             tabs = []
             for ti, t in enumerate(pg.find_tables()):
                 rows = [[_clean(c) for c in r] for r in split_merged(t.extract())]
@@ -148,20 +148,20 @@ def compute(doc, resp):
         return (int(v) if float(v).is_integer() else round(v, 2)), ev, warn
     return resp.get("answer"), ev, warn
 
-def answer(pdf_path, question, call_model, vision=None):
+def answer(pdf_path, question, call_model, vision=None, page=0):
     """call_model(prompt) -> JSON dict; vision(prompt, image_bytes, temperature) -> JSON dict (optional, used when the
     answer is not in a schedule). Returns the engine evidence dict."""
-    doc = extract(pdf_path)
+    doc = extract(pdf_path, max_pages=1 if page else 4, first=page)
     if not any(p["tables"] or p["text"].strip() for p in doc["pages"]):
         return {"value": None, "unit": None, "items": [], "sources": [{"file": pdf_path}], "method": "docqa:no_text_layer",
                 "warnings": ["this sheet has no text layer (scan); use the vision path"]}
     resp = call_model(PROMPT.replace("{q}", question).replace("{ctx}", context(doc, question)))
     if resp.get("op") == "none" and vision is not None:      # not in a schedule: look at the drawing itself
-        img = render_page(pdf_path)
+        img = render_page(pdf_path, page)
         if img is not None:
             from . import scanqa
             r = scanqa.answer(img, question, vision)
-            r["method"] = "docqa:vision+" + r["method"]; r["sources"] = [{"file": pdf_path, "page": 1}]
+            r["method"] = "docqa:vision+" + r["method"]; r["sources"] = [{"file": pdf_path, "page": page + 1}]
             return r
     v, ev, warn = compute(doc, resp)
     model_ans = resp.get("answer")

@@ -201,8 +201,9 @@ def answer_sheet(path, question, source=None):
     """Any other drawing: vector PDF sheets -> schedule QA (docqa) with a vision fallback; scans and photos -> scanqa.
     Both need the vision model; without it the engine says so instead of guessing."""
     from . import llm
-    full = path if os.path.isabs(path) else os.path.join(DATA, path)
-    ext = os.path.splitext(path)[1].lower()
+    path_nopage = path.rsplit("#p", 1)[0] if re.search(r"#p\d+$", path) else path
+    full = path_nopage if os.path.isabs(path_nopage) else os.path.join(DATA, path_nopage)
+    ext = os.path.splitext(path_nopage)[1].lower()
     base = {"value": None, "unit": None, "items": [], "sources": [{"file": path}]}
     if not os.path.exists(full):
         return {**base, "method": "sheet:not_found", "warnings": [f"file not found: {path}"]}
@@ -213,9 +214,11 @@ def answer_sheet(path, question, source=None):
                 "warnings": ["this drawing needs the vision model (set GEMINI_API_KEY); zero-API mode has no answer for it"]}
     try:
         if ext == ".pdf":
-            from . import docqa
+            from . import docqa, sheet
             try:
-                return docqa.answer(full, question, llm.text_json, llm.vision_json)
+                page = None
+                if "#p" in path: page = int(path.rsplit("#p", 1)[1]) - 1
+                return sheet.answer(full, question, llm.text_json, page=page, vision=llm.vision_json)
             except ImportError:                     # no pdfplumber here: read the sheet visually
                 from . import scanqa
                 img = docqa.render_page(full)
