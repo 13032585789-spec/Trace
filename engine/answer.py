@@ -159,5 +159,36 @@ def _answer_templates(path, question):
         png = os.path.join(DATA, path) if not os.path.isabs(path) else path
         v, items, method, warn = cubicasa.answer(png, question, _png_size)
         return {"value": v, "unit": "count", "items": items, "sources": [{"file": path}], "method": method, "warnings": warn}
-    return {"value": None, "unit": None, "items": [], "sources": [], "method": f"unsupported:{source}",
-            "warnings": [f"no solver yet for source '{source}'"]}
+    return answer_sheet(path, question, source)
+
+IMAGE_EXT = (".png", ".jpg", ".jpeg", ".tif", ".tiff", ".webp", ".bmp")
+
+def answer_sheet(path, question, source=None):
+    """Any other drawing: vector PDF sheets -> schedule QA (docqa) with a vision fallback; scans and photos -> scanqa.
+    Both need the vision model; without it the engine says so instead of guessing."""
+    from . import llm
+    full = path if os.path.isabs(path) else os.path.join(DATA, path)
+    ext = os.path.splitext(path)[1].lower()
+    base = {"value": None, "unit": None, "items": [], "sources": [{"file": path}]}
+    if not os.path.exists(full):
+        return {**base, "method": "sheet:not_found", "warnings": [f"file not found: {path}"]}
+    if ext not in (".pdf",) + IMAGE_EXT:
+        return {**base, "method": f"unsupported:{ext or source}", "warnings": [f"no solver for {ext or 'this file type'} (supported: PDF sheets, images, DXF of Swiss plans, IFC)"]}
+    if not llm.available():
+        return {**base, "method": "sheet:needs_vision_model",
+                "warnings": ["this drawing needs the vision model (set GEMINI_API_KEY); zero-API mode has no answer for it"]}
+    try:
+        if ext == ".pdf":
+            from . import docqa
+            try:
+                return docqa.answer(full, question, llm.text_json, llm.vision_json)
+            except ImportError:                     # no pdfplumber here: read the sheet visually
+                from . import scanqa
+                img = docqa.render_page(full)
+                if img is None: return {**base, "method": "sheet:cannot_read_pdf", "warnings": ["install pdfplumber or pypdfium2"]}
+                r = scanqa.answer(img, question, llm.vision_json); r["sources"] = [{"file": path, "page": 1}]; return r
+        from . import scanqa
+        r = scanqa.answer(llm.prepare_image(full), question, llm.vision_json)
+        r["sources"] = [{"file": path}]; return r
+    except RuntimeError as e:
+        return {**base, "method": "sheet:model_error", "warnings": [str(e)]}
