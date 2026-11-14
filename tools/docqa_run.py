@@ -12,6 +12,7 @@ from engine import docqa
 
 DATA = os.environ.get("JUNCTION_DATA", os.path.expanduser("~/work/junction-dataset"))
 CACHE_DIR = os.path.join(ROOT, "eval", "_docqa_cache")
+ONLY = None   # optional: python tools/docqa_run.py ask 24,29,34   (re-run only these question numbers)
 safe = lambda p: re.sub(r"[^A-Za-z0-9._-]+", "_", p)[-150:] + ".json"
 
 def questions():
@@ -30,6 +31,8 @@ def do_extract():
             src = alt if os.path.exists(alt) else src
         d = docqa.extract(src); d["file"] = p
         json.dump(d, open(os.path.join(CACHE_DIR, safe(p)), "w", encoding="utf-8"))
+        img = docqa.render_page(src)          # page image for questions that are not in a schedule
+        if img: open(os.path.join(CACHE_DIR, safe(p)[:-5] + ".jpg"), "wb").write(img)
         print("cached", p, sum(len(pg["tables"]) for pg in d["pages"]), "tables")
 
 def gemini(prompt):
@@ -50,6 +53,23 @@ def gemini(prompt):
             time.sleep(3 * (attempt + 1))
     return {"op": "none", "answer": None, "reason": "model call failed: " + err}
 
+def vision(prompt, image_bytes, temperature):
+    import base64
+    key = os.environ.get("GEMINI_API_KEY") or sys.exit("set GEMINI_API_KEY in the environment first")
+    model = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
+    body = {"contents": [{"parts": [{"text": prompt}, {"inline_data": {"mime_type": "image/jpeg", "data": base64.b64encode(image_bytes).decode()}}]}],
+            "generationConfig": {"responseMimeType": "application/json", "temperature": temperature}}
+    for attempt in range(4):
+        try:
+            req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=180) as r: res = json.loads(r.read())
+            txt = res["candidates"][0]["content"]["parts"][0]["text"]; out = json.loads(txt[txt.find("{"): txt.rfind("}") + 1])
+            return out[0] if isinstance(out, list) else out
+        except Exception:
+            time.sleep(3 * (attempt + 1))
+    return {"found": False, "answer": None}
+
 def correct(q, v):
     if v is None: return False
     if q["type"] == "count":
@@ -63,9 +83,16 @@ def do_ask():
     out = open(os.path.join(ROOT, "eval", "_docqa_answers.jsonl"), "w", encoding="utf-8")
     ok = n = 0; toks = 0
     for i, q in enumerate(Q):
+        if ONLY and str(i + 1) not in ONLY: continue
         doc = json.load(open(os.path.join(CACHE_DIR, safe(q["path"])), encoding="utf-8"))
         resp = gemini(docqa.PROMPT.replace("{q}", q["question"]).replace("{ctx}", docqa.context(doc, q["question"])))
-        v, ev, warn = docqa.compute(doc, resp); c = correct(q, v)
+        v, ev, warn = docqa.compute(doc, resp)
+        jpg = os.path.join(CACHE_DIR, safe(q["path"])[:-5] + ".jpg")
+        if resp.get("op") == "none" and os.path.exists(jpg):       # vision fallback on the rendered sheet
+            from engine import scanqa
+            r = scanqa.answer(open(jpg, "rb").read(), q["question"], vision); v = r["value"]; warn = r["warnings"]
+            resp = {**resp, "op": "vision", "answer": v}
+        c = correct(q, v)
         toks += (resp.get("_usage") or {}).get("totalTokenCount", 0)
         if c is not None: n += 1; ok += c
         rec = {"q": q["question"], "type": q["type"], "gold": q["answer"], "value": v, "model_answer": resp.get("answer"),
@@ -75,4 +102,5 @@ def do_ask():
     print(f"\nscored (count+area): {ok}/{n} = {100*ok/max(1,n):.1f}%   tokens used: {toks}  (avg {toks//max(1,len(Q))}/question)")
 
 if __name__ == "__main__":
+    if len(sys.argv) > 2: ONLY = set(sys.argv[2].split(","))
     {"extract": do_extract, "ask": do_ask}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
