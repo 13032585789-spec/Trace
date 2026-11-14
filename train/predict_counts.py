@@ -47,5 +47,10 @@ for n, (dets, (W, H)) in test.items():
         boxes[cat].append([round(x0 * 1000 / W, 1), round(y0 * 1000 / H, 1), round(x1 * 1000 / W, 1), round(y1 * 1000 / H, 1)])
     json.dump({"model": "yolo-cubicasa", "boxes": boxes}, open(os.path.join(dst, n + ".json"), "w"))
 shutil.copy(os.path.join(here, "data", "annotation_counts.json"), dst)
+# raw detections (every box >= 0.05 with its score) for val + test, so thresholds can be re-tuned
+# offline against the Junction question answers instead of the SVG annotation counts
+raw = {n: {"size": wh, "dets": [[k, round(p, 3)] + [round(v, 1) for v in b] for k, p, b in d]}
+       for n, (d, wh) in {**val, **test}.items()}
+json.dump({"val": sorted(val), "test": sorted(test), "raw": raw}, open(os.path.join(dst, "_raw_detections.json"), "w"))
 shutil.make_archive(os.path.join(here, "det_cache"), "zip", dst)
 print("wrote", len(test), "results ->", os.path.join(here, "det_cache.zip"))
