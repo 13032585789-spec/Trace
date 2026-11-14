@@ -46,6 +46,12 @@ Scanned/raster Finnish plans: no vector data, and Tesseract OCR scored below the
   The count is the number of boxes, and the boxes are the evidence (`png_bbox`).
 * **no key**: answers the most common value for the question type and returns a low-confidence warning.
 
+### Pilot result (gemini-3.6-flash, whole image, held-out images)
+110 images / 1,014 questions: 83.0% vs 59.3% for priors. Strong: storeys, toilets, WC rooms, kitchens, bathrooms (97-100%),
+saunas, balconies, bedrooms, sinks (86-89%). Weak: doors ~52-59%, windows ~30-40% (undercounted).
+A 2x2 tile pass for doors/windows (`make_tiles.py` + `vlm_tiles.py`, enable with `JUNCTION_TILES=1`) did not help on the pilot.
+Showers/tubs: when the model finds none we answer the prior (1), +7 points.
+
 ## Known gaps
 * Swiss: unlabelled numbered rooms are sometimes counted in apartment/indoor totals and sometimes not (about 1% of Swiss questions).
 * IFC: storey total area 77%, wall side area 88%, wall volume 91%.

@@ -75,7 +75,30 @@ def detections(png_path):
     json.dump(out, open(cp, "w"))
     return out
 
-def answer(png_path, question, size=None):
+TILES_OUT = os.path.join(os.path.dirname(LOCAL), "vlm_tiles_out")
+TILES_IN = os.path.join(os.path.dirname(LOCAL), "vlm_tiles")
+
+def tiled_boxes(png_path, cat):
+    """Merge per-tile boxes (tile-normalised 0-1000) back to whole-image 0-1000 and drop duplicates in overlaps."""
+    base = os.path.basename(png_path); meta_p = os.path.join(TILES_IN, base + ".tiles.json")
+    if os.environ.get("JUNCTION_TILES") != "1": return None   # off by default: worse than whole-image on the pilot
+    if cat not in ("door", "window") or not os.path.exists(meta_p): return None
+    meta = json.load(open(meta_p)); W, H = meta["size"]; out = []
+    for t in meta["tiles"]:
+        rp = os.path.join(TILES_OUT, t["file"] + ".json")
+        if not os.path.exists(rp): return None      # incomplete -> fall back to whole-image pass
+        x0, y0, x1, y1 = t["xyxy"]; tw, th = x1 - x0, y1 - y0
+        for b in (json.load(open(rp)).get(cat) or []):
+            if not isinstance(b, list) or len(b) != 4: continue
+            g = [(x0 + b[0] * tw / 1000) * 1000 / W, (y0 + b[1] * th / 1000) * 1000 / H,
+                 (x0 + b[2] * tw / 1000) * 1000 / W, (y0 + b[3] * th / 1000) * 1000 / H]
+            cx, cy = (g[0] + g[2]) / 2, (g[1] + g[3]) / 2
+            r, c = int(t["file"][-7]), int(t["file"][-5])          # ..__r{r}c{c}.jpg : each tile owns one quadrant
+            if (cx >= 500) != (c == 1) or (cy >= 500) != (r == 1): continue
+            out.append([round(v, 1) for v in g])
+    return out
+
+def answer(png_path, question, size_fn=None):
     c = category(question)
     if c is None:
         return None, [], "cubicasa:unknown", ["question not recognised"]
@@ -89,6 +112,7 @@ def answer(png_path, question, size=None):
         items = [{"category": c, "box_norm1000": b} for b in boxes]
         if c == "shower_tub" and not boxes:          # model tends to miss these; 0 -> prior (+7 pts on pilot)
             return CATS[c][2], [], f"cubicasa:vlm+prior:{c}", ["model found none; answered the most common value"]
+        size = size_fn(png_path) if callable(size_fn) else size_fn
         if size:
             w, h = size
             for it in items:
