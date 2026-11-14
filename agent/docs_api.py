@@ -13,6 +13,9 @@ Routes (all JSON unless noted):
   GET  /docs/mailbox         poll the live mailbox now (needs DOCS_IMAP_* env), returns receipts
   POST /docs/tool            {"name":..., "args":{...}}  agent tool call (see docs_tools.TOOLS)
   GET  /docs/tools           the tool declarations
+  GET  /project/sheets?project=P   every sheet with its kind / level / sheet number / title / building (indexed once)
+  POST /project/building     {"id": N, "building": "A"}   (or send field 'building' with the upload)
+  POST /project/ask          {"project": P, "question": ".."} -> total + per-sheet breakdown (each with its answer_id)
   POST /ask                  {"id": N, "question": ".."} -> answer with answer_id, item ids (boxes), alternatives
   GET  /answer?id=A          a stored answer (after reviews)
   POST /review               {"answer_id": A, "remove": [item ids], "add": [[x0,y0,x1,y1], ...], "choose": k, "user": ".."}
@@ -64,6 +67,7 @@ def handle(method, path, query, headers, body, S=None):
             for _, fn, data in files:
                 r = S.add(data, fn, actor=fields.get("uploaded_by", "web"), source="web",
                           project=fields.get("project", proj), title=fields.get("title"), revision=fields.get("revision"))
+                if fields.get("building") and r.get("document"): docs_tools.set_building(r["document"]["id"], fields["building"], S)
                 out.append({"status": r["status"], "reason": r["reason"], "document": docs_tools._pub(r["document"]),
                             "superseded": r["superseded"]})
             return _j(200, {"results": out})
@@ -96,6 +100,12 @@ def handle(method, path, query, headers, body, S=None):
         if path == "/docs/mailbox" and method == "GET":
             try: return _j(200, {"receipts": mail_ingest.poll_imap(S)})
             except RuntimeError as e: return _j(503, {"error": str(e)})
+        if path.startswith("/project/"):
+            a = json.loads(body or b"{}") if method == "POST" else {}
+            if path == "/project/building": return _j(200, docs_tools.set_building(int(a["id"]), str(a["building"]), S))
+            pj = a.get("project") or proj
+            if path == "/project/sheets": return _j(200, {"project": pj, "sheets": docs_tools.project_sheets(pj, S)})
+            if path == "/project/ask": return _j(200, docs_tools.ask_project(pj, a.get("question", ""), S))
         if path in ("/ask", "/review", "/calibrate", "/measure", "/answer"):
             from engine import review as R
             a = json.loads(body or b"{}") if method == "POST" else {}

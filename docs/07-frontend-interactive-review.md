@@ -90,3 +90,20 @@ UI idea: a "Measure" tool where clicks build a polygon (area) or a polyline (len
 | `sheet:scanned+scan:vlm:tiled3x3` | scanned PDF counted tile by tile by the vision model |
 | `scan:vlm`, `scan:vlm:tiledNxM` | image / scan read by the vision model; `:uncertain` = readings disagree |
 | `...+reviewed` | changed by a user in review |
+
+## 7. Project flow (several buildings, many sheets)
+
+A project has buildings, and a building has many sheets: up to ~8 floor plans plus piping, structural and schedule sheets.
+
+- **Upload:** `POST /docs` (multipart) with fields `project` and `building` (e.g. `building=A`).
+  You can also set or change the building later: `POST /project/building {"id": N, "building": "A"}`.
+- **Sheet index:** `GET /project/sheets?project=P` returns every latest sheet with
+  `class: {kind, level, sheet_no, title, scale, how}`. Kinds: `floor_plan | piping | structural | schedule | elevation | section | detail | site | other | model`.
+  Each sheet is read from its title block once (vector PDF) or with one vision call (scan), then cached.
+  Suggested UI: group the sheets by building, then by kind or level.
+- **Project questions:** `POST /project/ask {"project": P, "question": "How many doors are on all floors of building A?"}`.
+  The model only picks the sheets and the per-sheet question; each sheet is answered as in section 1, and the code adds the results.
+  Response: `value` is the total, `method` is `project:sum|list|max|min|single`, and `items` is the per-sheet breakdown
+  `{sheet, building, level, sheet_no, title, value, unit, method, answer_id, warnings}`.
+  Every row has its own `answer_id`, so clicking a row opens that sheet in review mode (sections 2–3).
+  The project answer has an `answer_id` too.
