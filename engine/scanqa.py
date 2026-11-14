@@ -20,6 +20,7 @@ Rules:
 - box_2d uses 0-1000 coordinates of the whole image.
 - For a count, give exactly one evidence box per counted item, and "answer" must equal the number of boxes.
   Count only what is drawn or labelled; do not infer hidden items.
+- Windows: count every pane separately - a window opening divided by a thin line (mullion) is 2 windows.
 - For text you read (title, place, architect, date, scale), box that text and copy it into "quote".
 - If the sheet does not show the information, set found=false and answer=null. Never guess.
 
@@ -68,11 +69,90 @@ def raster_marks(image_bytes, min_count=5):
     return [{"id": f"g{i}", "count": len(g["items"]), "diameter_px": round(sum(g["d"]) / len(g["d"]), 1), "items": g["items"]}
             for i, g in enumerate(groups)]
 
+def raster_windows(image_bytes):
+    """Window symbols in a scanned plan: openings in thick (solid) walls that are bridged by 2+ thin lines running
+    along the wall, on the building's outside wall. Mullions (thin lines across the opening) split it into panes;
+    each pane counts as one window. -> [{"box_norm1000", "panes"}] or [] (needs OpenCV)."""
+    try:
+        import cv2, numpy as np
+    except ImportError: return []
+    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    if im is None: return []
+    H0, W0 = im.shape
+    f = min(1.0, 5000 / max(H0, W0)); im = cv2.resize(im, None, fx=f, fy=f) if f < 1 else im; H, W = im.shape
+    b0 = (im < 120).astype(np.uint8)
+    small = cv2.resize(cv2.morphologyEx(b0, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8)).astype(np.float32), None, fx=0.25, fy=0.25)
+    h2, w2 = small.shape; best = (0, 0.0)
+    for a in np.arange(-2, 2.01, 0.1):                      # deskew: walls should be axis-aligned
+        R = cv2.warpAffine(small, cv2.getRotationMatrix2D((w2 / 2, h2 / 2), a, 1), (w2, h2))
+        sc = R.sum(1).var() + R.sum(0).var()
+        if sc > best[0]: best = (sc, float(a))
+    M = cv2.getRotationMatrix2D((W / 2, H / 2), best[1], 1); Mi = cv2.invertAffineTransform(M)
+    im = cv2.warpAffine(im, M, (W, H), borderValue=255)
+    b = (im < 120).astype(np.uint8)
+    thick = cv2.morphologyEx(b, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    dt = cv2.distanceTransform(thick, cv2.DIST_L2, 3)
+    if not (dt > 0).any(): return []
+    t = float(np.percentile(dt[dt > 0], 90) * 2)
+    if t < 4: return []
+    ad = cv2.adaptiveThreshold(im, 1, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 31, 12).astype(np.uint8)
+    thin = ad & (1 - cv2.dilate(thick, np.ones((3, 3), np.uint8)))
+    seal = cv2.morphologyEx(thick, cv2.MORPH_CLOSE, np.ones((int(6 * t), int(6 * t)), np.uint8))
+    ff = (1 - seal).astype(np.uint8); cv2.floodFill(ff, np.zeros((H + 2, W + 2), np.uint8), (2, 2), 2); outside = ff == 2
+    def outer(axis, x, y, w, h):
+        o = int(1.5 * t)
+        A, B = ((outside[max(0, y - o):y, x:x + w], outside[y + h:y + h + o, x:x + w]) if axis == "h"
+                else (outside[y:y + h, max(0, x - o):x], outside[y:y + h, x + w:x + w + o]))
+        return (A.size and A.mean() > 0.5) or (B.size and B.mean() > 0.5)
+    out = []; L = int(t * 7)
+    for axis in ("h", "v"):
+        k = np.ones((1, L), np.uint8) if axis == "h" else np.ones((L, 1), np.uint8)
+        gap = cv2.morphologyEx(thick, cv2.MORPH_CLOSE, k) & (1 - thick)
+        n, lab, st, _ = cv2.connectedComponentsWithStats(gap)
+        for i in range(1, n):
+            x, y, w, h, _a = (int(v) for v in st[i])
+            ln, th = (w, h) if axis == "h" else (h, w)
+            if not (0.5 * t <= th <= 2.2 * t and ln >= t): continue
+            reg = thin[y:y + h, x:x + w]
+            along = reg.mean(axis=1) if axis == "h" else reg.mean(axis=0)
+            if int(np.sum(np.diff(np.r_[0, (along > 0.4).astype(int)]) == 1)) < 2 or not outer(axis, x, y, w, h): continue
+            cross = reg.mean(axis=0) if axis == "h" else reg.mean(axis=1)
+            inner = cross[2:-2] if len(cross) > 4 else cross
+            panes = int(np.sum(np.diff(np.r_[0, (inner > 0.7).astype(int)]) == 1)) + 1
+            pts = cv2.transform(np.array([[[x, y], [x + w, y + h]]], np.float32), Mi)[0]
+            x0, y0 = pts.min(0); x1, y1 = pts.max(0)
+            out.append({"box_norm1000": [round(1000 * x0 / W, 1), round(1000 * y0 / H, 1), round(1000 * x1 / W, 1), round(1000 * y1 / H, 1)],
+                        "panes": panes})
+    return out
+
 MARKS_NOTE = """
 Image analysis also found these groups of identical small FILLED marks (dots / solid squares), with example
 locations (0-1000 x,y): {groups}
 If the question asks for things drawn as such filled marks (e.g. a note or legend says the dots mean pipe supports),
 add "mark_group": "<group id>" to your JSON instead of boxing them one by one; the code counts that group."""
+
+WINDOWS_NOTE = """
+Image analysis also found {n} window panes ({m} openings) in the outside walls: openings in the solid walls bridged by
+thin parallel lines; an opening split by thin cross lines counts one window per pane. Example locations (0-1000 x,y):
+{ex}. If the question asks how many windows there are and these look right, add "window_candidates": true to your JSON;
+the code then counts them (you may still list extra windows the analysis missed as evidence boxes with label
+"extra window")."""
+
+def _windows_prompt(ws):
+    n = sum(w["panes"] for w in ws)
+    ex = ", ".join(f"({int((w['box_norm1000'][0] + w['box_norm1000'][2]) / 2)},{int((w['box_norm1000'][1] + w['box_norm1000'][3]) / 2)})" for w in ws[:5])
+    return WINDOWS_NOTE.replace("{n}", str(n)).replace("{m}", str(len(ws))).replace("{ex}", ex)
+
+def _windows_answer(ws, resp):
+    if not resp.get("window_candidates"): return None
+    items = [{"label": f"window ({w['panes']} pane{'s' if w['panes'] > 1 else ''})", "box_norm1000": w["box_norm1000"], "panes": w["panes"]} for w in ws]
+    extra = [e for e in normalise(resp, True)["items"] if "extra" in str(e.get("label", "")).lower()]
+    items += [dict(e, label="extra window (vision model)") for e in extra]
+    for i, it in enumerate(items): it["id"] = i
+    n = sum(w["panes"] for w in ws) + len(extra)
+    return {"value": n, "unit": "count", "items": items, "method": "scan:windows+vlm", "warnings": [],
+            "evidence": {"reason": resp.get("reason"), "openings": len(ws), "panes": n - len(extra), "extra_from_model": len(extra),
+                         "readings": [n, resp.get("answer")]}}
 
 def _marks_prompt(groups):
     return MARKS_NOTE.replace("{groups}", "; ".join(
@@ -87,6 +167,8 @@ def _marks_answer(groups, resp):
     return {"value": g["count"], "unit": "count", "items": items, "method": "scan:marks+vlm", "warnings": [],
             "evidence": {"reason": resp.get("reason"), "mark_group": g["id"], "diameter_px": g["diameter_px"],
                          "readings": [g["count"], resp.get("answer")]}}
+
+WINDOW_Q = re.compile(r"window|ikkun|fenster|fenêtre|finestr|fönster|ventana|窗", re.I)
 
 def looks_like_count(q):
     return bool(re.search(r"\bhow many\b|\bnumber of\b|montako|wie viele|combien|quanti|hur många|多少|几", q, re.I))
@@ -155,9 +237,10 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
     if is_count and max(W, H) > tile_from:
         grid = (3, 3) if max(W, H) > 5000 else (2, 2)
         if W > 1.6 * H: grid = (grid[0] + 1, grid[1])
-        groups = raster_marks(image_bytes)
-        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else ""), _shrink(image_bytes), 0.0)
-        m = _marks_answer(groups, raw) if groups else None
+        groups, ws = raster_marks(image_bytes), (raster_windows(image_bytes) if WINDOW_Q.search(question) else [])
+        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else ""),
+                         _shrink(image_bytes), 0.0)
+        m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None)
         if m: return m
         whole = normalise(raw, True)
         if not whole["found"]:
@@ -192,9 +275,10 @@ def _shrink(image_bytes, max_side=2400):
 def answer_single(image_bytes, question, call_model, votes=2):
     is_count = looks_like_count(question)
     groups = raster_marks(image_bytes) if is_count else []
-    if groups:
-        raw = call_model(PROMPT.replace("{q}", question) + _marks_prompt(groups), image_bytes, 0.0)
-        m = _marks_answer(groups, raw)
+    ws = raster_windows(image_bytes) if is_count and WINDOW_Q.search(question) else []
+    if groups or ws:
+        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else "") + (_windows_prompt(ws) if ws else ""), image_bytes, 0.0)
+        m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None)
         if m: return m
     runs = [normalise(call_model(PROMPT.replace("{q}", question), image_bytes, t), is_count) for t in (0.0, 0.6)[:votes]]
     a = runs[0]

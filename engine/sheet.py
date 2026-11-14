@@ -164,7 +164,11 @@ def windows(pg, mpp):
             m = (g[0] + g[-1]) / 2
             if not ((solid(a, m) and solid(b, m)) if k == "h" else (solid(m, a) and solid(m, b))): continue
             box = [a, g[0], b, g[-1]] if k == "h" else [g[0], a, g[-1], b]
-            out.append({"box": [round(v, 1) for v in box], "width_m": round((b - a) * mpp, 2)})
+            # mullions: thin lines across the opening split it into panes; each pane counts as one window
+            perp = "v" if k == "h" else "h"; band = g[-1] - g[0]
+            mull = {round(c) for (kk, a2, b2), cs2 in G.items() if kk == perp and abs((b2 - a2) - band) < 1.5
+                    and g[0] - 1 <= a2 <= g[0] + 1 for c in cs2 if a + 1.5 < c < b - 1.5}
+            out.append({"box": [round(v, 1) for v in box], "width_m": round((b - a) * mpp, 2), "panes": len(mull) + 1})
     return out
 
 def rooms(pdf_path, page, facts, res=0.02):
@@ -231,7 +235,7 @@ def load(pdf_path, page=0):
     side = f"{pdf_path}.p{page + 1}.facts.json"
     if os.path.exists(side): return json.load(open(side))
     st = os.stat(pdf_path)
-    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v10".encode()).hexdigest()
+    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v11".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".json")
     if os.path.exists(cp): return json.load(open(cp))
     import pdfplumber
@@ -285,7 +289,8 @@ def summary(f, max_lines=400):
     if f.get("rooms"):
         out.append("ROOMS (id: label | floor area m2 | perimeter m | door leaves on it | baseboard m = perimeter - door widths):")
         out += [f"  r{i}: {R['name']} | {R['area_m2']} | {R['perimeter_m']} | {len(R['doors'])} | {R['baseboard_m']}" for i, R in enumerate(f["rooms"])]
-    out.append(f"WINDOW SYMBOLS IN WALLS: {len(f.get('windows', []))} (each glazed panel between two solid wall pieces)")
+    out.append(f"WINDOW SYMBOLS IN WALLS: {sum(w.get('panes', 1) for w in f.get('windows', []))} panes in {len(f.get('windows', []))} openings "
+               "(each pane between solid wall pieces or mullions counts as one window)")
     out.append("DIMENSIONS (id: text):")
     out.append("  " + ", ".join(f"{d['id']}{pos(d['box'])}:{d['text']}{'(v)' if d['vertical'] else ''}" for d in f["dims"][:600]))
     return "\n".join(out)
@@ -360,7 +365,10 @@ def compute(f, r):
                               {"label": "door leaves (a double door = 2)", "value": len(f["door_leaves"])}]
         return len(items), "count", items, warn
     if op == "count_windows":
-        return len(f.get("windows", [])), "count", [{"box": w["box"], "width_m": w["width_m"]} for w in f.get("windows", [])], warn
+        ws = f.get("windows", []); n = sum(w.get("panes", 1) for w in ws)
+        f["_alternatives"] = [{"label": "window panes (an opening split by a mullion = 2)", "value": n},
+                              {"label": "window openings", "value": len(ws)}]
+        return n, "count", [{"box": w["box"], "width_m": w["width_m"], "panes": w.get("panes", 1)} for w in ws], warn
     if op == "rooms":
         fld = r.get("field") if r.get("field") in ("area_m2", "perimeter_m", "baseboard_m") else "area_m2"
         sel = []
