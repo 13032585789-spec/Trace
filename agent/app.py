@@ -38,7 +38,13 @@ def ask(body: AskIn):
             drawings.resolve(body.path)
         except drawings.DrawingError as e:
             raise HTTPException(404, str(e))
-    return agent.ask(body.question, body.path, body.role)
+    try:
+        return agent.ask(body.question, body.path, body.role)
+    except Exception as e:  # surface the real error to the UI instead of a bare 500
+        import traceback
+
+        traceback.print_exc()
+        raise HTTPException(500, f"{type(e).__name__}: {e}")
 
 
 @app.get("/drawing")
@@ -73,3 +79,16 @@ def questions(source: str | None = None, limit: int = 50):
             if len(out) >= limit:
                 break
     return out
+
+@app.get("/models")
+def models():
+    """Gemini model names this key can call with generateContent (to pick GEMINI_MODEL)."""
+    from google import genai
+
+    client = genai.Client(api_key=config.GEMINI_API_KEY)
+    out = []
+    for m in client.models.list():
+        actions = getattr(m, "supported_actions", None) or []
+        if "gemini" in m.name and (not actions or "generateContent" in actions):
+            out.append(m.name)
+    return {"current": config.GEMINI_MODEL, "models": out}
