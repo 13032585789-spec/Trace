@@ -17,7 +17,7 @@
  "quality": "measured",
  "warnings": [
   "walls = solid black fills (cut walls); outline-drawn walls are not included; wall height is not on a plan",
-  "fixtures (WC, sinks) are drawn as symbols: not exported from vector sheets yet; ask questions for counts",
+  "fixtures from repeated CAD symbols: 23/23 symbol types named (named manually from the symbol montage (sidecar)); a fixture drawn only once on a sheet is not found",
   "door/window heights and storey height are not on a plan: null"
  ],
  "sources": [
@@ -25602,6 +25602,8557 @@
    }
   }
  ],
- "objects": [],
+ "objects": [
+  {
+   "id": "p1-sym0-0",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    27.8836,
+    0.0,
+    56.7831
+   ],
+   "rotation_deg": 31.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     392.0,
+     801.4,
+     398.8,
+     808.4
+    ],
+    "bbox_norm1000": [
+     232.8,
+     672.9,
+     236.8,
+     678.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-1",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    47.8931,
+    0.0,
+    67.4793
+   ],
+   "rotation_deg": 31.7,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     675.2,
+     952.7,
+     682.0,
+     959.8
+    ],
+    "bbox_norm1000": [
+     401.0,
+     799.9,
+     405.0,
+     805.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-2",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    47.8649,
+    0.0,
+    65.9836
+   ],
+   "rotation_deg": 31.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     675.2,
+     931.7,
+     682.0,
+     938.8
+    ],
+    "bbox_norm1000": [
+     401.0,
+     782.3,
+     405.0,
+     788.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-3",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     850.2,
+     843.3,
+     857.0
+    ],
+    "bbox_norm1000": [
+     496.6,
+     713.9,
+     500.8,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-4",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     842.0,
+     843.3,
+     848.8
+    ],
+    "bbox_norm1000": [
+     496.6,
+     707.0,
+     500.8,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-5",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     833.8,
+     843.3,
+     840.6
+    ],
+    "bbox_norm1000": [
+     496.6,
+     700.1,
+     500.8,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-6",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     825.5,
+     843.3,
+     832.4
+    ],
+    "bbox_norm1000": [
+     496.6,
+     693.1,
+     500.8,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-7",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     817.3,
+     843.3,
+     824.2
+    ],
+    "bbox_norm1000": [
+     496.6,
+     686.2,
+     500.8,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-8",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     809.1,
+     843.3,
+     815.9
+    ],
+    "bbox_norm1000": [
+     496.6,
+     679.3,
+     500.8,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-9",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     800.9,
+     843.3,
+     807.7
+    ],
+    "bbox_norm1000": [
+     496.6,
+     672.5,
+     500.8,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-10",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     792.7,
+     843.3,
+     799.5
+    ],
+    "bbox_norm1000": [
+     496.6,
+     665.6,
+     500.8,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-11",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 59.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     702.9,
+     843.3,
+     709.7
+    ],
+    "bbox_norm1000": [
+     496.6,
+     590.2,
+     500.8,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-12",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     719.4,
+     843.3,
+     726.2
+    ],
+    "bbox_norm1000": [
+     496.6,
+     604.0,
+     500.8,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-13",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     727.6,
+     843.3,
+     734.4
+    ],
+    "bbox_norm1000": [
+     496.6,
+     610.9,
+     500.8,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-14",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     735.8,
+     843.3,
+     742.6
+    ],
+    "bbox_norm1000": [
+     496.6,
+     617.8,
+     500.8,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-15",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     744.1,
+     843.3,
+     750.8
+    ],
+    "bbox_norm1000": [
+     496.6,
+     624.8,
+     500.8,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-16",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     752.3,
+     843.3,
+     759.1
+    ],
+    "bbox_norm1000": [
+     496.6,
+     631.7,
+     500.8,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-17",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     760.5,
+     843.3,
+     767.3
+    ],
+    "bbox_norm1000": [
+     496.6,
+     638.5,
+     500.8,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-18",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2596,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     768.7,
+     843.3,
+     775.5
+    ],
+    "bbox_norm1000": [
+     496.6,
+     645.4,
+     500.8,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-19",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 58.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     702.9,
+     830.6,
+     709.7
+    ],
+    "bbox_norm1000": [
+     489.0,
+     590.2,
+     493.2,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-20",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 58.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     711.1,
+     830.6,
+     718.0
+    ],
+    "bbox_norm1000": [
+     489.0,
+     597.1,
+     493.2,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-21",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     719.4,
+     830.6,
+     726.2
+    ],
+    "bbox_norm1000": [
+     489.0,
+     604.0,
+     493.2,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-22",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     727.6,
+     830.6,
+     734.4
+    ],
+    "bbox_norm1000": [
+     489.0,
+     610.9,
+     493.2,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-23",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     735.8,
+     830.6,
+     742.6
+    ],
+    "bbox_norm1000": [
+     489.0,
+     617.8,
+     493.2,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-24",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     744.1,
+     830.6,
+     750.8
+    ],
+    "bbox_norm1000": [
+     489.0,
+     624.8,
+     493.2,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-25",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     752.3,
+     830.6,
+     759.1
+    ],
+    "bbox_norm1000": [
+     489.0,
+     631.7,
+     493.2,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-26",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     760.5,
+     830.6,
+     767.3
+    ],
+    "bbox_norm1000": [
+     489.0,
+     638.5,
+     493.2,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-27",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     768.7,
+     830.6,
+     775.5
+    ],
+    "bbox_norm1000": [
+     489.0,
+     645.4,
+     493.2,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-28",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     850.2,
+     817.8,
+     857.0
+    ],
+    "bbox_norm1000": [
+     481.4,
+     713.9,
+     485.6,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-29",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     842.0,
+     817.8,
+     848.8
+    ],
+    "bbox_norm1000": [
+     481.4,
+     707.0,
+     485.6,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-30",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     833.8,
+     817.8,
+     840.6
+    ],
+    "bbox_norm1000": [
+     481.4,
+     700.1,
+     485.6,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-31",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     825.5,
+     817.8,
+     832.4
+    ],
+    "bbox_norm1000": [
+     481.4,
+     693.1,
+     485.6,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-32",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     817.3,
+     817.8,
+     824.2
+    ],
+    "bbox_norm1000": [
+     481.4,
+     686.2,
+     485.6,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-33",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     809.1,
+     817.8,
+     815.9
+    ],
+    "bbox_norm1000": [
+     481.4,
+     679.3,
+     485.6,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-34",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 120.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     792.7,
+     817.8,
+     799.5
+    ],
+    "bbox_norm1000": [
+     481.4,
+     665.6,
+     485.6,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-35",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 58.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     719.4,
+     817.8,
+     726.2
+    ],
+    "bbox_norm1000": [
+     481.4,
+     604.0,
+     485.6,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-36",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 58.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     727.6,
+     817.8,
+     734.4
+    ],
+    "bbox_norm1000": [
+     481.4,
+     610.9,
+     485.6,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-37",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 58.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     735.8,
+     817.8,
+     742.6
+    ],
+    "bbox_norm1000": [
+     481.4,
+     617.8,
+     485.6,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-38",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 58.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     744.1,
+     817.8,
+     750.8
+    ],
+    "bbox_norm1000": [
+     481.4,
+     624.8,
+     485.6,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-39",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 58.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     752.3,
+     817.8,
+     759.1
+    ],
+    "bbox_norm1000": [
+     481.4,
+     631.7,
+     485.6,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-40",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 58.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     760.5,
+     817.8,
+     767.3
+    ],
+    "bbox_norm1000": [
+     481.4,
+     638.5,
+     485.6,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-41",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 58.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     768.7,
+     817.8,
+     775.5
+    ],
+    "bbox_norm1000": [
+     481.4,
+     645.4,
+     485.6,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-42",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 58.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     702.9,
+     805.1,
+     709.7
+    ],
+    "bbox_norm1000": [
+     473.8,
+     590.2,
+     478.1,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-43",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 58.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     711.1,
+     805.1,
+     718.0
+    ],
+    "bbox_norm1000": [
+     473.8,
+     597.1,
+     478.1,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-44",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     719.4,
+     805.1,
+     726.2
+    ],
+    "bbox_norm1000": [
+     473.8,
+     604.0,
+     478.1,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-45",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     727.6,
+     805.1,
+     734.4
+    ],
+    "bbox_norm1000": [
+     473.8,
+     610.9,
+     478.1,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-46",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     735.8,
+     805.1,
+     742.6
+    ],
+    "bbox_norm1000": [
+     473.8,
+     617.8,
+     478.1,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-47",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 57.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     744.1,
+     805.1,
+     750.8
+    ],
+    "bbox_norm1000": [
+     473.8,
+     624.8,
+     478.1,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-48",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 57.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     752.3,
+     805.1,
+     759.1
+    ],
+    "bbox_norm1000": [
+     473.8,
+     631.7,
+     478.1,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-49",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 57.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     760.5,
+     805.1,
+     767.3
+    ],
+    "bbox_norm1000": [
+     473.8,
+     638.5,
+     478.1,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-50",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 57.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     768.7,
+     805.1,
+     775.5
+    ],
+    "bbox_norm1000": [
+     473.8,
+     645.4,
+     478.1,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-51",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     744.1,
+     792.3,
+     750.8
+    ],
+    "bbox_norm1000": [
+     466.2,
+     624.8,
+     470.5,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-52",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     752.3,
+     792.3,
+     759.1
+    ],
+    "bbox_norm1000": [
+     466.2,
+     631.7,
+     470.5,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-53",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     760.5,
+     792.3,
+     767.3
+    ],
+    "bbox_norm1000": [
+     466.2,
+     638.5,
+     470.5,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-54",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     768.7,
+     792.3,
+     775.5
+    ],
+    "bbox_norm1000": [
+     466.2,
+     645.4,
+     470.5,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-55",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     850.2,
+     779.5,
+     857.0
+    ],
+    "bbox_norm1000": [
+     458.7,
+     713.9,
+     462.9,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-56",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     833.8,
+     779.5,
+     840.6
+    ],
+    "bbox_norm1000": [
+     458.7,
+     700.1,
+     462.9,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-57",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     825.5,
+     779.5,
+     832.4
+    ],
+    "bbox_norm1000": [
+     458.7,
+     693.1,
+     462.9,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-58",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     817.3,
+     779.5,
+     824.2
+    ],
+    "bbox_norm1000": [
+     458.7,
+     686.2,
+     462.9,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-59",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     809.1,
+     779.5,
+     815.9
+    ],
+    "bbox_norm1000": [
+     458.7,
+     679.3,
+     462.9,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-60",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     800.9,
+     779.5,
+     807.7
+    ],
+    "bbox_norm1000": [
+     458.7,
+     672.5,
+     462.9,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-61",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 121.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     792.7,
+     779.5,
+     799.5
+    ],
+    "bbox_norm1000": [
+     458.7,
+     665.6,
+     462.9,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-62",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 59.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     702.9,
+     779.5,
+     709.7
+    ],
+    "bbox_norm1000": [
+     458.7,
+     590.2,
+     462.9,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-63",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 59.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     711.1,
+     779.5,
+     718.0
+    ],
+    "bbox_norm1000": [
+     458.7,
+     597.1,
+     462.9,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-64",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     719.4,
+     779.5,
+     726.2
+    ],
+    "bbox_norm1000": [
+     458.7,
+     604.0,
+     462.9,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-65",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     727.6,
+     779.5,
+     734.4
+    ],
+    "bbox_norm1000": [
+     458.7,
+     610.9,
+     462.9,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-66",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     735.8,
+     779.5,
+     742.6
+    ],
+    "bbox_norm1000": [
+     458.7,
+     617.8,
+     462.9,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-67",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     744.1,
+     779.5,
+     750.8
+    ],
+    "bbox_norm1000": [
+     458.7,
+     624.8,
+     462.9,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-68",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     752.3,
+     779.5,
+     759.1
+    ],
+    "bbox_norm1000": [
+     458.7,
+     631.7,
+     462.9,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-69",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 58.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     760.5,
+     779.5,
+     767.3
+    ],
+    "bbox_norm1000": [
+     458.7,
+     638.5,
+     462.9,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-70",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 58.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     702.9,
+     766.8,
+     709.7
+    ],
+    "bbox_norm1000": [
+     451.1,
+     590.2,
+     455.3,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-71",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 58.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     711.1,
+     766.8,
+     718.0
+    ],
+    "bbox_norm1000": [
+     451.1,
+     597.1,
+     455.3,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-72",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     719.4,
+     766.8,
+     726.2
+    ],
+    "bbox_norm1000": [
+     451.1,
+     604.0,
+     455.3,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-73",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     727.6,
+     766.8,
+     734.4
+    ],
+    "bbox_norm1000": [
+     451.1,
+     610.9,
+     455.3,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-74",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     735.8,
+     766.8,
+     742.6
+    ],
+    "bbox_norm1000": [
+     451.1,
+     617.8,
+     455.3,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-75",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     744.1,
+     766.8,
+     750.8
+    ],
+    "bbox_norm1000": [
+     451.1,
+     624.8,
+     455.3,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-76",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     752.3,
+     766.8,
+     759.1
+    ],
+    "bbox_norm1000": [
+     451.1,
+     631.7,
+     455.3,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-77",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 57.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     768.7,
+     766.8,
+     775.5
+    ],
+    "bbox_norm1000": [
+     451.1,
+     645.4,
+     455.3,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-78",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    26.4724,
+    0.0,
+    55.6824
+   ],
+   "rotation_deg": 122.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     371.8,
+     785.6,
+     378.9,
+     792.4
+    ],
+    "bbox_norm1000": [
+     220.8,
+     659.6,
+     225.0,
+     665.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-79",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-23",
+   "position": [
+    29.4852,
+    0.0,
+    47.9425
+   ],
+   "rotation_deg": 166.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     413.0,
+     676.2,
+     421.5,
+     684.6
+    ],
+    "bbox_norm1000": [
+     245.2,
+     567.8,
+     250.3,
+     574.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-80",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-25",
+   "position": [
+    10.6468,
+    0.0,
+    52.8108
+   ],
+   "rotation_deg": 121.7,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     147.5,
+     745.0,
+     154.5,
+     751.7
+    ],
+    "bbox_norm1000": [
+     87.6,
+     625.5,
+     91.7,
+     631.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-81",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    13.8642,
+    0.0,
+    35.4683
+   ],
+   "rotation_deg": 122.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     193.1,
+     499.1,
+     200.2,
+     505.9
+    ],
+    "bbox_norm1000": [
+     114.7,
+     419.1,
+     118.9,
+     424.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-82",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    13.8642,
+    0.0,
+    48.2106
+   ],
+   "rotation_deg": 57.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     193.1,
+     680.1,
+     200.2,
+     686.9
+    ],
+    "bbox_norm1000": [
+     114.7,
+     571.0,
+     118.9,
+     576.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-83",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-26",
+   "position": [
+    17.7024,
+    0.0,
+    52.8108
+   ],
+   "rotation_deg": 57.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     247.2,
+     745.0,
+     254.4,
+     751.7
+    ],
+    "bbox_norm1000": [
+     146.8,
+     625.5,
+     151.1,
+     631.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-84",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    52.7473
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     744.1,
+     856.1,
+     750.8
+    ],
+    "bbox_norm1000": [
+     504.1,
+     624.8,
+     508.4,
+     630.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-85",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    53.3329
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     752.3,
+     856.1,
+     759.1
+    ],
+    "bbox_norm1000": [
+     504.1,
+     631.7,
+     508.4,
+     637.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-86",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    53.9115
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     760.5,
+     856.1,
+     767.3
+    ],
+    "bbox_norm1000": [
+     504.1,
+     638.5,
+     508.4,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-87",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    54.4901
+   ],
+   "rotation_deg": 57.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     768.7,
+     856.1,
+     775.5
+    ],
+    "bbox_norm1000": [
+     504.1,
+     645.4,
+     508.4,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-88",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     850.2,
+     830.6,
+     857.0
+    ],
+    "bbox_norm1000": [
+     489.0,
+     713.9,
+     493.2,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-89",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     842.0,
+     830.6,
+     848.8
+    ],
+    "bbox_norm1000": [
+     489.0,
+     707.0,
+     493.2,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-90",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     833.8,
+     830.6,
+     840.6
+    ],
+    "bbox_norm1000": [
+     489.0,
+     700.1,
+     493.2,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-91",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     825.5,
+     830.6,
+     832.4
+    ],
+    "bbox_norm1000": [
+     489.0,
+     693.1,
+     493.2,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-92",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     817.3,
+     830.6,
+     824.2
+    ],
+    "bbox_norm1000": [
+     489.0,
+     686.2,
+     493.2,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-93",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     809.1,
+     830.6,
+     815.9
+    ],
+    "bbox_norm1000": [
+     489.0,
+     679.3,
+     493.2,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-94",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     800.9,
+     830.6,
+     807.7
+    ],
+    "bbox_norm1000": [
+     489.0,
+     672.5,
+     493.2,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-95",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    58.3565,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     823.4,
+     792.7,
+     830.6,
+     799.5
+    ],
+    "bbox_norm1000": [
+     489.0,
+     665.6,
+     493.2,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-96",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     850.2,
+     805.1,
+     857.0
+    ],
+    "bbox_norm1000": [
+     473.8,
+     713.9,
+     478.1,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-97",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     842.0,
+     805.1,
+     848.8
+    ],
+    "bbox_norm1000": [
+     473.8,
+     707.0,
+     478.1,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-98",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     833.8,
+     805.1,
+     840.6
+    ],
+    "bbox_norm1000": [
+     473.8,
+     700.1,
+     478.1,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-99",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     825.5,
+     805.1,
+     832.4
+    ],
+    "bbox_norm1000": [
+     473.8,
+     693.1,
+     478.1,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-100",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     809.1,
+     805.1,
+     815.9
+    ],
+    "bbox_norm1000": [
+     473.8,
+     679.3,
+     478.1,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-101",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     800.9,
+     805.1,
+     807.7
+    ],
+    "bbox_norm1000": [
+     473.8,
+     672.5,
+     478.1,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-102",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5573,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 121.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     792.7,
+     805.1,
+     799.5
+    ],
+    "bbox_norm1000": [
+     473.8,
+     665.6,
+     478.1,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-103",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     850.2,
+     766.8,
+     857.0
+    ],
+    "bbox_norm1000": [
+     451.1,
+     713.9,
+     455.3,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-104",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     842.0,
+     766.8,
+     848.8
+    ],
+    "bbox_norm1000": [
+     451.1,
+     707.0,
+     455.3,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-105",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     833.8,
+     766.8,
+     840.6
+    ],
+    "bbox_norm1000": [
+     451.1,
+     700.1,
+     455.3,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-106",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     825.5,
+     766.8,
+     832.4
+    ],
+    "bbox_norm1000": [
+     451.1,
+     693.1,
+     455.3,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-107",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     817.3,
+     766.8,
+     824.2
+    ],
+    "bbox_norm1000": [
+     451.1,
+     686.2,
+     455.3,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-108",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     809.1,
+     766.8,
+     815.9
+    ],
+    "bbox_norm1000": [
+     451.1,
+     679.3,
+     455.3,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-109",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     800.9,
+     766.8,
+     807.7
+    ],
+    "bbox_norm1000": [
+     451.1,
+     672.5,
+     455.3,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-110",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8551,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 121.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     792.7,
+     766.8,
+     799.5
+    ],
+    "bbox_norm1000": [
+     451.1,
+     665.6,
+     455.3,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-111",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     850.2,
+     792.3,
+     857.0
+    ],
+    "bbox_norm1000": [
+     466.2,
+     713.9,
+     470.5,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-112",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     842.0,
+     792.3,
+     848.8
+    ],
+    "bbox_norm1000": [
+     466.2,
+     707.0,
+     470.5,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-113",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     833.8,
+     792.3,
+     840.6
+    ],
+    "bbox_norm1000": [
+     466.2,
+     700.1,
+     470.5,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-114",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     825.5,
+     792.3,
+     832.4
+    ],
+    "bbox_norm1000": [
+     466.2,
+     693.1,
+     470.5,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-115",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     817.3,
+     792.3,
+     824.2
+    ],
+    "bbox_norm1000": [
+     466.2,
+     686.2,
+     470.5,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-116",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     809.1,
+     792.3,
+     815.9
+    ],
+    "bbox_norm1000": [
+     466.2,
+     679.3,
+     470.5,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-117",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     800.9,
+     792.3,
+     807.7
+    ],
+    "bbox_norm1000": [
+     466.2,
+     672.5,
+     470.5,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-118",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     792.7,
+     792.3,
+     799.5
+    ],
+    "bbox_norm1000": [
+     466.2,
+     665.6,
+     470.5,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-119",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 58.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     702.9,
+     792.3,
+     709.7
+    ],
+    "bbox_norm1000": [
+     466.2,
+     590.2,
+     470.5,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-120",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 58.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     711.1,
+     792.3,
+     718.0
+    ],
+    "bbox_norm1000": [
+     466.2,
+     597.1,
+     470.5,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-121",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-25",
+   "position": [
+    11.7757,
+    0.0,
+    56.007
+   ],
+   "rotation_deg": 121.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     163.5,
+     790.1,
+     170.6,
+     797.0
+    ],
+    "bbox_norm1000": [
+     97.1,
+     663.4,
+     101.3,
+     669.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-122",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    60.2121
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     850.2,
+     856.1,
+     857.0
+    ],
+    "bbox_norm1000": [
+     504.1,
+     713.9,
+     508.4,
+     719.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-123",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     842.0,
+     856.1,
+     848.8
+    ],
+    "bbox_norm1000": [
+     504.1,
+     707.0,
+     508.4,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-124",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    59.055
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     833.8,
+     856.1,
+     840.6
+    ],
+    "bbox_norm1000": [
+     504.1,
+     700.1,
+     508.4,
+     705.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-125",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    58.4764
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     825.5,
+     856.1,
+     832.4
+    ],
+    "bbox_norm1000": [
+     504.1,
+     693.1,
+     508.4,
+     698.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-126",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    57.8908
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     817.3,
+     856.1,
+     824.2
+    ],
+    "bbox_norm1000": [
+     504.1,
+     686.2,
+     508.4,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-127",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    57.3123
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     809.1,
+     856.1,
+     815.9
+    ],
+    "bbox_norm1000": [
+     504.1,
+     679.3,
+     508.4,
+     685.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-128",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    56.7337
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     800.9,
+     856.1,
+     807.7
+    ],
+    "bbox_norm1000": [
+     504.1,
+     672.5,
+     508.4,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-129",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    56.1552
+   ],
+   "rotation_deg": 122.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     792.7,
+     856.1,
+     799.5
+    ],
+    "bbox_norm1000": [
+     504.1,
+     665.6,
+     508.4,
+     671.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-130",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 58.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     702.9,
+     856.1,
+     709.7
+    ],
+    "bbox_norm1000": [
+     504.1,
+     590.2,
+     508.4,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-131",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 58.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     711.1,
+     856.1,
+     718.0
+    ],
+    "bbox_norm1000": [
+     504.1,
+     597.1,
+     508.4,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-132",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     719.4,
+     792.3,
+     726.2
+    ],
+    "bbox_norm1000": [
+     466.2,
+     604.0,
+     470.5,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-133",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     727.6,
+     792.3,
+     734.4
+    ],
+    "bbox_norm1000": [
+     466.2,
+     610.9,
+     470.5,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-134",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    55.6542,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     785.1,
+     735.8,
+     792.3,
+     742.6
+    ],
+    "bbox_norm1000": [
+     466.2,
+     617.8,
+     470.5,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-135",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    51.0117
+   ],
+   "rotation_deg": 57.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     719.4,
+     856.1,
+     726.2
+    ],
+    "bbox_norm1000": [
+     504.1,
+     604.0,
+     508.4,
+     609.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-136",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    51.5902
+   ],
+   "rotation_deg": 57.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     727.6,
+     856.1,
+     734.4
+    ],
+    "bbox_norm1000": [
+     504.1,
+     610.9,
+     508.4,
+     616.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-137",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    60.1557,
+    0.0,
+    52.1688
+   ],
+   "rotation_deg": 57.0,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     848.9,
+     735.8,
+     856.1,
+     742.6
+    ],
+    "bbox_norm1000": [
+     504.1,
+     617.8,
+     508.4,
+     623.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-138",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    48.514,
+    0.0,
+    65.9836
+   ],
+   "rotation_deg": 31.6,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     684.5,
+     931.7,
+     691.2,
+     938.8
+    ],
+    "bbox_norm1000": [
+     406.5,
+     782.3,
+     410.5,
+     788.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-139",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-34",
+   "position": [
+    44.3583,
+    0.0,
+    65.7084
+   ],
+   "rotation_deg": 122.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     625.1,
+     928.1,
+     632.2,
+     934.9
+    ],
+    "bbox_norm1000": [
+     371.2,
+     779.3,
+     375.4,
+     785.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-140",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    13.3632,
+    0.0,
+    38.3681
+   ],
+   "rotation_deg": 122.3,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     186.0,
+     540.2,
+     193.1,
+     547.0
+    ],
+    "bbox_norm1000": [
+     110.5,
+     453.6,
+     114.7,
+     459.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-141",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    13.3632,
+    0.0,
+    45.3108
+   ],
+   "rotation_deg": 57.7,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     186.0,
+     639.1,
+     193.1,
+     645.8
+    ],
+    "bbox_norm1000": [
+     110.5,
+     536.6,
+     114.7,
+     542.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-142",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    48.5422,
+    0.0,
+    67.4793
+   ],
+   "rotation_deg": 31.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     684.4,
+     952.7,
+     691.2,
+     959.8
+    ],
+    "bbox_norm1000": [
+     406.4,
+     799.9,
+     410.5,
+     805.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-143",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    49.8475
+   ],
+   "rotation_deg": 59.7,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     702.9,
+     817.8,
+     709.7
+    ],
+    "bbox_norm1000": [
+     481.4,
+     590.2,
+     485.6,
+     595.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-144",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4604,
+    0.0,
+    50.4261
+   ],
+   "rotation_deg": 59.7,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     711.1,
+     817.8,
+     718.0
+    ],
+    "bbox_norm1000": [
+     481.4,
+     597.1,
+     485.6,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-145",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    57.4675,
+    0.0,
+    56.7478
+   ],
+   "rotation_deg": 122.7,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     810.7,
+     800.9,
+     817.8,
+     807.7
+    ],
+    "bbox_norm1000": [
+     481.4,
+     672.5,
+     485.6,
+     678.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-146",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    53.8621,
+    0.0,
+    53.8974
+   ],
+   "rotation_deg": 60.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     759.6,
+     760.5,
+     766.8,
+     767.3
+    ],
+    "bbox_norm1000": [
+     451.1,
+     638.5,
+     455.3,
+     644.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-147",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    16.5806,
+    0.0,
+    38.5586
+   ],
+   "rotation_deg": 166.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     231.4,
+     541.3,
+     239.8,
+     549.8
+    ],
+    "bbox_norm1000": [
+     137.4,
+     454.5,
+     142.4,
+     461.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-148",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    16.5806,
+    0.0,
+    45.1203
+   ],
+   "rotation_deg": 13.1,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     231.4,
+     636.2,
+     239.8,
+     644.7
+    ],
+    "bbox_norm1000": [
+     137.4,
+     534.2,
+     142.4,
+     541.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-149",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    59.2737,
+    0.0,
+    50.4331
+   ],
+   "rotation_deg": 52.5,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     836.2,
+     711.1,
+     843.3,
+     718.0
+    ],
+    "bbox_norm1000": [
+     496.6,
+     597.1,
+     500.8,
+     602.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-150",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    56.5644,
+    0.0,
+    57.8838
+   ],
+   "rotation_deg": 117.8,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     797.9,
+     817.3,
+     805.1,
+     824.2
+    ],
+    "bbox_norm1000": [
+     473.8,
+     686.2,
+     478.1,
+     692.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-151",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7723,
+    0.0,
+    59.6336
+   ],
+   "rotation_deg": 128.9,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     842.0,
+     779.5,
+     848.8
+    ],
+    "bbox_norm1000": [
+     458.7,
+     707.0,
+     462.9,
+     712.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym0-152",
+   "category": "chair",
+   "symbol_cluster": "sym0",
+   "cluster_size": 153,
+   "storey_id": "p1",
+   "room_id": "p1-room-28",
+   "position": [
+    54.7582,
+    0.0,
+    54.5042
+   ],
+   "rotation_deg": 63.4,
+   "footprint": {
+    "width_m": 0.6,
+    "depth_m": 0.57,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     772.4,
+     768.7,
+     779.5,
+     775.5
+    ],
+    "bbox_norm1000": [
+     458.7,
+     645.4,
+     462.9,
+     651.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-0",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    28.9631,
+    0.0,
+    30.2048
+   ],
+   "rotation_deg": 90.6,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     404.0,
+     419.3,
+     416.6,
+     436.4
+    ],
+    "bbox_norm1000": [
+     239.9,
+     352.1,
+     247.4,
+     366.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-1",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    24.0171,
+    0.0,
+    28.4409
+   ],
+   "rotation_deg": 0.4,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     331.7,
+     397.0,
+     348.8,
+     409.6
+    ],
+    "bbox_norm1000": [
+     197.0,
+     333.3,
+     207.1,
+     343.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-2",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    11.4653,
+    0.0,
+    30.5506
+   ],
+   "rotation_deg": 89.3,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     156.3,
+     424.3,
+     168.9,
+     441.3
+    ],
+    "bbox_norm1000": [
+     92.8,
+     356.3,
+     100.3,
+     370.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-3",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    11.4653,
+    0.0,
+    20.3129
+   ],
+   "rotation_deg": 90.6,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     156.3,
+     279.5,
+     168.9,
+     296.6
+    ],
+    "bbox_norm1000": [
+     92.8,
+     234.7,
+     100.3,
+     249.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-4",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    13.2644,
+    0.0,
+    22.2532
+   ],
+   "rotation_deg": 179.8,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     179.5,
+     308.9,
+     196.5,
+     321.5
+    ],
+    "bbox_norm1000": [
+     106.6,
+     259.4,
+     116.7,
+     269.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-5",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    16.2066,
+    0.0,
+    22.2532
+   ],
+   "rotation_deg": 179.1,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     221.4,
+     308.9,
+     238.4,
+     321.5
+    ],
+    "bbox_norm1000": [
+     131.5,
+     259.4,
+     141.6,
+     269.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-6",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    28.9631,
+    0.0,
+    21.0185
+   ],
+   "rotation_deg": 89.4,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     404.0,
+     289.6,
+     416.6,
+     306.6
+    ],
+    "bbox_norm1000": [
+     239.9,
+     243.2,
+     247.4,
+     257.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-7",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    25.4847,
+    0.0,
+    22.7753
+   ],
+   "rotation_deg": 0.2,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     352.7,
+     316.3,
+     369.7,
+     329.0
+    ],
+    "bbox_norm1000": [
+     209.4,
+     265.6,
+     219.5,
+     276.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-8",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    24.0171,
+    0.0,
+    22.7753
+   ],
+   "rotation_deg": 179.6,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     331.7,
+     316.3,
+     348.8,
+     329.0
+    ],
+    "bbox_norm1000": [
+     197.0,
+     265.6,
+     207.1,
+     276.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-9",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    28.5115,
+    0.0,
+    22.7824
+   ],
+   "rotation_deg": 179.1,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     395.4,
+     316.3,
+     412.4,
+     329.0
+    ],
+    "bbox_norm1000": [
+     234.8,
+     265.6,
+     244.9,
+     276.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-10",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-12",
+   "position": [
+    25.4847,
+    0.0,
+    37.1757
+   ],
+   "rotation_deg": 0.2,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     352.7,
+     520.4,
+     369.7,
+     533.1
+    ],
+    "bbox_norm1000": [
+     209.4,
+     436.9,
+     219.5,
+     447.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-11",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    16.383,
+    0.0,
+    30.8257
+   ],
+   "rotation_deg": 89.0,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     225.8,
+     428.3,
+     238.5,
+     445.3
+    ],
+    "bbox_norm1000": [
+     134.1,
+     359.6,
+     141.6,
+     373.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-12",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    14.7391,
+    0.0,
+    22.2532
+   ],
+   "rotation_deg": 0.1,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     200.4,
+     308.9,
+     217.5,
+     321.5
+    ],
+    "bbox_norm1000": [
+     119.0,
+     259.4,
+     129.2,
+     269.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-13",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-12",
+   "position": [
+    26.9169,
+    0.0,
+    37.1757
+   ],
+   "rotation_deg": 179.0,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     372.8,
+     520.4,
+     389.8,
+     533.1
+    ],
+    "bbox_norm1000": [
+     221.4,
+     436.9,
+     231.5,
+     447.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-14",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-12",
+   "position": [
+    24.003,
+    0.0,
+    37.1757
+   ],
+   "rotation_deg": 0.2,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     331.7,
+     520.4,
+     348.8,
+     533.1
+    ],
+    "bbox_norm1000": [
+     197.0,
+     436.9,
+     207.1,
+     447.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-15",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-18",
+   "position": [
+    24.0101,
+    0.0,
+    42.8484
+   ],
+   "rotation_deg": 0.1,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     331.7,
+     601.1,
+     348.8,
+     613.7
+    ],
+    "bbox_norm1000": [
+     197.0,
+     504.7,
+     207.1,
+     515.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-16",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-18",
+   "position": [
+    28.5044,
+    0.0,
+    42.8484
+   ],
+   "rotation_deg": 0.3,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     395.4,
+     601.1,
+     412.4,
+     613.7
+    ],
+    "bbox_norm1000": [
+     234.8,
+     504.7,
+     244.9,
+     515.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-17",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    23.9183,
+    0.0,
+    30.2754
+   ],
+   "rotation_deg": 92.0,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     332.9,
+     420.4,
+     345.5,
+     437.4
+    ],
+    "bbox_norm1000": [
+     197.7,
+     353.0,
+     205.2,
+     367.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-18",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    16.6723,
+    0.0,
+    20.2424
+   ],
+   "rotation_deg": 92.0,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     229.8,
+     278.6,
+     242.4,
+     295.6
+    ],
+    "bbox_norm1000": [
+     136.5,
+     233.9,
+     143.9,
+     248.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-19",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    23.9183,
+    0.0,
+    20.9409
+   ],
+   "rotation_deg": 88.0,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     332.9,
+     288.5,
+     345.5,
+     305.5
+    ],
+    "bbox_norm1000": [
+     197.7,
+     242.2,
+     205.2,
+     256.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-20",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    26.9311,
+    0.0,
+    28.4409
+   ],
+   "rotation_deg": 0.2,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     372.8,
+     397.0,
+     389.8,
+     409.6
+    ],
+    "bbox_norm1000": [
+     221.4,
+     333.3,
+     231.5,
+     343.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-21",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    11.8181,
+    0.0,
+    22.2532
+   ],
+   "rotation_deg": 178.9,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     159.4,
+     308.9,
+     176.4,
+     321.5
+    ],
+    "bbox_norm1000": [
+     94.7,
+     259.4,
+     104.8,
+     269.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-22",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    26.9311,
+    0.0,
+    22.7824
+   ],
+   "rotation_deg": 179.8,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     372.8,
+     316.3,
+     389.8,
+     329.0
+    ],
+    "bbox_norm1000": [
+     221.4,
+     265.6,
+     231.5,
+     276.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-23",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    25.4988,
+    0.0,
+    28.448
+   ],
+   "rotation_deg": 179.1,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     352.7,
+     397.0,
+     369.7,
+     409.6
+    ],
+    "bbox_norm1000": [
+     209.4,
+     333.3,
+     219.5,
+     343.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-24",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    28.5186,
+    0.0,
+    28.4409
+   ],
+   "rotation_deg": 0.9,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     395.4,
+     397.0,
+     412.4,
+     409.6
+    ],
+    "bbox_norm1000": [
+     234.8,
+     333.3,
+     244.9,
+     343.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-25",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-12",
+   "position": [
+    28.9631,
+    0.0,
+    35.4118
+   ],
+   "rotation_deg": 90.4,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     404.0,
+     493.7,
+     416.6,
+     510.7
+    ],
+    "bbox_norm1000": [
+     239.9,
+     414.5,
+     247.4,
+     428.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-26",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-18",
+   "position": [
+    28.9631,
+    0.0,
+    44.6123
+   ],
+   "rotation_deg": 89.6,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     404.0,
+     623.5,
+     416.6,
+     640.5
+    ],
+    "bbox_norm1000": [
+     239.9,
+     523.5,
+     247.4,
+     537.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-27",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-12",
+   "position": [
+    23.9254,
+    0.0,
+    35.3272
+   ],
+   "rotation_deg": 87.3,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     332.9,
+     492.7,
+     345.5,
+     509.6
+    ],
+    "bbox_norm1000": [
+     197.7,
+     413.7,
+     205.2,
+     427.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-28",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-12",
+   "position": [
+    28.4974,
+    0.0,
+    37.1828
+   ],
+   "rotation_deg": 0.3,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     395.4,
+     520.4,
+     412.4,
+     533.1
+    ],
+    "bbox_norm1000": [
+     234.8,
+     436.9,
+     244.9,
+     447.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-29",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-18",
+   "position": [
+    23.9183,
+    0.0,
+    44.6828
+   ],
+   "rotation_deg": 91.7,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     332.9,
+     624.5,
+     345.5,
+     641.5
+    ],
+    "bbox_norm1000": [
+     197.7,
+     524.3,
+     205.2,
+     538.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym1-30",
+   "category": "table",
+   "symbol_cluster": "sym1",
+   "cluster_size": 31,
+   "storey_id": "p1",
+   "room_id": "p1-room-18",
+   "position": [
+    26.9169,
+    0.0,
+    42.8484
+   ],
+   "rotation_deg": 1.0,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     372.8,
+     601.1,
+     389.8,
+     613.7
+    ],
+    "bbox_norm1000": [
+     221.4,
+     504.7,
+     231.5,
+     515.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-0",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    18.1257,
+    0.0,
+    40.5412
+   ],
+   "rotation_deg": 172.6,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     254.0,
+     571.8,
+     261.4,
+     577.2
+    ],
+    "bbox_norm1000": [
+     150.8,
+     480.1,
+     155.2,
+     484.6
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-1",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": "p1-room-40",
+   "position": [
+    53.2977,
+    0.0,
+    70.0899
+   ],
+   "rotation_deg": 82.4,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     752.7,
+     990.4,
+     758.1,
+     997.9
+    ],
+    "bbox_norm1000": [
+     447.0,
+     831.6,
+     450.2,
+     837.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-2",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": "p1-room-32",
+   "position": [
+    74.8947,
+    0.0,
+    66.8937
+   ],
+   "rotation_deg": 82.7,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     1058.9,
+     945.1,
+     1064.3,
+     952.6
+    ],
+    "bbox_norm1000": [
+     628.8,
+     793.5,
+     632.0,
+     799.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-3",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    39.8992,
+    0.0,
+    66.1458
+   ],
+   "rotation_deg": 172.4,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     561.0,
+     934.9,
+     568.5,
+     940.3
+    ],
+    "bbox_norm1000": [
+     333.1,
+     785.0,
+     337.6,
+     789.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-4",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    74.8947,
+    0.0,
+    61.6867
+   ],
+   "rotation_deg": 82.7,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     1058.9,
+     871.4,
+     1064.3,
+     878.8
+    ],
+    "bbox_norm1000": [
+     628.8,
+     731.7,
+     632.0,
+     737.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-5",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    14.4216,
+    0.0,
+    17.6883
+   ],
+   "rotation_deg": 82.9,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     201.8,
+     247.7,
+     207.1,
+     255.2
+    ],
+    "bbox_norm1000": [
+     119.8,
+     208.0,
+     123.0,
+     214.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-6",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    13.4761,
+    0.0,
+    17.6883
+   ],
+   "rotation_deg": 83.0,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     188.4,
+     247.7,
+     193.8,
+     255.2
+    ],
+    "bbox_norm1000": [
+     111.9,
+     208.0,
+     115.1,
+     214.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-7",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": "p1-room-39",
+   "position": [
+    74.803,
+    0.0,
+    67.8533
+   ],
+   "rotation_deg": 172.4,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     1057.2,
+     958.9,
+     1064.7,
+     964.3
+    ],
+    "bbox_norm1000": [
+     627.8,
+     805.1,
+     632.2,
+     809.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-8",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    15.3176,
+    0.0,
+    17.6883
+   ],
+   "rotation_deg": 82.3,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     214.5,
+     247.7,
+     219.9,
+     255.2
+    ],
+    "bbox_norm1000": [
+     127.4,
+     208.0,
+     130.6,
+     214.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-9",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": "p1-room-0",
+   "position": [
+    16.2207,
+    0.0,
+    17.8294
+   ],
+   "rotation_deg": 172.7,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     225.4,
+     250.1,
+     232.9,
+     255.5
+    ],
+    "bbox_norm1000": [
+     133.8,
+     210.0,
+     138.3,
+     214.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym2-10",
+   "category": "toilet",
+   "symbol_cluster": "sym2",
+   "cluster_size": 11,
+   "storey_id": "p1",
+   "room_id": "p1-room-27",
+   "position": [
+    22.4226,
+    0.0,
+    53.1848
+   ],
+   "rotation_deg": 9.3,
+   "footprint": {
+    "width_m": 0.54,
+    "depth_m": 0.39,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     313.3,
+     751.1,
+     320.7,
+     756.5
+    ],
+    "bbox_norm1000": [
+     186.0,
+     630.6,
+     190.4,
+     635.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym5-0",
+   "category": "table",
+   "symbol_cluster": "sym5",
+   "cluster_size": 5,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    12.0509,
+    0.0,
+    28.7584
+   ],
+   "rotation_deg": 179.1,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     162.5,
+     401.5,
+     179.5,
+     414.1
+    ],
+    "bbox_norm1000": [
+     96.5,
+     337.1,
+     106.6,
+     347.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym5-1",
+   "category": "table",
+   "symbol_cluster": "sym5",
+   "cluster_size": 5,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    14.9437,
+    0.0,
+    28.7584
+   ],
+   "rotation_deg": 179.6,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     203.5,
+     401.5,
+     220.5,
+     414.1
+    ],
+    "bbox_norm1000": [
+     120.8,
+     337.1,
+     130.9,
+     347.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym5-2",
+   "category": "table",
+   "symbol_cluster": "sym5",
+   "cluster_size": 5,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    16.4465,
+    0.0,
+    28.7584
+   ],
+   "rotation_deg": 179.6,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     224.7,
+     401.5,
+     241.8,
+     414.1
+    ],
+    "bbox_norm1000": [
+     133.4,
+     337.1,
+     143.6,
+     347.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym5-3",
+   "category": "table",
+   "symbol_cluster": "sym5",
+   "cluster_size": 5,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    13.4832,
+    0.0,
+    28.7584
+   ],
+   "rotation_deg": 0.3,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     182.6,
+     401.5,
+     199.5,
+     414.1
+    ],
+    "bbox_norm1000": [
+     108.4,
+     337.1,
+     118.5,
+     347.7
+    ]
+   }
+  },
+  {
+   "id": "p1-sym5-4",
+   "category": "table",
+   "symbol_cluster": "sym5",
+   "cluster_size": 5,
+   "storey_id": "p1",
+   "room_id": "p1-room-18",
+   "position": [
+    25.4847,
+    0.0,
+    42.8413
+   ],
+   "rotation_deg": 179.7,
+   "footprint": {
+    "width_m": 1.2,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     352.7,
+     601.1,
+     369.7,
+     613.7
+    ],
+    "bbox_norm1000": [
+     209.4,
+     504.7,
+     219.5,
+     515.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym8-0",
+   "category": "table",
+   "symbol_cluster": "sym8",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-6",
+   "position": [
+    28.6667,
+    0.0,
+    26.1126
+   ],
+   "rotation_deg": 0.2,
+   "footprint": {
+    "width_m": 2.4,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     389.1,
+     364.4,
+     423.1,
+     377.0
+    ],
+    "bbox_norm1000": [
+     231.1,
+     306.0,
+     251.2,
+     316.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym8-1",
+   "category": "table",
+   "symbol_cluster": "sym8",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-15",
+   "position": [
+    28.6597,
+    0.0,
+    40.513
+   ],
+   "rotation_deg": 0.3,
+   "footprint": {
+    "width_m": 2.4,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     389.1,
+     568.5,
+     423.1,
+     581.2
+    ],
+    "bbox_norm1000": [
+     231.1,
+     477.3,
+     251.2,
+     488.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym8-2",
+   "category": "table",
+   "symbol_cluster": "sym8",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-5",
+   "position": [
+    28.6738,
+    0.0,
+    25.1107
+   ],
+   "rotation_deg": 179.5,
+   "footprint": {
+    "width_m": 2.4,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     389.1,
+     348.9,
+     423.1,
+     361.5
+    ],
+    "bbox_norm1000": [
+     231.1,
+     292.9,
+     251.2,
+     303.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym8-3",
+   "category": "table",
+   "symbol_cluster": "sym8",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-14",
+   "position": [
+    28.6738,
+    0.0,
+    39.5111
+   ],
+   "rotation_deg": 179.5,
+   "footprint": {
+    "width_m": 2.4,
+    "depth_m": 0.9,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     389.1,
+     553.0,
+     423.1,
+     565.6
+    ],
+    "bbox_norm1000": [
+     231.1,
+     464.3,
+     251.2,
+     474.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym9-0",
+   "category": "table",
+   "symbol_cluster": "sym9",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    13.5396,
+    0.0,
+    36.7524
+   ],
+   "rotation_deg": 96.1,
+   "footprint": {
+    "width_m": 1.56,
+    "depth_m": 1.14,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     187.8,
+     510.3,
+     202.6,
+     531.6
+    ],
+    "bbox_norm1000": [
+     111.5,
+     428.5,
+     120.3,
+     446.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym9-1",
+   "category": "table",
+   "symbol_cluster": "sym9",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    13.5396,
+    0.0,
+    46.9124
+   ],
+   "rotation_deg": 84.6,
+   "footprint": {
+    "width_m": 1.56,
+    "depth_m": 1.14,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     187.8,
+     654.4,
+     202.6,
+     675.7
+    ],
+    "bbox_norm1000": [
+     111.5,
+     549.5,
+     120.3,
+     567.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym9-2",
+   "category": "table",
+   "symbol_cluster": "sym9",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    15.24,
+    0.0,
+    37.9166
+   ],
+   "rotation_deg": 95.2,
+   "footprint": {
+    "width_m": 1.56,
+    "depth_m": 1.14,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     211.9,
+     526.5,
+     226.7,
+     547.8
+    ],
+    "bbox_norm1000": [
+     125.8,
+     442.1,
+     134.6,
+     459.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym9-3",
+   "category": "table",
+   "symbol_cluster": "sym9",
+   "cluster_size": 4,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    15.24,
+    0.0,
+    48.2318
+   ],
+   "rotation_deg": 83.7,
+   "footprint": {
+    "width_m": 1.56,
+    "depth_m": 1.14,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     211.9,
+     672.8,
+     226.7,
+     694.1
+    ],
+    "bbox_norm1000": [
+     125.8,
+     564.9,
+     134.6,
+     582.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym11-0",
+   "category": "desk",
+   "symbol_cluster": "sym11",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-9",
+   "position": [
+    27.7283,
+    0.0,
+    31.8488
+   ],
+   "rotation_deg": 118.7,
+   "footprint": {
+    "width_m": 1.41,
+    "depth_m": 1.2,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     384.8,
+     445.9,
+     400.2,
+     463.4
+    ],
+    "bbox_norm1000": [
+     228.5,
+     374.4,
+     237.6,
+     389.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym11-1",
+   "category": "desk",
+   "symbol_cluster": "sym11",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-2",
+   "position": [
+    12.4178,
+    0.0,
+    19.3816
+   ],
+   "rotation_deg": 118.7,
+   "footprint": {
+    "width_m": 1.41,
+    "depth_m": 1.2,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     168.8,
+     262.8,
+     184.3,
+     280.3
+    ],
+    "bbox_norm1000": [
+     100.2,
+     220.7,
+     109.4,
+     235.3
+    ]
+   }
+  },
+  {
+   "id": "p1-sym11-2",
+   "category": "desk",
+   "symbol_cluster": "sym11",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    17.1238,
+    0.0,
+    34.9462
+   ],
+   "rotation_deg": 28.8,
+   "footprint": {
+    "width_m": 1.41,
+    "depth_m": 1.2,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     237.2,
+     488.1,
+     254.7,
+     503.6
+    ],
+    "bbox_norm1000": [
+     140.9,
+     409.8,
+     151.2,
+     422.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym12-0",
+   "category": "desk",
+   "symbol_cluster": "sym12",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-3",
+   "position": [
+    27.7283,
+    0.0,
+    19.3746
+   ],
+   "rotation_deg": 60.6,
+   "footprint": {
+    "width_m": 1.41,
+    "depth_m": 1.2,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     384.8,
+     262.6,
+     400.2,
+     280.0
+    ],
+    "bbox_norm1000": [
+     228.5,
+     220.5,
+     237.6,
+     235.1
+    ]
+   }
+  },
+  {
+   "id": "p1-sym12-1",
+   "category": "desk",
+   "symbol_cluster": "sym12",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-10",
+   "position": [
+    12.4248,
+    0.0,
+    31.8276
+   ],
+   "rotation_deg": 60.6,
+   "footprint": {
+    "width_m": 1.41,
+    "depth_m": 1.2,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     168.8,
+     445.7,
+     184.3,
+     463.1
+    ],
+    "bbox_norm1000": [
+     100.2,
+     374.2,
+     109.4,
+     388.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym12-2",
+   "category": "desk",
+   "symbol_cluster": "sym12",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    17.1238,
+    0.0,
+    48.7327
+   ],
+   "rotation_deg": 150.6,
+   "footprint": {
+    "width_m": 1.41,
+    "depth_m": 1.2,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     237.2,
+     682.4,
+     254.7,
+     697.9
+    ],
+    "bbox_norm1000": [
+     140.9,
+     573.0,
+     151.2,
+     586.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym14-0",
+   "category": "table",
+   "symbol_cluster": "sym14",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-4",
+   "position": [
+    11.5711,
+    0.0,
+    25.1601
+   ],
+   "rotation_deg": 3.8,
+   "footprint": {
+    "width_m": 2.43,
+    "depth_m": 0.93,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     146.0,
+     348.9,
+     180.1,
+     361.5
+    ],
+    "bbox_norm1000": [
+     86.7,
+     292.9,
+     106.9,
+     303.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym14-1",
+   "category": "table",
+   "symbol_cluster": "sym14",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-11",
+   "position": [
+    11.5993,
+    0.0,
+    33.2811
+   ],
+   "rotation_deg": 176.1,
+   "footprint": {
+    "width_m": 2.43,
+    "depth_m": 0.93,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     146.2,
+     466.6,
+     180.3,
+     479.3
+    ],
+    "bbox_norm1000": [
+     86.8,
+     391.8,
+     107.1,
+     402.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym14-2",
+   "category": "table",
+   "symbol_cluster": "sym14",
+   "cluster_size": 3,
+   "storey_id": "p1",
+   "room_id": "p1-room-7",
+   "position": [
+    11.5711,
+    0.0,
+    26.0632
+   ],
+   "rotation_deg": 176.2,
+   "footprint": {
+    "width_m": 2.43,
+    "depth_m": 0.93,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     146.0,
+     364.4,
+     180.1,
+     377.0
+    ],
+    "bbox_norm1000": [
+     86.7,
+     306.0,
+     106.9,
+     316.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym16-0",
+   "category": "table",
+   "symbol_cluster": "sym16",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-37",
+   "position": [
+    65.8283,
+    0.0,
+    67.1971
+   ],
+   "rotation_deg": 91.3,
+   "footprint": {
+    "width_m": 2.43,
+    "depth_m": 1.14,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     925.2,
+     934.6,
+     940.7,
+     968.9
+    ],
+    "bbox_norm1000": [
+     549.4,
+     784.7,
+     558.6,
+     813.5
+    ]
+   }
+  },
+  {
+   "id": "p1-sym16-1",
+   "category": "table",
+   "symbol_cluster": "sym16",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-47",
+   "position": [
+    61.5103,
+    0.0,
+    72.5099
+   ],
+   "rotation_deg": 1.1,
+   "footprint": {
+    "width_m": 2.43,
+    "depth_m": 1.14,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     855.3,
+     1019.9,
+     889.6,
+     1035.4
+    ],
+    "bbox_norm1000": [
+     507.9,
+     856.3,
+     528.3,
+     869.4
+    ]
+   }
+  },
+  {
+   "id": "p1-sym19-0",
+   "category": "table",
+   "symbol_cluster": "sym19",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-25",
+   "position": [
+    11.8957,
+    0.0,
+    51.8654
+   ],
+   "rotation_deg": 89.2,
+   "footprint": {
+    "width_m": 2.1,
+    "depth_m": 1.8,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     155.8,
+     721.6,
+     181.1,
+     751.3
+    ],
+    "bbox_norm1000": [
+     92.5,
+     605.9,
+     107.5,
+     630.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym19-1",
+   "category": "table",
+   "symbol_cluster": "sym19",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-26",
+   "position": [
+    16.4747,
+    0.0,
+    51.8654
+   ],
+   "rotation_deg": 88.0,
+   "footprint": {
+    "width_m": 2.1,
+    "depth_m": 1.8,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     220.7,
+     721.6,
+     246.0,
+     751.3
+    ],
+    "bbox_norm1000": [
+     131.1,
+     605.9,
+     146.1,
+     630.8
+    ]
+   }
+  },
+  {
+   "id": "p1-sym20-0",
+   "category": "table",
+   "symbol_cluster": "sym20",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": null,
+   "position": [
+    48.2036,
+    0.0,
+    66.7314
+   ],
+   "rotation_deg": 65.2,
+   "footprint": {
+    "width_m": 0.72,
+    "depth_m": 0.72,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     678.3,
+     941.0,
+     687.9,
+     950.7
+    ],
+    "bbox_norm1000": [
+     402.8,
+     790.1,
+     408.5,
+     798.2
+    ]
+   }
+  },
+  {
+   "id": "p1-sym20-1",
+   "category": "table",
+   "symbol_cluster": "sym20",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-25",
+   "position": [
+    17.653,
+    0.0,
+    56.6349
+   ],
+   "rotation_deg": 93.0,
+   "footprint": {
+    "width_m": 0.72,
+    "depth_m": 0.72,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     245.4,
+     797.9,
+     255.1,
+     807.5
+    ],
+    "bbox_norm1000": [
+     145.7,
+     669.9,
+     151.5,
+     678.0
+    ]
+   }
+  },
+  {
+   "id": "p1-sym21-0",
+   "category": "table",
+   "symbol_cluster": "sym21",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-13",
+   "position": [
+    15.2329,
+    0.0,
+    35.4048
+   ],
+   "rotation_deg": 98.4,
+   "footprint": {
+    "width_m": 1.59,
+    "depth_m": 1.17,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     211.9,
+     491.9,
+     226.7,
+     513.2
+    ],
+    "bbox_norm1000": [
+     125.8,
+     413.0,
+     134.6,
+     430.9
+    ]
+   }
+  },
+  {
+   "id": "p1-sym21-1",
+   "category": "table",
+   "symbol_cluster": "sym21",
+   "cluster_size": 2,
+   "storey_id": "p1",
+   "room_id": "p1-room-19",
+   "position": [
+    15.2329,
+    0.0,
+    45.8117
+   ],
+   "rotation_deg": 83.1,
+   "footprint": {
+    "width_m": 1.59,
+    "depth_m": 1.17,
+    "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"
+   },
+   "height_m": null,
+   "confidence": 0.9,
+   "label_source": "review",
+   "source": {
+    "file": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
+    "page": 1,
+    "bbox_pt": [
+     211.9,
+     638.3,
+     226.7,
+     659.5
+    ],
+    "bbox_norm1000": [
+     125.8,
+     535.9,
+     134.6,
+     553.7
+    ]
+   }
+  }
+ ],
  "systems": []
 }

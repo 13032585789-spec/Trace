@@ -27,6 +27,56 @@ def _wall_fills(pdf_path, page):
                 out.append((o["x0"], o["top"], o["x1"], o["bottom"], o.get("pts")))
     return out
 
+CATEGORY = {"toilet": "toilet", "urinal": "urinal", "washbasin": "sink", "kitchen_sink": "sink", "shower": "shower",
+            "bathtub": "bathtub", "chair": "chair", "table": "table", "bed": "bed", "desk": "desk"}
+
+def _names_sidecar(pdf_path, page0):
+    p = f"{pdf_path}.p{page0 + 1}.symbol_names.json"
+    return (json.load(open(p)), "named manually from the symbol montage (sidecar)") if os.path.exists(p) else (None, None)
+
+def _fixtures(pdf_path, p0, mpp, k, M, src, out_rooms, rooms, warn):
+    """Repeated CAD symbols (engine.symbols) -> objects. Names: sidecar <pdf>.pN.symbol_names.json, else one vision call."""
+    from . import symbols
+    try:
+        import pdfplumber
+        with pdfplumber.open(pdf_path) as P: cl = symbols.clusters(P.pages[p0], mpp or 1.0)
+    except Exception as e:
+        warn.append(f"symbol clustering unavailable: {e!r}"[:160]); return []
+    names, how = _names_sidecar(pdf_path, p0)
+    vision = None
+    if names is None:
+        from . import llm
+        if llm.available(): vision, how = llm.vision_json, "vision model on the symbol montage"
+    symbols.name(pdf_path, p0, cl, vision_json=vision, names=names)
+    objs = []
+    for c in cl:
+        cat = CATEGORY.get(c.get("label"))
+        if cat is None and c.get("label") not in (None,): continue          # doors, windows, stairs, 'other': not objects
+        for j, ins in enumerate(c["instances"]):
+            b = ins["bbox_pt"]; cx, cy = ins["centre_pt"]
+            room = next((out_rooms[i]["id"] for i, r in enumerate([r for r in rooms if r.get("polygon")])
+                         if _inside((cx, cy), r["polygon"])), None)
+            objs.append({"id": f"p{p0+1}-{c['id']}-{j}", "category": cat or "unnamed_symbol", "symbol_cluster": c["id"],
+                         "cluster_size": c["n"], "storey_id": f"p{p0+1}", "room_id": room,
+                         "position": [M(cx, 0)[0], 0.0, M(0, cy)[1]],
+                         "rotation_deg": round((-ins["axis_deg"]) % 180, 1),
+                         "footprint": {"width_m": c["size_m"][0], "depth_m": c["size_m"][1],
+                                       "note": "width along the symbol's long axis (rotation_deg); front/back not resolved (0-180 deg)"} if mpp else None,
+                         "height_m": None, "confidence": 0.9 if cat else 0.4,
+                         "label_source": c.get("label_source"), "source": src(b)})
+    named = sum(1 for c in cl if c.get("label"))
+    if not cl: warn.append("no repeated symbols on this sheet: fixtures not exported")
+    elif not named: warn.append(f"{len(cl)} repeated symbol types found but not named (no vision key, no review sidecar): exported as unnamed_symbol")
+    else: warn.append(f"fixtures from repeated CAD symbols: {named}/{len(cl)} symbol types named ({how}); a fixture drawn only once on a sheet is not found")
+    return objs
+
+def _inside(pt, poly):
+    x, y = pt; c = False; n = len(poly)
+    for i in range(n):
+        (x1, y1), (x2, y2) = poly[i], poly[(i + 1) % n]
+        if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / ((y2 - y1) or 1e-12) + x1: c = not c
+    return c
+
 def scene(pdf_path, page=1, rel_path=None):
     rel = rel_path or pdf_path; p0 = int(page) - 1
     f = SH.load(pdf_path, p0)
@@ -102,7 +152,7 @@ def scene(pdf_path, page=1, rel_path=None):
         x, z = o["position"][0], o["position"][2]
         near = [(min(math.dist((x, z), p) for p in wl["points"]), wl["id"]) for wl in walls]
         o["wall_id"] = min(near)[1] if near and min(near)[0] <= (o["width_m"] or 1) else None
-    warn.append("fixtures (WC, sinks) are drawn as symbols: not exported from vector sheets yet; ask questions for counts")
+    objects = _fixtures(pdf_path, p0, mpp, k, M, src, out_rooms, rooms, warn)
     warn.append("door/window heights and storey height are not on a plan: null")
     return {"project_id": os.path.splitext(os.path.basename(pdf_path))[0], "source_kind": "pdf_vector",
             "unit": "m" if mpp else "pt", "scale": f["scale"],
@@ -113,7 +163,7 @@ def scene(pdf_path, page=1, rel_path=None):
             "storeys": [{"id": f"p{p0+1}", "name": f"sheet page {p0+1}", "elevation_m": 0.0, "height_m": None,
                          "outline": [M(0, 0), M(size[0], 0), M(*size), M(0, size[1])], "outline_from": "page border",
                          "source": src([0, 0, *size])}],
-            "rooms": out_rooms, "walls": walls, "openings": openings, "objects": [], "systems": []}
+            "rooms": out_rooms, "walls": walls, "openings": openings, "objects": objects, "systems": []}
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("pdf"); ap.add_argument("--page", type=int, default=1); a = ap.parse_args()

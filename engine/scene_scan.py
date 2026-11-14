@@ -60,14 +60,61 @@ def scene(path, page=1, rel_path=None):
                                     "rotation_deg": None, "footprint": {"width_m": round((b[2] - b[0]) * fx, 3), "depth_m": round((b[3] - b[1]) * fz, 3)} if unit == "m" else None,
                                     "confidence": round(d["scores"][cat][i], 3), "source": src(b)})
         else: warn.append("fixture detector not installed here (ultralytics): WC / sink not exported; ask the counting questions instead")
-    warn.append("rooms and walls are not traced from scans yet: use the 2D image as the base layer")
+    seg = None                                   # CubiCasa5K multi-task model output (tools/cubiseg_run.py), if present
+    for cand in (path + ".cubiseg.json", os.path.join(os.path.dirname(path), "cubiseg", os.path.basename(path) + ".cubiseg.json")):
+        if os.path.exists(cand): seg = json.load(open(cand)); break
+    if seg:
+        for i, ic in enumerate(seg.get("icons", [])):
+            cat = {"Toilet": "toilet", "Sink": "sink", "Bathtub": "bathtub"}.get(ic["class"])
+            if not cat: continue
+            xs = [p[0] for p in ic["polygon"]]; ys = [p[1] for p in ic["polygon"]]
+            objects.append({"id": f"s{page}-cubiseg-{cat}-{i}", "category": cat, "position": P((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2),
+                            "rotation_deg": None, "footprint": {"width_m": round((max(xs) - min(xs)) * fx, 3), "depth_m": round((max(ys) - min(ys)) * fz, 3)} if unit == "m" else None,
+                            "confidence": 0.7, "method": "CubiCasa5K model", "source": src([min(xs), min(ys), max(xs), max(ys)])})
+        warn.append(f"fixtures from the CubiCasa5K model ({seg.get('model')})")
+    rooms, walls = [], []
+    try:
+        from . import scan_plan
+        A = scan_plan.analyse(img)
+    except Exception as e: A = None; warn.append(f"wall / room tracing failed: {e!r}"[:160])
+    if A:
+        nx = lambda p: [p[0] * 1000 / W, p[1] * 1000 / H]
+        PL = lambda p: [round(float(nx(p)[0] * fx), 4), round(float(nx(p)[1] * fz), 4)]
+        tpx = (fx * 1000 / W) if unit == "m" else (1000 / W)
+        for i, w in enumerate(A["walls"]):
+            fp = w["footprint"]; xs = [p[0] for p in fp]; ys = [p[1] for p in fp]
+            walls.append({"id": f"s{page}-wall-{i}", "storey_id": f"s{page}", "points": [PL(p) for p in w["points"]],
+                          "thickness_m" if unit == "m" else "thickness_norm1000": round(w["thickness_px"] * tpx, 3),
+                          "base_y_m": 0.0, "height_m": None, "footprint": [PL(p) for p in fp], "confidence": 0.7,
+                          "source": src([min(xs) * 1000 / W, min(ys) * 1000 / H, max(xs) * 1000 / W, max(ys) * 1000 / H])})
+        for i, r in enumerate(A["rooms"]):
+            bx = r["bbox_px"]; lp = PL(r["label_px"])
+            rooms.append({"id": f"s{page}-room-{i}", "name": None, "number": None, "storey_id": f"s{page}",
+                          "polygon": [PL(p) for p in r["polygon"]], "floor_y_m": 0.0, "height_m": None,
+                          "area_m2": round(r["area_px"] * (fx * 1000 / W) * (fz * 1000 / H), 2) if unit == "m" else None,
+                          "label_point": [lp[0], 0.0, lp[1]], "confidence": 0.7,
+                          "source": src([bx[0] * 1000 / W, bx[1] * 1000 / H, (bx[0] + bx[2]) * 1000 / W, (bx[1] + bx[3]) * 1000 / H])})
+        if seg and seg.get("rooms"):
+            def _in(pt, poly):
+                x, y = pt; c = False
+                for a, b in zip(poly, poly[1:] + poly[:1]):
+                    if (a[1] > y) != (b[1] > y) and x < (b[0] - a[0]) * (y - a[1]) / ((b[1] - a[1]) or 1e-12) + a[0]: c = not c
+                return c
+            for rm, r in zip(rooms, A["rooms"]):
+                q = [r["label_px"][0] * 1000 / W, r["label_px"][1] * 1000 / H]
+                hit = next((x for x in seg["rooms"] if x["class"] not in ("Background", "Outdoor", "Wall") and _in(q, x["polygon"])), None)
+                if hit: rm["name"] = hit["class"]; rm["name_source"] = "CubiCasa5K room class"
+        warn.append(f"walls = thick strokes ({len(walls)} axis-aligned runs, deskew {A['angle_deg']:.2f} deg); rooms = enclosed free space "
+                    f"({len(rooms)}), unnamed. Checked on the school sheet: 38/50 rooms within 10 % of the vector areas, small rooms (< 6 m2) can merge")
+    else:
+        warn.append("rooms and walls not traced (OpenCV missing): use the 2D image as the base layer")
     return {"project_id": os.path.splitext(os.path.basename(path))[0], "source_kind": "scan", "unit": unit,
             "coordinate_system": "image: origin top-left, X right, Y up, Z down the image (plan-up = -Z)",
             "plan_up_vector": [0, -1], "north_vector": None, "north_basis": "page (north arrow not read)",
             "quality": quality, "warnings": warn, "sources": [{"file": rel, "page": page}], "image_size_px": [W, H],
             "storeys": [{"id": f"s{page}", "name": f"page {page}", "elevation_m": 0.0, "height_m": None,
                          "outline": [P(0, 0)[::2], P(1000, 0)[::2], P(1000, 1000)[::2], P(0, 1000)[::2]], "outline_from": "image border"}],
-            "rooms": [], "walls": [], "openings": openings, "objects": objects, "systems": []}
+            "rooms": rooms, "walls": walls, "openings": openings, "objects": objects, "systems": []}
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("image"); ap.add_argument("--page", type=int, default=1); a = ap.parse_args()
