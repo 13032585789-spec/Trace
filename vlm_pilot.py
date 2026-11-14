@@ -29,7 +29,7 @@ def pick_model(key):
         except ValueError: return 0
     good.sort(key=lambda n: (ver(n), "preview" not in n), reverse=True)
     print("flash models available:", ", ".join(good[:6]) or "(none)")
-    return good[0] if good else "gemini-2.5-flash"
+    return good or ["gemini-2.5-flash"]
 
 def call(key, model, png_bytes):
     body = {"contents": [{"parts": [{"text": PROMPT}, {"inline_data": {"mime_type": "image/png",
@@ -45,7 +45,7 @@ def main():
     a = ap.parse_args()
     key = os.environ.get("GEMINI_API_KEY")
     if not key: sys.exit('Set the key first:  $env:GEMINI_API_KEY = "your key"')
-    model = a.model or pick_model(key); print("using model:", model, flush=True)
+    candidates = [a.model] if a.model else pick_model(key)
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vlm_cache"); os.makedirs(out, exist_ok=True)
     z = zipfile.ZipFile(a.zip)
     paths = sorted({json.loads(l)["path"] for l in z.open("junction-dataset/questions.jsonl") if b"cubicasa5k" in l})
@@ -54,12 +54,18 @@ def main():
     imgs = {p: z.read("junction-dataset/" + p) for p in todo}
     print(f"{len(test) - len(todo)} already done, {len(todo)} to go", flush=True)
     if not todo: return
-    # one test call first, so problems show up immediately
-    t = time.time()
-    try: call(key, model, imgs[todo[0]])
-    except urllib.error.HTTPError as e:
-        sys.exit(f"TEST CALL FAILED  HTTP {e.code}: {e.read()[:400].decode(errors='replace')}")
-    print(f"test call OK in {time.time() - t:.0f}s, starting {a.workers} workers", flush=True)
+    # one test call first, so problems show up immediately; overloaded (503) models -> try the next one
+    model = None
+    for m in candidates:
+        t = time.time()
+        try:
+            call(key, m, imgs[todo[0]]); model = m; break
+        except urllib.error.HTTPError as e:
+            msg = e.read()[:400].decode(errors="replace")
+            if e.code in (503, 404) and m != candidates[-1]:
+                print(f"{m}: HTTP {e.code} (busy or unavailable), trying the next model", flush=True); continue
+            sys.exit(f"TEST CALL FAILED with {m}  HTTP {e.code}: {msg}")
+    print(f"using model: {model}  (test call OK in {time.time() - t:.0f}s), starting {a.workers} workers", flush=True)
     stats = {"ok": 0, "fail": 0, "t0": time.time()}
     def work(p):
         dst = os.path.join(out, os.path.basename(p) + ".json")
