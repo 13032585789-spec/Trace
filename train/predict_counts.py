@@ -16,7 +16,7 @@ split = json.load(open(os.path.join(here, "data", "split.json")))
 ann = json.load(open(os.path.join(here, "data", f"annotation_counts{SFX}.json")))
 def find_weights():
     """Newer Ultralytics versions may nest the run under runs/detect/...; take the newest best.pt (or last.pt)."""
-    run = "cubi_rooms*" if TASK == "rooms" else "cubi"
+    run = os.environ.get("RUN") or ("cubi_rooms*" if TASK == "rooms" else "cubi")
     for pat in ("best.pt", "last.pt"):
         c = [p for p in glob.glob(os.path.join(os.path.expanduser("~"), "**", run, "weights", pat), recursive=True)
              if ".venv" not in p]
@@ -25,13 +25,15 @@ def find_weights():
 weights = sys.argv[1] if len(sys.argv) > 1 else find_weights()
 print("using weights:", weights)
 model = YOLO(weights); IMGSZ = int(os.environ.get("IMGSZ", 1280))
+PRED_IMG = os.environ.get("PRED_IMG", "F1_original")   # Junction PNGs are F1_original: evaluate on what users send
+ANN_SFX = SFX; SFX = SFX + os.environ.get("OUT_SFX", "")
 name_of = lambda s: f"{os.path.normpath(s).split(os.sep)[-2]}-{os.path.normpath(s).split(os.sep)[-1]}.png"
 
 def detect(samples):
     out = {}
     for i in range(0, len(samples), 16):
         batch = samples[i:i + 16]
-        for s, r in zip(batch, model.predict([os.path.join(s, "F1_scaled.png") for s in batch], imgsz=IMGSZ, conf=0.05, verbose=False)):
+        for s, r in zip(batch, model.predict([os.path.join(s, PRED_IMG + ".png") for s in batch], imgsz=IMGSZ, conf=0.05, verbose=False)):
             H, W = r.orig_shape
             out[name_of(s)] = [(CLASSES[int(c)], float(p), [float(v) for v in b])
                                for c, p, b in zip(r.boxes.cls, r.boxes.conf, r.boxes.xyxy)], (W, H)
@@ -58,7 +60,7 @@ for n, (dets, (W, H)) in test.items():
         cat = "shower_tub" if (TASK != "rooms" and k in ("shower", "bathtub")) else k
         boxes[cat].append([round(x0 * 1000 / W, 1), round(y0 * 1000 / H, 1), round(x1 * 1000 / W, 1), round(y1 * 1000 / H, 1)])
     json.dump({"model": "yolo-cubicasa", "boxes": boxes}, open(os.path.join(dst, n + ".json"), "w"))
-shutil.copy(os.path.join(here, "data", f"annotation_counts{SFX}.json"), dst)
+shutil.copy(os.path.join(here, "data", f"annotation_counts{ANN_SFX}.json"), dst)
 # raw detections (every box >= 0.05 with its score) for val + test, so thresholds can be re-tuned
 # offline against the Junction question answers instead of the SVG annotation counts
 raw = {n: {"size": wh, "dets": [[k, round(p, 3)] + [round(v, 1) for v in b] for k, p, b in d]}

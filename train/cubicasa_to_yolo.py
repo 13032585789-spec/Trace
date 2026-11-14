@@ -167,7 +167,11 @@ def main():
     from PIL import Image
     Image.MAX_IMAGE_PIXELS = None
     NAMES = ROOM_CLASSES if TASK == "rooms" else CLASSES
-    out = os.path.join(a.root, "yolo_rooms" if TASK == "rooms" else "yolo"); inside_n = outside_n = 0; split = {"train": [], "val": [], "junction_test": []}; counts = {}
+    # IMGS: which CubiCasa raster(s) to train on. Junction PNGs are F1_original (pixel-identical), so train on it;
+    # F1_scaled (1.5-3x larger) can be added as a second copy for multi-resolution robustness.
+    IMGS = [x.strip() for x in os.environ.get("IMGS", "F1_scaled").split(",") if x.strip()]
+    out = os.environ.get("YOLO_DIR") or os.path.join(a.root, "yolo_rooms" if TASK == "rooms" else "yolo")
+    inside_n = outside_n = 0; split = {"train": [], "val": [], "junction_test": []}; counts = {}
     for sub in ("images/train", "images/val", "labels/train", "labels/val"): os.makedirs(os.path.join(out, sub), exist_ok=True)
     for s in samples:
         name = junction_name(s); img = os.path.join(s, "F1_scaled.png")
@@ -179,19 +183,23 @@ def main():
         if is_junction_test(name): split["junction_test"].append(s); continue
         part = "val" if int(hashlib.md5(name.encode()).hexdigest(), 16) % 10 == 0 else "train"
         split[part].append(s)
-        stem = name[:-4]; dst = os.path.join(out, "images", part, stem + ".png")
-        if not os.path.exists(dst): os.symlink(os.path.abspath(img), dst)
-        with open(os.path.join(out, "labels", part, stem + ".txt"), "w") as f:
-            for c, (x0, y0, x1, y1) in objs:
-                cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-                if 0 <= cx <= W and 0 <= cy <= H: inside_n += 1
-                else: outside_n += 1
-                x0, x1 = max(0, x0 * sx), min(W, x1 * sx); y0, y1 = max(0, y0 * sy), min(H, y1 * sy)
-                if x1 - x0 < 2 or y1 - y0 < 2: continue
-                f.write(f"{NAMES.index(c)} {(x0+x1)/2/W:.6f} {(y0+y1)/2/H:.6f} {(x1-x0)/W:.6f} {(y1-y0)/H:.6f}\n")
+        lines = []
+        for c, (x0, y0, x1, y1) in objs:
+            cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+            if 0 <= cx <= W and 0 <= cy <= H: inside_n += 1
+            else: outside_n += 1
+            x0, x1 = max(0, x0 * sx), min(W, x1 * sx); y0, y1 = max(0, y0 * sy), min(H, y1 * sy)
+            if x1 - x0 < 2 or y1 - y0 < 2: continue
+            lines.append(f"{NAMES.index(c)} {(x0+x1)/2/W:.6f} {(y0+y1)/2/H:.6f} {(x1-x0)/W:.6f} {(y1-y0)/H:.6f}\n")
+        for v in IMGS:   # normalised labels fit every resolution of the same drawing
+            src = os.path.join(s, v + ".png")
+            if not os.path.exists(src): continue
+            stem = name[:-4] + ("" if len(IMGS) == 1 else "__" + v); dst = os.path.join(out, "images", part, stem + ".png")
+            if not os.path.exists(dst): os.symlink(os.path.abspath(src), dst)
+            with open(os.path.join(out, "labels", part, stem + ".txt"), "w") as f: f.writelines(lines)
     sfx = "_rooms" if TASK == "rooms" else ""
     json.dump(split, open(os.path.join(a.root, "split.json"), "w")); json.dump(counts, open(os.path.join(a.root, f"annotation_counts{sfx}.json"), "w"))
-    open(os.path.join(a.root, f"cubi{sfx}.yaml"), "w").write(f"path: {os.path.abspath(out)}\ntrain: images/train\nval: images/val\nnames: {json.dumps(dict(enumerate(NAMES)))}\n")
+    open(os.path.join(a.root, os.environ.get("YAML", f"cubi{sfx}.yaml")), "w").write(f"path: {os.path.abspath(out)}\ntrain: images/train\nval: images/val\nnames: {json.dumps(dict(enumerate(NAMES)))}\n")
     if TASK == "rooms" and os.path.exists("room_gold.json"):   # self-check: do our boxes reproduce the answers?
         gold = json.load(open("room_gold.json")); rule = {"bedroom": ["bedroom"], "kitchen": ["kitchen"], "balcony": ["balcony"],
                "floors": ["floor"], "wc_room": ["label_wc"], "sauna": ["label_ss", "sauna"]}
