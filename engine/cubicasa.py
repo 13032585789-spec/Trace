@@ -96,9 +96,13 @@ def _normalise_boxes(b):
 
 def detector_boxes(png_path, cat):
     """Boxes from the YOLO detector trained on CubiCasa5k (train/predict_counts.py), if present for this image."""
+    if cat not in DETECTOR_CATS: return None
     p = os.path.join(DET_DIR, os.path.basename(png_path) + ".json")
-    if cat not in DETECTOR_CATS or not os.path.exists(p): return None
-    return json.load(open(p))["boxes"].get(cat, []) or []
+    if os.path.exists(p): return json.load(open(p))["boxes"].get(cat, []) or []
+    from . import detector                       # live inference for new plans (needs ultralytics)
+    try: d = detector.detect(png_path)
+    except Exception: d = None
+    return None if d is None else (d["boxes"].get(cat, []) or [])
 
 def tiled_boxes(png_path, cat):
     """Merge per-tile boxes (tile-normalised 0-1000) back to whole-image 0-1000 and drop duplicates in overlaps."""
