@@ -14,6 +14,6 @@
 | T-08 | 后端 collab 接口 + 角色 | Claude | [?] | `agent/collab.py`，`/collab*`；角色加 plumber、owner |
 | T-09 | 前端总装 + Nemotron 徽章 | Claude | [?] | `App.tsx`、`DrawingViewer.tsx`、`VerifyBadge.tsx`；`npm run build` 通过 |
 | T-10 | 接 Xinran 的 engine.tools | Diletta + Xinran | [ ] | `agent/tools.py` 已按 `engine.tools` 自动切换 |
-| T-11 | Verda 批处理 + Dockerfile + 部署 | Codex / Diletta | [ ] | 需要 Verda 控制台确认产品 |
-| T-12 | README 各 Tech Challenge + verda-log | Codex | [ ] | |
+| T-11 | Verda 批处理 + Dockerfile + 部署 | Codex / Diletta | [?] | 预热脚本完成；pytest 23 passed，前端 build 通过；Verda 部署仍待确认 |
+| T-12 | README 各 Tech Challenge + verda-log | Codex | [?] | 文档完成；pytest 23 passed，前端 build 通过 |
 | T-13 | Codex 真实提交（Codex 挑战证据） | Codex | [ ] | 上面的 T-04 是 Claude 写的，Codex 挑战需要 Codex 自己做 T-11/T-12 |
