@@ -16,7 +16,7 @@ def classify(cls):
         k = t[1].lower()
         if "toilet" in k or k == "wc": return "toilet"
         if "sink" in k or "basin" in k or "washbasin" in k: return "sink"
-        if "shower" in k: return "shower"
+        if "shower" in k and "screen" not in k: return "shower"   # ShowerScreen = glass panel, not a shower
         if "bath" in k: return "bathtub"
     return None
 
@@ -112,6 +112,7 @@ def main():
     print("samples:", len(samples))
     if a.inspect:
         from PIL import Image
+        Image.MAX_IMAGE_PIXELS = None
         tot = collections.Counter(); per = collections.Counter()
         for s in samples[:300]:
             objs, seen, size = objects(os.path.join(s, "model.svg")); tot.update(seen); per.update(c for c, _ in objs)
@@ -123,14 +124,15 @@ def main():
             print(" ", junction_name(s), "svg", sz, ims)
         return
     from PIL import Image
-    out = os.path.join(a.root, "yolo"); split = {"train": [], "val": [], "junction_test": []}; counts = {}
+    Image.MAX_IMAGE_PIXELS = None
+    out = os.path.join(a.root, "yolo"); inside_n = outside_n = 0; split = {"train": [], "val": [], "junction_test": []}; counts = {}
     for sub in ("images/train", "images/val", "labels/train", "labels/val"): os.makedirs(os.path.join(out, sub), exist_ok=True)
     for s in samples:
         name = junction_name(s); img = os.path.join(s, "F1_scaled.png")
         if not os.path.exists(img): continue
         objs, _, svg_size = objects(os.path.join(s, "model.svg"))
         W, H = Image.open(img).size
-        sx, sy = (W / svg_size[0], H / svg_size[1]) if svg_size else (1, 1)
+        sx = sy = 1.0   # SVG coordinates are already F1_scaled.png pixels (width/height attrs are only the content extent)
         counts[name] = dict(collections.Counter(c for c, _ in objs))
         if is_junction_test(name): split["junction_test"].append(s); continue
         part = "val" if int(hashlib.md5(name.encode()).hexdigest(), 16) % 10 == 0 else "train"
@@ -139,12 +141,20 @@ def main():
         if not os.path.exists(dst): os.symlink(os.path.abspath(img), dst)
         with open(os.path.join(out, "labels", part, stem + ".txt"), "w") as f:
             for c, (x0, y0, x1, y1) in objs:
+                cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+                if 0 <= cx <= W and 0 <= cy <= H: inside_n += 1
+                else: outside_n += 1
                 x0, x1 = max(0, x0 * sx), min(W, x1 * sx); y0, y1 = max(0, y0 * sy), min(H, y1 * sy)
                 if x1 - x0 < 2 or y1 - y0 < 2: continue
                 f.write(f"{CLASSES.index(c)} {(x0+x1)/2/W:.6f} {(y0+y1)/2/H:.6f} {(x1-x0)/W:.6f} {(y1-y0)/H:.6f}\n")
     json.dump(split, open(os.path.join(a.root, "split.json"), "w")); json.dump(counts, open(os.path.join(a.root, "annotation_counts.json"), "w"))
     open(os.path.join(a.root, "cubi.yaml"), "w").write(f"path: {os.path.abspath(out)}\ntrain: images/train\nval: images/val\nnames: {json.dumps(dict(enumerate(CLASSES)))}\n")
     print({k: len(v) for k, v in split.items()}, "->", out)
+    print(f"coordinate check: {inside_n} box centres inside the image, {outside_n} outside "
+          f"({100 * outside_n / max(1, inside_n + outside_n):.2f}% outside; should be close to 0)")
+    tot = collections.Counter()
+    for n in counts: tot.update(counts[n])
+    print("objects per image (all 5000):", {k: round(v / len(counts), 2) for k, v in tot.items()})
 
 if __name__ == "__main__":
     main()
