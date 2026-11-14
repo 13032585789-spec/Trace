@@ -131,6 +131,84 @@ def door_leaves(pg, mpp):
         else: used.add(i); sets.append({"leaves": [i], "type": "single"})
     return uniq, sets
 
+BLACK = {"0", "0.0", "(0,)", "[0]", "(0.0,)", "[0.0]", "(0, 0, 0)", "[0, 0, 0]", "(0.0, 0.0, 0.0)", "[0.0, 0.0, 0.0]"}
+
+def windows(pg, mpp):
+    """Window symbols in plan: 3+ thin parallel lines of the same span (wall faces + glazing) spanning a wall-thick
+    band (0.15-0.7 m) between two solid wall pieces; stair treads (long ladders of lines) are rejected.
+    -> [{box, width_m}]"""
+    if not mpp: return []
+    segs = []
+    for o in pg.lines:
+        if o.get("linewidth", 0) > 1.5: continue
+        x0, y0, x1, y1 = o["x0"], o["top"], o["x1"], o["bottom"]
+        if abs(y1 - y0) < 0.3: segs.append(("h", round(min(x0, x1)), round(max(x0, x1)), (y0 + y1) / 2))
+        elif abs(x1 - x0) < 0.3: segs.append(("v", round(min(y0, y1)), round(max(y0, y1)), (x0 + x1) / 2))
+    for o in pg.rects:
+        if o["fill"]: continue
+        x0, x1, t, b = o["x0"], o["x1"], o["top"], o["bottom"]
+        segs += [("h", round(x0), round(x1), t), ("h", round(x0), round(x1), b), ("v", round(t), round(b), x0), ("v", round(t), round(b), x1)]
+    fills = [(o["x0"], o["top"], o["x1"], o["bottom"]) for o in list(pg.rects) + list(pg.curves)
+             if o.get("fill") and str(o.get("non_stroking_color")) in BLACK]
+    solid = lambda x, y, e=1.2: any(b[0] - e <= x <= b[2] + e and b[1] - e <= y <= b[3] + e for b in fills)
+    G = collections.defaultdict(list)
+    for k, a, b, c in segs: G[(k, a, b)].append(c)
+    out = []
+    for (k, a, b), cs in G.items():
+        if not 0.3 <= (b - a) * mpp <= 4: continue
+        cs = sorted(set(round(c, 1) for c in cs)); cl = [[cs[0]]]
+        for c in cs[1:]: (cl[-1].append(c) if (c - cl[-1][0]) * mpp <= 0.7 else cl.append([c]))
+        for g in cl:
+            iso = not any((c < g[0] and (g[0] - c) * mpp < 0.4) or (c > g[-1] and (c - g[-1]) * mpp < 0.4) for c in cs)
+            if len(g) < 3 or not 0.15 <= (g[-1] - g[0]) * mpp <= 0.7 or not iso: continue
+            m = (g[0] + g[-1]) / 2
+            if not ((solid(a, m) and solid(b, m)) if k == "h" else (solid(m, a) and solid(m, b))): continue
+            box = [a, g[0], b, g[-1]] if k == "h" else [g[0], a, g[-1], b]
+            out.append({"box": [round(v, 1) for v in box], "width_m": round((b - a) * mpp, 2)})
+    return out
+
+def rooms(pdf_path, page, facts, res=0.02):
+    """Rooms as the free space around each text label, from a raster of the dark linework (walls) with door leaves
+    and window symbols drawn shut. -> [{name, area_m2, perimeter_m, doors: [widths], baseboard_m, box}].
+    Baseboard = room perimeter minus the widths of the door leaves hinged on that room's boundary."""
+    mpp = facts["scale"]["m_per_pt"]
+    if not mpp: return []
+    try:
+        import numpy as np, cv2, pypdfium2 as pdfium
+    except ImportError: return []
+    s = mpp / res
+    img = np.array(pdfium.PdfDocument(pdf_path)[page].render(scale=s, grayscale=True).to_pil())
+    wall = cv2.dilate((img < 110).astype(np.uint8), np.ones((2, 2), np.uint8))   # furniture is grey, walls black
+    P = lambda p: (int(p[0] * s), int(p[1] * s))
+    for L in facts["door_leaves"]:
+        for e in L["ends"]: cv2.line(wall, P(L["hinge"]), P(e), 1, 3)
+    for w in facts.get("windows", []): b = w["box"]; cv2.rectangle(wall, P(b[:2]), P(b[2:]), 1, -1)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(1 - wall, connectivity=4)
+    border = set(lab[0, :]) | set(lab[-1, :]) | set(lab[:, 0]) | set(lab[:, -1])
+    out, seen = [], {}
+    k = max(1, int(0.35 / res))
+    for B in facts.get("labels", []):
+        cx, cy = P(((B["box"][0] + B["box"][2]) / 2, (B["box"][1] + B["box"][3]) / 2))
+        if not (0 <= cy < lab.shape[0] and 0 <= cx < lab.shape[1]): continue
+        i = int(lab[cy, cx])
+        if i == 0 or i in border: continue
+        area = st[i, cv2.CC_STAT_AREA] * res * res
+        if area < 1.0 or area > 1500: continue
+        if i not in seen:
+            m = (lab == i).astype(np.uint8)
+            cs, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            per = sum(cv2.arcLength(c, True) for c in cs) * res
+            near = cv2.dilate(m, np.ones((k, k), np.uint8))
+            doors = [L["radius_m"] for L in facts["door_leaves"]
+                     if 0 <= P(L["hinge"])[1] < near.shape[0] and 0 <= P(L["hinge"])[0] < near.shape[1] and near[P(L["hinge"])[1], P(L["hinge"])[0]]]
+            x, y, w, h = st[i, 0], st[i, 1], st[i, 2], st[i, 3]
+            seen[i] = {"name": B["t"], "area_m2": round(area, 2), "perimeter_m": round(per, 2), "doors": doors,
+                       "baseboard_m": round(per - sum(doors), 2), "box": [round(v / s, 1) for v in (x, y, x + w, y + h)]}
+            out.append(seen[i])
+        elif B["t"] not in seen[i]["name"].split(" + "):
+            seen[i]["name"] += " + " + B["t"]          # two labels in one region: the split between them was not found
+    return out
+
 def filled_marks(pg, max_size=10):
     """Groups of identical small filled marks (dots / squares) -> [{size, count, boxes}] largest first."""
     g = collections.defaultdict(list)
@@ -148,7 +226,7 @@ def load(pdf_path, page=0):
     side = f"{pdf_path}.p{page + 1}.facts.json"
     if os.path.exists(side): return json.load(open(side))
     st = os.stat(pdf_path)
-    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v6".encode()).hexdigest()
+    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v9".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".json")
     if os.path.exists(cp): return json.load(open(cp))
     import pdfplumber
@@ -167,13 +245,15 @@ def load(pdf_path, page=0):
             if v: dims.append({"id": f"d{len(dims)}", "text": w["t"], "value": v[0], "unit": v[1], "box": w["box"],
                                "vertical": w["vertical"]})
         leaves, sets = door_leaves(pg, mpp)
-        marks = filled_marks(pg)
+        marks = filled_marks(pg); wins = windows(pg, mpp)
         facts = {"file": os.path.basename(pdf_path), "page": page, "size": [pg.width, pg.height],
                  "scale": {"text": scale_text, "m_per_pt": mpp},
                  "lines": [{"id": f"t{i}", **L} for i, L in enumerate(lines)],
                  "labels": [{"t": B["t"], "box": B["box"]} for B in blocks],
                  "tags": {k: v for k, v in sorted(tags.items())}, "dims": dims,
-                 "door_leaves": leaves, "doorsets": sets, "filled_marks": marks}
+                 "door_leaves": leaves, "doorsets": sets, "windows": wins, "filled_marks": marks}
+    try: facts["rooms"] = rooms(pdf_path, page, facts)
+    except Exception as e: facts["rooms"] = []; facts["rooms_error"] = repr(e)[:200]
     os.makedirs(CACHE, exist_ok=True); json.dump(facts, open(cp, "w"))
     return facts
 
@@ -197,6 +277,10 @@ def summary(f, max_lines=400):
     nd = sum(1 for s in f["doorsets"] if s["type"] == "double")
     out.append(f"DOOR SWING ARCS: {len(f['door_leaves'])} leaves; {len(f['doorsets'])} doorsets ({nd} double). "
                "Doors drawn without a swing arc (sliding, folding, openings) are not in these numbers.")
+    if f.get("rooms"):
+        out.append("ROOMS (id: label | floor area m2 | perimeter m | door leaves on it | baseboard m = perimeter - door widths):")
+        out += [f"  r{i}: {R['name']} | {R['area_m2']} | {R['perimeter_m']} | {len(R['doors'])} | {R['baseboard_m']}" for i, R in enumerate(f["rooms"])]
+    out.append(f"WINDOW SYMBOLS IN WALLS: {len(f.get('windows', []))} (each glazed panel between two solid wall pieces)")
     out.append("DIMENSIONS (id: text):")
     out.append("  " + ", ".join(f"{d['id']}{pos(d['box'])}:{d['text']}{'(v)' if d['vertical'] else ''}" for d in f["dims"][:600]))
     return "\n".join(out)
@@ -205,8 +289,9 @@ PROMPT = """You answer a question about one construction drawing sheet using ONL
 (text lines, tags, filled-mark groups, door swing arcs, dimension strings). Every fact has an id.
 Never count or do arithmetic yourself: choose ONE operation and the code computes it.
 Return JSON only:
-{"op": "count_tags" | "count_marks" | "count_doors" | "count_labels" | "expr" | "lookup" | "schedule" | "vision" | "none",
+{"op": "count_tags" | "count_marks" | "count_doors" | "count_windows" | "count_labels" | "rooms" | "expr" | "lookup" | "schedule" | "vision" | "none",
  "label": "<count_labels: exact label text from TEXT LABELS, e.g. Secondary Classroom>",
+ "rooms": ["<rooms: room ids r0, r1 ... to use>"], "field": "area_m2" | "perimeter_m" | "baseboard_m",
  "prefix": "<count_tags: tag prefix, e.g. FP>", "distinct": true,
  "mark_group": "<count_marks: m0, m1 ...>",
  "doors": "leaves" | "doorsets",
@@ -215,10 +300,16 @@ Return JSON only:
  "cite": ["<ids of text lines / dims used>"],
  "answer": "<your answer as the question expects it>",
  "reason": "<one sentence: which facts and why>"}
+Common tag abbreviations on mechanical / fuel sheets: FP fuel pump, CV check valve, FSI filter separator (issue),
+FSR filter separator (receipt), FSCV filter separator control valve, PS pipe support, PG pressure gauge, MAV manual
+air vent, PIT pressure indicating transmitter, DPT differential pressure transmitter, BPCV back pressure control valve.
+A question may need the sum of two tag prefixes (e.g. filter separators = FSI + FSR): then use "prefix": "FSI,FSR".
 Rules: count_tags counts distinct tags with that prefix (distinct=false: label instances). count_marks counts a
 filled-mark group; use it when a note on the sheet says what those marks mean (cite the note). count_doors uses the
-door swing arcs (doorsets: a double door = 1; leaves: a double door = 2). count_labels counts text labels equal to
-the given text (case-insensitive), e.g. rooms by name. expr evaluates numbers from DIMENSIONS (mm values stay mm; divide by 1e6 for m2). lookup = a value
+door swing arcs (doorsets: a double door = 1; leaves: a double door = 2). count_windows uses the window symbols
+found in the walls (if 0, the sheet draws windows differently: use vision). count_labels counts text labels equal to
+the given text (case-insensitive), e.g. rooms by name. rooms sums a field over the listed ROOMS (floor area,
+perimeter, baseboard length); pick every room the question means (e.g. all rooms named Group Room). expr evaluates numbers from DIMENSIONS (mm values stay mm; divide by 1e6 for m2). lookup = a value
 written in a text line (answer = that text). Use "schedule" when the answer is in a table / schedule /
 area summary on the sheet that needs adding or selecting rows. Use "vision" if the answer needs looking at the drawing (e.g. windows,
 regions with no dimension strings); "none" if the sheet does not contain it.
@@ -240,7 +331,7 @@ def compute(f, r):
     """-> (value, unit, items with boxes, warnings)."""
     op = r.get("op"); warn = []
     if op == "count_tags":
-        p = str(r.get("prefix", "")).upper(); v = f["tags"].get(p, [])
+        v = [x for p in str(r.get("prefix", "")).upper().replace(" ", "").split(",") for x in f["tags"].get(p, [])]
         if r.get("distinct", True):
             seen = {}
             for x in v: seen.setdefault(x["tag"], x)
@@ -260,6 +351,18 @@ def compute(f, r):
             items.append({"type": s["type"], "box": [min(b[0] for b in bs), min(b[1] for b in bs), max(b[2] for b in bs), max(b[3] for b in bs)]})
         warn.append("doors drawn without a swing arc (sliding, folding) are not counted")
         return len(items), "count", items, warn
+    if op == "count_windows":
+        return len(f.get("windows", [])), "count", [{"box": w["box"], "width_m": w["width_m"]} for w in f.get("windows", [])], warn
+    if op == "rooms":
+        fld = r.get("field") if r.get("field") in ("area_m2", "perimeter_m", "baseboard_m") else "area_m2"
+        sel = []
+        for rid in r.get("rooms") or []:
+            try: sel.append(f["rooms"][int(str(rid).lstrip("r"))])
+            except Exception: warn.append(f"unknown room {rid}")
+        if not sel: return r.get("answer"), r.get("unit"), [], warn + ["no rooms selected"]
+        warn.append("rooms are traced from the drawn walls; openings without a door leaf are not deducted from baseboards")
+        return round(sum(R[fld] for R in sel), 2), "m2" if fld == "area_m2" else "m", \
+            [{"room": R["name"], fld: R[fld], "box": R["box"]} for R in sel], warn
     if op == "count_labels":
         t = re.sub(r"\s+", " ", str(r.get("label", ""))).strip().lower()
         items = [{"text": B["t"], "box": B["box"]} for B in f.get("labels", []) if re.sub(r"\s+", " ", B["t"]).strip().lower() == t]

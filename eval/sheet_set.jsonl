@@ -22,3 +22,7 @@
 {"path": "eval/sheets/us_daf_dorm_sd_drawings_april_2026_p003.jpg", "question": "What is the area of the west wing dormitory?", "answer": "6,095 SF", "confidence": "checked"}
 {"path": "eval/sheets/us_daf_dorm_sd_drawings_april_2026_p003.jpg", "question": "What is the total second floor area?", "answer": "26,562 SF", "confidence": "checked"}
 {"path": "eval/sheets/us_daf_dorm_sd_drawings_april_2026_p003.jpg", "question": "How many dorms are on the second floor?", "answer": 48, "confidence": "checked"}
+{"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "How many windows are shown on this plan?", "answer": 66, "confidence": "computed: window symbols between solid wall pieces, checked visually"}
+{"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "What is the total baseboard length in all Group Rooms, in metres?", "answer": null, "confidence": "computed by the engine; no hand-checked answer"}
+{"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "What is the floor area of the Kitchen?", "answer": null, "confidence": "computed by the engine (traced rooms); no hand-checked answer"}
+{"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "What is the floor area of the Fitness Room?", "answer": null, "confidence": "computed by the engine (traced rooms); no hand-checked answer"}
