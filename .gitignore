@@ -12,3 +12,4 @@ det_cache/
 det_cache.zip
 train/data/
 train/runs/
+train/.venv/
