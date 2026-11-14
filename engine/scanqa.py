@@ -43,6 +43,51 @@ def normalise(resp, is_count):
         val = len(ev)                         # the boxes are the evidence; a count must match them
     return {"found": found, "value": val, "quote": resp.get("quote"), "items": ev, "reason": resp.get("reason")}
 
+def raster_marks(image_bytes, min_count=5):
+    """Repeated small filled marks found by image analysis (dots, solid squares), grouped by size.
+    -> [{"id": "g0", "count", "diameter_px", "items": [{box_norm1000}]}] largest group first; [] without OpenCV."""
+    try:
+        import cv2, numpy as np
+    except ImportError: return []
+    im = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_GRAYSCALE)
+    if im is None: return []
+    H, W = im.shape
+    b = (im < 110).astype(np.uint8)
+    o = cv2.morphologyEx(b, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7)))   # drop lines and text
+    n, lab, st, _ = cv2.connectedComponentsWithStats(o)
+    blobs = []
+    for i in range(1, n):
+        x, y, w, h, a = (int(v) for v in st[i])
+        if 6 <= w <= 40 and 6 <= h <= 40 and abs(w - h) <= 0.25 * max(w, h) + 1 and a > 0.6 * w * h:
+            blobs.append(((4 * a / 3.14159) ** 0.5, [round(1000 * x / W, 1), round(1000 * y / H, 1), round(1000 * (x + w) / W, 1), round(1000 * (y + h) / H, 1)]))
+    blobs.sort(key=lambda t: t[0]); groups = []
+    for d, bx in blobs:
+        if groups and d - groups[-1]["d"][-1] <= 1.5: groups[-1]["d"].append(d); groups[-1]["items"].append({"box_norm1000": bx})
+        else: groups.append({"d": [d], "items": [{"box_norm1000": bx}]})
+    groups = sorted([g for g in groups if len(g["items"]) >= min_count], key=lambda g: -len(g["items"]))[:4]
+    return [{"id": f"g{i}", "count": len(g["items"]), "diameter_px": round(sum(g["d"]) / len(g["d"]), 1), "items": g["items"]}
+            for i, g in enumerate(groups)]
+
+MARKS_NOTE = """
+Image analysis also found these groups of identical small FILLED marks (dots / solid squares), with example
+locations (0-1000 x,y): {groups}
+If the question asks for things drawn as such filled marks (e.g. a note or legend says the dots mean pipe supports),
+add "mark_group": "<group id>" to your JSON instead of boxing them one by one; the code counts that group."""
+
+def _marks_prompt(groups):
+    return MARKS_NOTE.replace("{groups}", "; ".join(
+        f"{g['id']}: {g['count']} marks, ~{g['diameter_px']} px, e.g. " + ", ".join(
+            f"({int((it['box_norm1000'][0] + it['box_norm1000'][2]) / 2)},{int((it['box_norm1000'][1] + it['box_norm1000'][3]) / 2)})" for it in g["items"][:3])
+        for g in groups))
+
+def _marks_answer(groups, resp):
+    g = next((g for g in groups if g["id"] == str(resp.get("mark_group"))), None)
+    if g is None: return None
+    items = [dict(it, id=i, label="filled mark") for i, it in enumerate(g["items"])]
+    return {"value": g["count"], "unit": "count", "items": items, "method": "scan:marks+vlm", "warnings": [],
+            "evidence": {"reason": resp.get("reason"), "mark_group": g["id"], "diameter_px": g["diameter_px"],
+                         "readings": [g["count"], resp.get("answer")]}}
+
 def looks_like_count(q):
     return bool(re.search(r"\bhow many\b|\bnumber of\b|montako|wie viele|combien|quanti|hur många|多少|几", q, re.I))
 
@@ -108,7 +153,11 @@ def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.
     if is_count and max(W, H) > tile_from:
         grid = (3, 3) if max(W, H) > 5000 else (2, 2)
         if W > 1.6 * H: grid = (grid[0] + 1, grid[1])
-        whole = normalise(call_model(PROMPT.replace("{q}", question), _shrink(image_bytes), 0.0), True)
+        groups = raster_marks(image_bytes)
+        raw = call_model(PROMPT.replace("{q}", question) + (_marks_prompt(groups) if groups else ""), _shrink(image_bytes), 0.0)
+        m = _marks_answer(groups, raw) if groups else None
+        if m: return m
+        whole = normalise(raw, True)
         if not whole["found"]:
             return {"value": None, "unit": "count", "items": [], "method": "scan:vlm", "warnings": ["not shown on this drawing"],
                     "evidence": {"reason": whole["reason"], "readings": [None]}}
@@ -134,6 +183,11 @@ def _shrink(image_bytes, max_side=2400):
 
 def answer_single(image_bytes, question, call_model, votes=2):
     is_count = looks_like_count(question)
+    groups = raster_marks(image_bytes) if is_count else []
+    if groups:
+        raw = call_model(PROMPT.replace("{q}", question) + _marks_prompt(groups), image_bytes, 0.0)
+        m = _marks_answer(groups, raw)
+        if m: return m
     runs = [normalise(call_model(PROMPT.replace("{q}", question), image_bytes, t), is_count) for t in (0.0, 0.6)[:votes]]
     a = runs[0]
     same = lambda x, y: (x["value"] is None and y["value"] is None) or (

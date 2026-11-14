@@ -1,7 +1,7 @@
 {"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "How many fueling pumps are shown on this piping plan?", "answer": 5, "confidence": "checked"}
 {"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "How many non-surge check valves are there?", "answer": 5, "confidence": "checked"}
 {"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "How many filter separators are shown?", "answer": 7, "confidence": "checked"}
-{"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "How many pipe support locations are indicated on the piping?", "answer": 44, "confidence": "checked"}
+{"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "How many pipe support locations are indicated on the piping?", "answer": 46, "confidence": "checked: 46 dots (2 drawn 0.1 pt smaller were missed at first)"}
 {"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "How many filter separator control valves (FSCV) are there?", "answer": 7, "confidence": "checked"}
 {"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "What is the size of the suction header?", "answer": "16\"", "confidence": "checked"}
 {"path": "eval/sheets/us_aw_078-24-28_march_2020_p096.pdf", "question": "What is the size of the pump discharge header?", "answer": "12\"", "confidence": "checked"}

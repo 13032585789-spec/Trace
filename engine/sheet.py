@@ -211,13 +211,18 @@ def rooms(pdf_path, page, facts, res=0.02):
 
 def filled_marks(pg, max_size=10):
     """Groups of identical small filled marks (dots / squares) -> [{size, count, boxes}] largest first."""
-    g = collections.defaultdict(list)
+    marks = []
     for o in list(pg.rects) + list(pg.curves):
         w, h = o["x1"] - o["x0"], o["bottom"] - o["top"]
         if not o.get("fill") or o.get("stroke") and o.get("linewidth", 0) > 1: continue
         if not (2 <= w <= max_size and abs(w - h) < 0.6): continue
-        g[(round(w, 1), round(h, 1))].append([round(o["x0"], 1), round(o["top"], 1), round(o["x1"], 1), round(o["bottom"], 1)])
-    return sorted(({"size_pt": list(k), "count": len(v), "boxes": v} for k, v in g.items() if len(v) >= 3), key=lambda x: -x["count"])
+        marks.append(((w + h) / 2, [round(o["x0"], 1), round(o["top"], 1), round(o["x1"], 1), round(o["bottom"], 1)]))
+    marks.sort(key=lambda m: m[0]); groups = []          # same symbol drawn at 5.9 and 6.0 pt is one group
+    for d, b in marks:
+        if groups and d - groups[-1]["d"][-1] <= 0.3: groups[-1]["d"].append(d); groups[-1]["boxes"].append(b)
+        else: groups.append({"d": [d], "boxes": [b]})
+    return sorted(({"size_pt": [round(min(g["d"]), 1), round(max(g["d"]), 1)], "count": len(g["boxes"]), "boxes": g["boxes"]}
+                   for g in groups if len(g["boxes"]) >= 3), key=lambda x: -x["count"])
 
 # ---------------------------------------------------------------------------------------------------------- facts
 def load(pdf_path, page=0):
@@ -226,7 +231,7 @@ def load(pdf_path, page=0):
     side = f"{pdf_path}.p{page + 1}.facts.json"
     if os.path.exists(side): return json.load(open(side))
     st = os.stat(pdf_path)
-    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v9".encode()).hexdigest()
+    key = hashlib.md5(f"{os.path.abspath(pdf_path)}|{st.st_size}|{st.st_mtime}|{page}|v10".encode()).hexdigest()
     cp = os.path.join(CACHE, key + ".json")
     if os.path.exists(cp): return json.load(open(cp))
     import pdfplumber
