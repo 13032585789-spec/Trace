@@ -11,7 +11,16 @@ CLASSES = ["door", "window", "toilet", "sink", "shower", "bathtub"]
 here = os.path.dirname(os.path.abspath(__file__))
 split = json.load(open(os.path.join(here, "data", "split.json")))
 ann = json.load(open(os.path.join(here, "data", "annotation_counts.json")))
-weights = sys.argv[1] if len(sys.argv) > 1 else os.path.join(here, "runs", "cubi", "weights", "best.pt")
+def find_weights():
+    """Newer Ultralytics versions may nest the run under runs/detect/...; take the newest best.pt (or last.pt)."""
+    for pat in ("best.pt", "last.pt"):
+        c = [p for p in glob.glob(os.path.join(here, "runs", "**", pat), recursive=True)] + \
+            [p for p in glob.glob(os.path.join(os.path.expanduser("~"), "**", "cubi*", "weights", pat), recursive=True)
+             if ".venv" not in p]
+        if c: return max(c, key=os.path.getmtime)
+    sys.exit("no trained weights found (best.pt / last.pt) - training probably did not finish; see train.log")
+weights = sys.argv[1] if len(sys.argv) > 1 else find_weights()
+print("using weights:", weights)
 model = YOLO(weights); IMGSZ = int(os.environ.get("IMGSZ", 1280))
 name_of = lambda s: f"{os.path.normpath(s).split(os.sep)[-2]}-{os.path.normpath(s).split(os.sep)[-1]}.png"
 
