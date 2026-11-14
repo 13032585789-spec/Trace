@@ -10,7 +10,8 @@ CLASSES = ["door", "window", "toilet", "sink", "shower", "bathtub"]
 def classify(cls):
     t = cls.split()
     if not t: return None
-    if t[0] == "Door": return "door"
+    if t[0] == "Door":
+        return None if len(t) > 1 and t[1] == "None" else "door"   # "Door None" = doorway without a leaf: not a door
     if t[0] == "Window": return "window"
     if t[0] in ("FixedFurniture", "Furniture") and len(t) > 1:
         k = t[1].lower()
