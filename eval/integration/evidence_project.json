@@ -2,16 +2,16 @@
  "request": {
   "method": "GET",
   "path": "/evidence",
-  "query": "answer_id=427b1771d223",
+  "query": "answer_id=f4f9fe2e4e57",
   "body": null
  },
  "status": 200,
  "response": {
-  "answer_id": "427b1771d223",
+  "answer_id": "f4f9fe2e4e57",
   "question": "How many doors are on the first floor?",
-  "value": null,
+  "value": 28,
   "unit": "count",
-  "confidence": "none",
+  "confidence": "low",
   "confidence_reason": "lowest confidence of the 1 sheet answer(s) combined",
   "source": {
    "file": "project:xsc",
@@ -26,8 +26,8 @@
    "no drawing image for this source (model element ids are the evidence)"
   ],
   "images": {
-   "full": "/evidence?answer_id=427b1771d223&view=full",
-   "zoom": "/evidence?answer_id=427b1771d223&view=zoom"
+   "full": "/evidence?answer_id=f4f9fe2e4e57&view=full",
+   "zoom": "/evidence?answer_id=f4f9fe2e4e57&view=zoom"
   }
  }
 }

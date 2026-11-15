@@ -31,9 +31,8 @@ by `tools/integration_samples.py` (same code path as HTTP). Files: `eval/integra
 - `ask_ifc.json` — Duplex IFC, "How many doors…" → `14`, `confidence: high`, 14 items with GUIDs.
   `evidence_ifc.json` → 14 locations. `view=zoom` → `404 {"error":"no drawing image for this answer"}`
   (IFC has no sheet; use the scene / GUIDs to highlight in 3D).
-- `ask_pdf_vector.json` — UK special school level 00 (vector PDF), "How many doors…" → in this capture `107`
-  (door sets). **Since commit after `610b2d9` the default basis is door LEAVES → `129`** (a double door = 2),
-  with door sets (107) as the alternative. `alternatives[]` always carries both; show both in the UI.
+- `ask_pdf_vector.json` — UK special school level 00 (vector PDF), "How many doors…" → `129` door leaves
+  (a double door = 2, `confidence: high`), door sets `107` as the alternative. `alternatives[]` always carries both; show both in the UI.
 - `ask_scan.json` — the same sheet as a scan, "How many windows…" → `60`, `confidence: medium`
   (`method: scan:windows+vlm`), 60 located items. Evidence PNGs: `evidence_pdf_vector_zoom.png`,
   `evidence_scan_zoom.png`.
@@ -43,10 +42,9 @@ by `tools/integration_samples.py` (same code path as HTTP). Files: `eval/integra
   PNGs: `view=full` (whole sheet, numbered boxes) and `view=zoom` (cropped, high-res re-render).
 - Project (Sports Complex, 3 sheets uploaded as project `xsc`): `project_sheets.json` classifies
   A-100.A as `site`, A-101 as `floor_plan` level 1, A-801 as `schedule`.
-  `project_ask.json` ("How many doors are on the first floor?") routes to A-101 only
-  (`evidence.sheets_used = [2]`; the site plan is not used) — but in this capture the vision model
-  answered "not shown on this drawing", so `value: null`, `confidence: none`. A-101 is a raster plan;
-  an earlier run counted 28 (uncertain). Treat project counting on raster sheets as unreliable.
+  `project_ask.json` ("How many doors are on the first floor?") routes to A-101 only (the site plan is not used).
+  A-101 is a raster plan: three readings 50 / 20 / 28 → median `28`, `confidence: low`, flagged uncertain.
+  `evidence.cross_check`: door schedule A-801 lists 38 doors for the whole building → 28 is within that bound.
   The door **schedule** question ("how many doors in the door schedule") is the reliable one (38, high).
   New: every project door count is cross-checked against the door schedule → `evidence.cross_check`
   `{schedule_doors, scope, status}`; status `consistent | disagree | plan count exceeds… | plan gave no number`;

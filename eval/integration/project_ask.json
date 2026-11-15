@@ -10,7 +10,7 @@
  },
  "status": 200,
  "response": {
-  "value": null,
+  "value": 28,
   "unit": "count",
   "items": [
    {
@@ -19,13 +19,13 @@
     "level": 1,
     "sheet_no": "A-101",
     "title": "First Floor Plan",
-    "question": "How many doors are shown on the first floor plan?",
-    "value": null,
+    "question": "How many doors are on the first floor?",
+    "value": 28,
     "unit": "count",
-    "method": "sheet:scanned+scan:vlm",
-    "answer_id": "9311f2af3cc0",
+    "method": "sheet:scanned+scan:vlm:tiled3x3:median3:uncertain",
+    "answer_id": "c30ac7cead1d",
     "warnings": [
-     "not shown on this drawing"
+     "readings disagreed (tiles 3x3: 50, whole sheet: 20, tiles 2x2: 28); answer = median (tiles2); still uncertain, please review the boxes"
     ],
     "id": 0
    }
@@ -38,15 +38,23 @@
    "rule": "Only the first floor plan sheet is needed to count the doors on the first floor.",
    "sheets_used": [
     2
-   ]
+   ],
+   "cross_check": {
+    "sheet": 3,
+    "sheet_no": "A-801",
+    "schedule_doors": 38,
+    "answer_id": "cb5a68679fa8",
+    "scope": "whole building (upper bound for one floor)",
+    "status": "consistent"
+   }
   },
-  "confidence": "none",
+  "confidence": "low",
   "confidence_reason": "lowest confidence of the 1 sheet answer(s) combined",
-  "answer_id": "427b1771d223",
+  "answer_id": "f4f9fe2e4e57",
   "file": "project:xsc",
   "question": "How many doors are on the first floor?",
-  "created": 1794709747.1891258,
-  "model_value": null,
+  "created": 1794710862.6134436,
+  "model_value": 28,
   "alternatives": [],
   "review": {
    "removed": [],

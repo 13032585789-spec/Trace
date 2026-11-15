@@ -2,12 +2,12 @@
  "request": {
   "method": "GET",
   "path": "/evidence",
-  "query": "answer_id=c63a58f7f6b9",
+  "query": "answer_id=7a76312f326f",
   "body": null
  },
  "status": 200,
  "response": {
-  "answer_id": "c63a58f7f6b9",
+  "answer_id": "7a76312f326f",
   "question": "How many doors are in this model?",
   "value": 14,
   "unit": "count",
@@ -107,8 +107,8 @@
    "no drawing image for this source (model element ids are the evidence)"
   ],
   "images": {
-   "full": "/evidence?answer_id=c63a58f7f6b9&view=full",
-   "zoom": "/evidence?answer_id=c63a58f7f6b9&view=zoom"
+   "full": "/evidence?answer_id=7a76312f326f&view=full",
+   "zoom": "/evidence?answer_id=7a76312f326f&view=zoom"
   }
  }
 }

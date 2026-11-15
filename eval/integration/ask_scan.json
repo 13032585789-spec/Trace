@@ -677,7 +677,7 @@
   "method": "scan:windows+vlm",
   "warnings": [],
   "evidence": {
-   "reason": "The floor plan shows 60 window panes along the exterior walls.",
+   "reason": "The floor plan contains 60 window panes around the exterior walls, which are accurately captured by the detected window candidates.",
    "openings": 60,
    "panes": 60,
    "extra_from_model": 0,
@@ -693,10 +693,10 @@
   ],
   "confidence": "medium",
   "confidence_reason": "image analysis found the candidates and the vision model confirmed them",
-  "answer_id": "ec69439f9b51",
+  "answer_id": "146b9383a45d",
   "file": "uploads/school_L00_scan.jpg",
   "question": "How many windows are shown on this floor plan?",
-  "created": 1794709711.3986847,
+  "created": 1794710761.9650738,
   "model_value": 60,
   "alternatives": [],
   "review": {
@@ -710,6 +710,6 @@
    "can_add": true,
    "can_measure": true
   },
-  "evidence_url": "/evidence?answer_id=ec69439f9b51"
+  "evidence_url": "/evidence?answer_id=146b9383a45d"
  }
 }

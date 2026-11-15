@@ -2,12 +2,12 @@
  "request": {
   "method": "GET",
   "path": "/evidence",
-  "query": "answer_id=ec69439f9b51",
+  "query": "answer_id=146b9383a45d",
   "body": null
  },
  "status": 200,
  "response": {
-  "answer_id": "ec69439f9b51",
+  "answer_id": "146b9383a45d",
   "question": "How many windows are shown on this floor plan?",
   "value": 60,
   "unit": "count",
@@ -741,8 +741,8 @@
   ],
   "warnings": [],
   "images": {
-   "full": "/evidence?answer_id=ec69439f9b51&view=full",
-   "zoom": "/evidence?answer_id=ec69439f9b51&view=zoom"
+   "full": "/evidence?answer_id=146b9383a45d&view=full",
+   "zoom": "/evidence?answer_id=146b9383a45d&view=zoom"
   }
  }
 }

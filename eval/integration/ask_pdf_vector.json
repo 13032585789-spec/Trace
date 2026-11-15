@@ -11,1088 +11,1308 @@
  },
  "status": 200,
  "response": {
-  "value": 107,
+  "value": 129,
   "unit": "count",
   "items": [
    {
-    "type": "single",
     "box": [
      371.3,
      746.7,
      383.8,
      759.2
     ],
+    "radius_m": 0.88,
     "id": 0
    },
    {
-    "type": "single",
     "box": [
      387.6,
      730.1,
      400.1,
      742.6
     ],
+    "radius_m": 0.88,
     "id": 1
    },
    {
-    "type": "single",
     "box": [
      371.1,
      706.6,
      383.5,
      719.1
     ],
+    "radius_m": 0.88,
     "id": 2
    },
    {
-    "type": "single",
     "box": [
      334.2,
      706.6,
      346.7,
      719.1
     ],
+    "radius_m": 0.88,
     "id": 3
    },
    {
-    "type": "double",
     "box": [
-     272.2,
+     284.6,
      823.3,
      296.9,
      835.6
     ],
+    "radius_m": 0.87,
     "id": 4
    },
    {
-    "type": "single",
+    "box": [
+     272.2,
+     823.3,
+     284.5,
+     835.6
+    ],
+    "radius_m": 0.87,
+    "id": 5
+   },
+   {
     "box": [
      351.9,
      746.7,
      364.4,
      759.2
     ],
-    "id": 5
+    "radius_m": 0.88,
+    "id": 6
    },
    {
-    "type": "double",
     "box": [
-     272.2,
+     284.6,
      878.5,
      296.9,
      890.8
     ],
-    "id": 6
+    "radius_m": 0.86,
+    "id": 7
    },
    {
-    "type": "double",
     "box": [
      272.2,
+     878.5,
+     284.5,
+     890.8
+    ],
+    "radius_m": 0.86,
+    "id": 8
+   },
+   {
+    "box": [
+     284.6,
      192.3,
      296.9,
      204.6
     ],
-    "id": 7
+    "radius_m": 0.86,
+    "id": 9
    },
    {
-    "type": "single",
+    "box": [
+     272.2,
+     192.3,
+     284.5,
+     204.6
+    ],
+    "radius_m": 0.86,
+    "id": 10
+   },
+   {
     "box": [
      243.8,
      774.2,
      256.2,
      786.7
     ],
-    "id": 8
+    "radius_m": 0.87,
+    "id": 11
    },
    {
-    "type": "single",
     "box": [
      243.8,
      755.6,
      256.2,
      768.1
     ],
-    "id": 9
+    "radius_m": 0.87,
+    "id": 12
    },
    {
-    "type": "single",
     "box": [
      185.4,
      757.7,
      197.8,
      770.1
     ],
-    "id": 10
+    "radius_m": 0.88,
+    "id": 13
    },
    {
-    "type": "single",
     "box": [
      185.4,
      695.7,
      197.8,
      708.1
     ],
-    "id": 11
+    "radius_m": 0.88,
+    "id": 14
    },
    {
-    "type": "single",
     "box": [
      371.2,
      579.1,
      383.7,
      591.5
     ],
-    "id": 12
+    "radius_m": 0.88,
+    "id": 15
    },
    {
-    "type": "single",
     "box": [
      371.2,
      542.6,
      383.7,
      555.1
     ],
-    "id": 13
+    "radius_m": 0.88,
+    "id": 16
    },
    {
-    "type": "single",
     "box": [
      185.4,
      477.0,
      197.8,
      489.5
     ],
-    "id": 14
+    "radius_m": 0.88,
+    "id": 17
    },
    {
-    "type": "single",
     "box": [
      211.0,
      553.6,
      223.4,
      566.0
     ],
-    "id": 15
+    "radius_m": 0.88,
+    "id": 18
    },
    {
-    "type": "single",
     "box": [
      226.4,
      570.1,
      238.9,
      582.6
     ],
-    "id": 16
+    "radius_m": 0.88,
+    "id": 19
    },
    {
-    "type": "single",
     "box": [
      211.0,
      619.1,
      223.4,
      631.6
     ],
-    "id": 17
+    "radius_m": 0.88,
+    "id": 20
    },
    {
-    "type": "single",
     "box": [
      254.4,
      602.6,
      266.8,
      615.0
     ],
-    "id": 18
+    "radius_m": 0.88,
+    "id": 21
    },
    {
-    "type": "single",
     "box": [
      312.9,
      322.0,
      325.3,
      334.4
     ],
-    "id": 19
-   },
-   {
-    "type": "single",
-    "box": [
-     371.2,
-     338.5,
-     383.7,
-     350.9
-    ],
-    "id": 20
-   },
-   {
-    "type": "single",
-    "box": [
-     371.2,
-     375.0,
-     383.7,
-     387.4
-    ],
-    "id": 21
-   },
-   {
-    "type": "single",
-    "box": [
-     185.4,
-     338.5,
-     197.8,
-     350.9
-    ],
+    "radius_m": 0.87,
     "id": 22
    },
    {
-    "type": "single",
+    "box": [
+     371.2,
+     338.5,
+     383.7,
+     350.9
+    ],
+    "radius_m": 0.88,
+    "id": 23
+   },
+   {
+    "box": [
+     371.2,
+     375.0,
+     383.7,
+     387.4
+    ],
+    "radius_m": 0.88,
+    "id": 24
+   },
+   {
+    "box": [
+     185.4,
+     338.5,
+     197.8,
+     350.9
+    ],
+    "radius_m": 0.88,
+    "id": 25
+   },
+   {
     "box": [
      185.4,
      375.0,
      197.8,
      387.4
     ],
-    "id": 23
+    "radius_m": 0.88,
+    "id": 26
    },
    {
-    "type": "single",
     "box": [
      252.3,
      234.4,
      264.8,
      246.8
     ],
-    "id": 24
+    "radius_m": 0.88,
+    "id": 27
    },
    {
-    "type": "double",
     "box": [
      541.9,
      884.6,
      554.2,
-     909.2
+     896.9
     ],
-    "id": 25
+    "radius_m": 0.87,
+    "id": 28
    },
    {
-    "type": "double",
+    "box": [
+     541.9,
+     896.9,
+     554.2,
+     909.2
+    ],
+    "radius_m": 0.87,
+    "id": 29
+   },
+   {
+    "box": [
+     1075.1,
+     897.0,
+     1087.4,
+     909.3
+    ],
+    "radius_m": 0.86,
+    "id": 30
+   },
+   {
     "box": [
      1075.1,
      884.6,
      1087.4,
-     909.3
+     896.9
     ],
-    "id": 26
+    "radius_m": 0.87,
+    "id": 31
    },
    {
-    "type": "single",
     "box": [
      595.0,
      970.0,
      607.4,
      982.4
     ],
-    "id": 27
+    "radius_m": 0.88,
+    "id": 32
    },
    {
-    "type": "single",
     "box": [
      611.6,
      952.9,
      624.0,
      965.3
     ],
-    "id": 28
+    "radius_m": 0.88,
+    "id": 33
    },
    {
-    "type": "single",
     "box": [
      720.8,
      985.9,
      733.2,
      998.3
     ],
-    "id": 29
+    "radius_m": 0.88,
+    "id": 34
    },
    {
-    "type": "single",
     "box": [
      722.4,
      965.2,
      734.9,
      977.7
     ],
-    "id": 30
+    "radius_m": 0.88,
+    "id": 35
    },
    {
-    "type": "single",
     "box": [
      748.1,
      925.3,
      760.5,
      937.7
     ],
-    "id": 31
+    "radius_m": 0.88,
+    "id": 36
    },
    {
-    "type": "single",
     "box": [
      611.6,
      934.6,
      623.3,
      946.3
     ],
-    "id": 32
+    "radius_m": 0.82,
+    "id": 37
    },
    {
-    "type": "single",
     "box": [
      571.5,
      927.3,
      584.0,
      939.8
     ],
-    "id": 33
+    "radius_m": 0.88,
+    "id": 38
    },
    {
-    "type": "single",
     "box": [
      801.1,
      927.3,
      813.6,
      939.8
     ],
-    "id": 34
+    "radius_m": 0.88,
+    "id": 39
    },
    {
-    "type": "single",
     "box": [
      801.1,
      983.6,
      813.6,
      996.1
     ],
-    "id": 35
+    "radius_m": 0.88,
+    "id": 40
    },
    {
-    "type": "single",
     "box": [
      817.7,
      1000.1,
      830.1,
      1012.5
     ],
-    "id": 36
+    "radius_m": 0.88,
+    "id": 41
    },
    {
-    "type": "single",
     "box": [
      841.2,
      983.5,
      853.7,
      995.9
     ],
-    "id": 37
+    "radius_m": 0.88,
+    "id": 42
    },
    {
-    "type": "single",
     "box": [
      841.2,
      952.7,
      853.7,
      965.1
     ],
-    "id": 38
+    "radius_m": 0.88,
+    "id": 43
    },
    {
-    "type": "single",
     "box": [
      843.2,
      914.7,
      855.6,
      927.1
     ],
-    "id": 39
+    "radius_m": 0.88,
+    "id": 44
    },
    {
-    "type": "single",
     "box": [
      894.2,
      925.3,
      906.7,
      937.7
     ],
-    "id": 40
+    "radius_m": 0.88,
+    "id": 45
    },
    {
-    "type": "single",
     "box": [
      894.2,
      967.1,
      906.7,
      979.5
     ],
-    "id": 41
+    "radius_m": 0.88,
+    "id": 46
    },
    {
-    "type": "single",
     "box": [
      953.6,
      861.3,
      966.6,
      875.5
     ],
-    "id": 42
+    "radius_m": 0.92,
+    "id": 47
    },
    {
-    "type": "double",
     "box": [
      954.3,
      712.0,
      966.6,
-     736.6
+     724.3
     ],
-    "id": 43
+    "radius_m": 0.87,
+    "id": 48
    },
    {
-    "type": "double",
+    "box": [
+     954.3,
+     724.3,
+     966.6,
+     736.6
+    ],
+    "radius_m": 0.87,
+    "id": 49
+   },
+   {
     "box": [
      695.0,
      827.5,
      707.3,
-     852.2
+     839.8
     ],
-    "id": 44
+    "radius_m": 0.87,
+    "id": 50
    },
    {
-    "type": "double",
     "box": [
-     776.3,
+     695.0,
+     839.9,
+     707.3,
+     852.2
+    ],
+    "radius_m": 0.87,
+    "id": 51
+   },
+   {
+    "box": [
+     788.6,
      665.0,
      800.9,
      677.3
     ],
-    "id": 45
+    "radius_m": 0.86,
+    "id": 52
    },
    {
-    "type": "double",
     "box": [
-     929.2,
+     776.3,
+     665.0,
+     788.6,
+     677.3
+    ],
+    "radius_m": 0.87,
+    "id": 53
+   },
+   {
+    "box": [
+     941.6,
      665.0,
      953.9,
      677.3
     ],
-    "id": 46
+    "radius_m": 0.87,
+    "id": 54
    },
    {
-    "type": "double",
     "box": [
-     272.2,
-     247.6,
+     929.2,
+     665.0,
+     941.5,
+     677.3
+    ],
+    "radius_m": 0.86,
+    "id": 55
+   },
+   {
+    "box": [
+     284.6,
+     247.8,
      294.5,
      259.9
     ],
-    "id": 47
+    "radius_m": 0.86,
+    "id": 56
    },
    {
-    "type": "single",
+    "box": [
+     272.2,
+     247.6,
+     284.5,
+     259.9
+    ],
+    "radius_m": 0.87,
+    "id": 57
+   },
+   {
     "box": [
      312.9,
      391.6,
      325.3,
      404.0
     ],
-    "id": 48
+    "radius_m": 0.87,
+    "id": 58
    },
    {
-    "type": "single",
     "box": [
      243.8,
      322.0,
      256.2,
      334.4
     ],
-    "id": 49
+    "radius_m": 0.87,
+    "id": 59
    },
    {
-    "type": "single",
     "box": [
      243.8,
      391.6,
      256.2,
      404.0
     ],
-    "id": 50
+    "radius_m": 0.87,
+    "id": 60
    },
    {
-    "type": "single",
     "box": [
      312.9,
      526.0,
      325.3,
      538.5
     ],
-    "id": 51
+    "radius_m": 0.88,
+    "id": 61
    },
    {
-    "type": "single",
     "box": [
      312.9,
      595.7,
      325.3,
      608.1
     ],
-    "id": 52
+    "radius_m": 0.88,
+    "id": 62
    },
    {
-    "type": "single",
     "box": [
      429.2,
      320.5,
      443.7,
      334.4
     ],
-    "id": 53
+    "radius_m": 0.98,
+    "id": 63
    },
    {
-    "type": "single",
     "box": [
      429.2,
      391.6,
      443.7,
      405.4
     ],
-    "id": 54
+    "radius_m": 0.98,
+    "id": 64
    },
    {
-    "type": "single",
     "box": [
      429.2,
      524.6,
      443.7,
      538.5
     ],
-    "id": 55
+    "radius_m": 0.98,
+    "id": 65
    },
    {
-    "type": "single",
     "box": [
      429.2,
      595.7,
      443.7,
      609.5
     ],
-    "id": 56
+    "radius_m": 0.98,
+    "id": 66
    },
    {
-    "type": "single",
     "box": [
      1036.0,
      914.7,
      1048.4,
      927.1
     ],
-    "id": 57
+    "radius_m": 0.88,
+    "id": 67
    },
    {
-    "type": "single",
     "box": [
      1033.2,
      1006.0,
      1043.6,
      1016.3
     ],
-    "id": 58
+    "radius_m": 0.73,
+    "id": 68
    },
    {
-    "type": "single",
     "box": [
      1033.2,
      1022.3,
      1043.6,
      1032.6
     ],
-    "id": 59
+    "radius_m": 0.73,
+    "id": 69
    },
    {
-    "type": "single",
     "box": [
      1033.2,
      989.7,
      1043.6,
      1000.0
     ],
-    "id": 60
+    "radius_m": 0.73,
+    "id": 70
    },
    {
-    "type": "single",
     "box": [
      1033.2,
      974.1,
      1043.6,
      984.4
     ],
-    "id": 61
+    "radius_m": 0.73,
+    "id": 71
    },
    {
-    "type": "single",
     "box": [
      1001.7,
      1006.0,
      1012.0,
      1016.3
     ],
-    "id": 62
+    "radius_m": 0.72,
+    "id": 72
    },
    {
-    "type": "single",
     "box": [
      1013.4,
      1023.5,
      1023.7,
      1033.9
     ],
-    "id": 63
+    "radius_m": 0.73,
+    "id": 73
    },
    {
-    "type": "single",
     "box": [
      1001.7,
      989.7,
      1012.0,
      1000.0
     ],
-    "id": 64
+    "radius_m": 0.72,
+    "id": 74
    },
    {
-    "type": "single",
     "box": [
      1001.7,
      973.4,
      1012.0,
      983.7
     ],
-    "id": 65
+    "radius_m": 0.73,
+    "id": 75
    },
    {
-    "type": "double",
     "box": [
      868.7,
+     866.9,
+     881.0,
+     879.2
+    ],
+    "radius_m": 0.87,
+    "id": 76
+   },
+   {
+    "box": [
+     881.1,
      866.9,
      893.4,
      879.2
     ],
-    "id": 66
+    "radius_m": 0.87,
+    "id": 77
    },
    {
-    "type": "double",
     "box": [
-     837.8,
+     850.1,
      866.9,
      862.4,
      879.2
     ],
-    "id": 67
+    "radius_m": 0.87,
+    "id": 78
    },
    {
-    "type": "single",
+    "box": [
+     837.8,
+     866.9,
+     850.1,
+     879.2
+    ],
+    "radius_m": 0.87,
+    "id": 79
+   },
+   {
     "box": [
      994.2,
      864.1,
      1007.4,
      877.2
     ],
-    "id": 68
+    "radius_m": 0.92,
+    "id": 80
    },
    {
-    "type": "double",
+    "box": [
+     1075.1,
+     837.2,
+     1087.4,
+     849.5
+    ],
+    "radius_m": 0.87,
+    "id": 81
+   },
+   {
     "box": [
      1075.1,
      824.8,
      1087.4,
-     849.5
+     837.1
     ],
-    "id": 69
+    "radius_m": 0.87,
+    "id": 82
    },
    {
-    "type": "single",
     "box": [
      562.5,
      970.0,
      575.0,
      982.4
     ],
-    "id": 70
+    "radius_m": 0.88,
+    "id": 83
    },
    {
-    "type": "double",
     "box": [
      622.7,
      884.6,
      635.0,
-     909.2
+     896.9
     ],
-    "id": 71
+    "radius_m": 0.87,
+    "id": 84
    },
    {
-    "type": "double",
     "box": [
-     228.6,
+     622.7,
+     896.9,
+     635.0,
+     909.2
+    ],
+    "radius_m": 0.88,
+    "id": 85
+   },
+   {
+    "box": [
+     241.0,
      878.5,
      253.3,
      890.8
     ],
-    "id": 72
+    "radius_m": 0.87,
+    "id": 86
    },
    {
-    "type": "single",
+    "box": [
+     228.6,
+     878.5,
+     240.9,
+     890.8
+    ],
+    "radius_m": 0.86,
+    "id": 87
+   },
+   {
     "box": [
      1021.5,
      841.3,
      1034.0,
      853.7
     ],
-    "id": 73
+    "radius_m": 0.88,
+    "id": 88
    },
    {
-    "type": "single",
     "box": [
      1039.5,
      855.8,
      1049.5,
      865.9
     ],
-    "id": 74
+    "radius_m": 0.71,
+    "id": 89
    },
    {
-    "type": "double",
     "box": [
      801.3,
      884.6,
      813.6,
-     909.2
+     896.9
     ],
-    "id": 75
+    "radius_m": 0.87,
+    "id": 90
    },
    {
-    "type": "double",
     "box": [
-     272.2,
+     801.3,
+     896.9,
+     813.6,
+     909.2
+    ],
+    "radius_m": 0.87,
+    "id": 91
+   },
+   {
+    "box": [
+     284.6,
      553.7,
      296.9,
      566.0
     ],
-    "id": 76
+    "radius_m": 0.86,
+    "id": 92
    },
    {
-    "type": "single",
+    "box": [
+     272.2,
+     553.7,
+     284.5,
+     566.0
+    ],
+    "radius_m": 0.87,
+    "id": 93
+   },
+   {
     "box": [
      1094.9,
      1004.4,
      1106.6,
      1016.2
     ],
-    "id": 77
+    "radius_m": 0.83,
+    "id": 94
    },
    {
-    "type": "single",
     "box": [
      996.3,
      914.7,
      1008.7,
      927.1
     ],
-    "id": 78
+    "radius_m": 0.88,
+    "id": 95
    },
    {
-    "type": "single",
     "box": [
      147.6,
      604.6,
      160.1,
      617.0
     ],
-    "id": 79
+    "radius_m": 0.88,
+    "id": 96
    },
    {
-    "type": "single",
     "box": [
      147.6,
      568.1,
      160.1,
      580.6
     ],
-    "id": 80
+    "radius_m": 0.87,
+    "id": 97
    },
    {
-    "type": "single",
     "box": [
      350.8,
      673.4,
      363.2,
      685.9
     ],
-    "id": 81
+    "radius_m": 0.88,
+    "id": 98
    },
    {
-    "type": "double",
     "box": [
-     318.5,
+     330.9,
      192.3,
      343.2,
      204.6
     ],
-    "id": 82
+    "radius_m": 0.87,
+    "id": 99
    },
    {
-    "type": "double",
+    "box": [
+     318.5,
+     192.3,
+     330.8,
+     204.6
+    ],
+    "radius_m": 0.86,
+    "id": 100
+   },
+   {
     "box": [
      254.5,
      845.4,
      266.8,
-     870.0
+     857.7
     ],
-    "id": 83
+    "radius_m": 0.87,
+    "id": 101
    },
    {
-    "type": "double",
+    "box": [
+     254.5,
+     857.7,
+     266.8,
+     870.0
+    ],
+    "radius_m": 0.87,
+    "id": 102
+   },
+   {
+    "box": [
+     302.3,
+     225.2,
+     314.6,
+     237.4
+    ],
+    "radius_m": 0.87,
+    "id": 103
+   },
+   {
     "box": [
      302.3,
      212.8,
      314.6,
-     237.4
+     225.1
     ],
-    "id": 84
+    "radius_m": 0.87,
+    "id": 104
    },
    {
-    "type": "single",
     "box": [
      125.4,
      320.5,
      139.9,
      334.4
     ],
-    "id": 85
+    "radius_m": 0.98,
+    "id": 105
    },
    {
-    "type": "single",
     "box": [
      125.4,
      391.6,
      139.9,
      405.4
     ],
-    "id": 86
+    "radius_m": 0.98,
+    "id": 106
    },
    {
-    "type": "single",
     "box": [
      125.4,
      550.1,
      139.9,
      564.0
     ],
-    "id": 87
+    "radius_m": 0.98,
+    "id": 107
    },
    {
-    "type": "single",
     "box": [
      125.4,
      621.2,
      139.9,
      635.0
     ],
-    "id": 88
+    "radius_m": 0.98,
+    "id": 108
    },
    {
-    "type": "single",
     "box": [
      945.3,
      925.3,
      957.7,
      937.7
     ],
-    "id": 89
+    "radius_m": 0.88,
+    "id": 109
    },
    {
-    "type": "single",
     "box": [
      594.3,
      925.3,
      607.4,
      938.5
     ],
-    "id": 90
+    "radius_m": 0.93,
+    "id": 110
    },
    {
-    "type": "single",
     "box": [
      713.6,
      1021.4,
      726.1,
      1033.9
     ],
-    "id": 91
+    "radius_m": 0.88,
+    "id": 111
    },
    {
-    "type": "single",
     "box": [
      866.7,
      685.7,
      879.2,
      698.1
     ],
-    "id": 92
+    "radius_m": 0.88,
+    "id": 112
    },
    {
-    "type": "single",
     "box": [
      369.2,
      799.7,
      381.6,
      812.2
     ],
-    "id": 93
+    "radius_m": 0.88,
+    "id": 113
    },
    {
-    "type": "single",
     "box": [
      690.1,
      910.7,
      702.6,
      923.2
     ],
-    "id": 94
+    "radius_m": 0.88,
+    "id": 114
    },
    {
-    "type": "single",
     "box": [
      1026.9,
      956.0,
      1037.1,
      966.3
     ],
-    "id": 95
+    "radius_m": 0.73,
+    "id": 115
    },
    {
-    "type": "single",
     "box": [
      408.1,
      860.2,
      422.3,
      871.6
     ],
-    "id": 96
+    "radius_m": 0.64,
+    "id": 116
    },
    {
-    "type": "single",
     "box": [
      585.7,
      996.8,
      600.5,
      1008.1
     ],
-    "id": 97
+    "radius_m": 0.8,
+    "id": 117
    },
    {
-    "type": "single",
     "box": [
      560.9,
      1013.8,
      575.1,
      1025.1
     ],
-    "id": 98
+    "radius_m": 0.64,
+    "id": 118
    },
    {
-    "type": "single",
     "box": [
      369.9,
      769.4,
      381.3,
      783.6
     ],
-    "id": 99
+    "radius_m": 0.64,
+    "id": 119
    },
    {
-    "type": "single",
     "box": [
      408.6,
      688.7,
      422.7,
      700.1
     ],
-    "id": 100
+    "radius_m": 0.64,
+    "id": 120
    },
    {
-    "type": "single",
     "box": [
      185.9,
      222.7,
      196.2,
      232.9
     ],
-    "id": 101
+    "radius_m": 0.73,
+    "id": 121
    },
    {
-    "type": "single",
     "box": [
      199.1,
      234.4,
      209.4,
      244.6
     ],
-    "id": 102
+    "radius_m": 0.73,
+    "id": 122
    },
    {
-    "type": "single",
     "box": [
      211.6,
      234.4,
      221.9,
      244.6
     ],
-    "id": 103
+    "radius_m": 0.73,
+    "id": 123
    },
    {
-    "type": "double",
     "box": [
-     453.9,
+     470.9,
      861.3,
      487.9,
      878.3
     ],
-    "id": 104
+    "radius_m": 1.2,
+    "id": 124
    },
    {
-    "type": "double",
     "box": [
      453.9,
+     861.3,
+     470.9,
+     878.3
+    ],
+    "radius_m": 1.2,
+    "id": 125
+   },
+   {
+    "box": [
+     470.9,
      929.8,
      487.9,
      946.8
     ],
-    "id": 105
+    "radius_m": 1.2,
+    "id": 126
    },
    {
-    "type": "single",
+    "box": [
+     453.9,
+     929.8,
+     470.9,
+     946.8
+    ],
+    "radius_m": 1.2,
+    "id": 127
+   },
+   {
     "box": [
      1055.1,
      857.1,
      1064.7,
      866.7
     ],
-    "id": 106
+    "radius_m": 0.67,
+    "id": 128
    }
   ],
   "alternatives": [
    {
-    "label": "door sets (a double door = 1)",
-    "value": 107
-   },
-   {
     "label": "door leaves (a double door = 2)",
     "value": 129
+   },
+   {
+    "label": "door sets (a double door = 1)",
+    "value": 107
    }
   ],
   "sources": [
@@ -1103,22 +1323,22 @@
   ],
   "method": "sheet:count_doors",
   "warnings": [
-   "doors drawn without a swing arc (sliding, folding) are not counted"
+   "counted per door leaf (a double door = 2); doors drawn without a swing arc (sliding, folding) are not counted"
   ],
   "evidence": {
-   "rule": "The door swing arcs data indicates 107 doorsets (129 leaves, with 22 double doors).",
-   "cite": [],
-   "model_answer": "107",
+   "rule": "Counted door swing arcs on the floor plan, which total 129 door leaves.",
+   "cite": null,
+   "model_answer": "129",
    "scale": "1:200",
    "coords": "PDF points, origin top-left"
   },
   "confidence": "high",
   "confidence_reason": "read from the file's own data (vector geometry, model quantities or a printed table)",
-  "answer_id": "d74b79f92497",
+  "answer_id": "3f7cfadb953b",
   "file": "uploads/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf",
   "question": "How many doors are shown on this floor plan?",
-  "created": 1794709704.4373178,
-  "model_value": 107,
+  "created": 1794710756.5144458,
+  "model_value": 129,
   "review": {
    "removed": [],
    "added": [],
@@ -1130,6 +1350,6 @@
    "can_add": true,
    "can_measure": true
   },
-  "evidence_url": "/evidence?answer_id=d74b79f92497"
+  "evidence_url": "/evidence?answer_id=3f7cfadb953b"
  }
 }
