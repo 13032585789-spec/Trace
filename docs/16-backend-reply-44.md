@@ -31,9 +31,9 @@ by `tools/integration_samples.py` (same code path as HTTP). Files: `eval/integra
 - `ask_ifc.json` — Duplex IFC, "How many doors…" → `14`, `confidence: high`, 14 items with GUIDs.
   `evidence_ifc.json` → 14 locations. `view=zoom` → `404 {"error":"no drawing image for this answer"}`
   (IFC has no sheet; use the scene / GUIDs to highlight in 3D).
-- `ask_pdf_vector.json` — UK special school level 00 (vector PDF), "How many doors…" → `107`
-  (door sets, `confidence: high`, 107 located items) with `alternatives`: door sets 107 / door leaves 129
-  (a double door = 2). Which counting basis a question wants is up to the question; the UI should show both.
+- `ask_pdf_vector.json` — UK special school level 00 (vector PDF), "How many doors…" → in this capture `107`
+  (door sets). **Since commit after `610b2d9` the default basis is door LEAVES → `129`** (a double door = 2),
+  with door sets (107) as the alternative. `alternatives[]` always carries both; show both in the UI.
 - `ask_scan.json` — the same sheet as a scan, "How many windows…" → `60`, `confidence: medium`
   (`method: scan:windows+vlm`), 60 located items. Evidence PNGs: `evidence_pdf_vector_zoom.png`,
   `evidence_scan_zoom.png`.
@@ -48,6 +48,11 @@ by `tools/integration_samples.py` (same code path as HTTP). Files: `eval/integra
   answered "not shown on this drawing", so `value: null`, `confidence: none`. A-101 is a raster plan;
   an earlier run counted 28 (uncertain). Treat project counting on raster sheets as unreliable.
   The door **schedule** question ("how many doors in the door schedule") is the reliable one (38, high).
+  New: every project door count is cross-checked against the door schedule → `evidence.cross_check`
+  `{schedule_doors, scope, status}`; status `consistent | disagree | plan count exceeds… | plan gave no number`;
+  on disagreement the confidence drops to `low` and a warning explains it. The answer value is never changed.
+  Also fixed: a raster sheet is no longer reported "not shown" when only the shrunk whole-sheet read missed the doors;
+  it is counted tile by tile first.
 
 ### 2.5D scene
 Every element in `storeys / rooms / walls / openings / objects / systems` carries
