@@ -44,3 +44,34 @@ Updated samples: `eval/integration/scene_pdf_vector_school.json`, `scene_scan_sc
 - Positions match the drawing. Wall height, door and window heights and fixture sizes are typical values (MVP), marked in the data.
 - On scans without a scale the units are image units: the building shape is right, but sizes are not metres.
 - A few short grey stubs can remain at door jambs; noisy scan rooms (e.g. a stair symbol) can produce a zig-zag wall. They are marked `assumed` and can be hidden.
+
+## Fixtures as 3D models (added 06:55)
+Every fixture now carries `model.primitives`. These are simple shapes in metres the viewer can build directly:
+- `box`: `size [w, h, d]`, `at [x, y, z]`
+- `cylinder`: `radius`, `height`, `scale_z` for an oval, `at`
+
+Each primitive has a `material`: ceramic · plastic · metal · wood · glass · water.
+
+**Local frame:** origin on the floor at the fixture centre; x = width, y = up, z = depth, with the **front at +z**. Rotate by `rotation_deg` about y (three.js), the same convention as walls and doors.
+
+| Category | Model |
+|---|---|
+| toilet | tank + oval bowl + seat |
+| urinal | wall unit |
+| sink | basin + pedestal |
+| vanity | cabinet + top + basin |
+| bathtub | tub + water surface |
+| shower | tray + two glass panels |
+| stove | body + 4 burners |
+| table / desk | top + 4 legs |
+| chair | seat + back + 4 legs |
+
+Sizes are typical, not measured (`model.note` says so).
+
+**Orientation:** on drawings, front/back of a symbol is not readable. Toilets, sinks, baths, showers and stoves now stand **with their back against the nearest wall** (`front_vector`, `orientation_from`). IFC fixtures keep the model's own position and rotation; only the shape is added.
+
+**Room:** cubicles that the drawing did not close are assigned to the nearest room within 2 m. Fixtures in a room went from 94.2 % to **99.6 %** on the school PDF.
+
+Previews (walls cut at 1.0 m, like the planned room view):
+- `eval/integration/preview_3d_school_toilets.png`
+- `eval/integration/preview_3d_duplex_bathroom.png`

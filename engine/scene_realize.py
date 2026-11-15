@@ -140,6 +140,47 @@ def _envelope(rooms, walls, cell):
     return c
 
 
+def _box(w, h, d, x=0.0, y=None, z=0.0, mat="ceramic"):
+    return {"shape": "box", "size": [round(w, 3), round(h, 3), round(d, 3)], "at": [round(x, 3), round(h / 2 if y is None else y, 3), round(z, 3)], "material": mat}
+
+
+def _cyl(r, h, x=0.0, y=None, z=0.0, scale_z=1.0, mat="ceramic"):
+    return {"shape": "cylinder", "radius": round(r, 3), "height": round(h, 3), "scale_z": scale_z,
+            "at": [round(x, 3), round(h / 2 if y is None else y, 3), round(z, 3)], "material": mat}
+
+
+def fixture_model(cat):
+    """Simple 3D model of a fixture as primitives, in metres. Local frame: origin on the floor at the fixture centre,
+    x = width, y = up, z = depth with the FRONT at +z (the back stands against the wall). Typical sizes, not measured."""
+    if cat == "toilet":
+        return [_box(0.38, 0.40, 0.18, z=-0.25, y=0.60), _cyl(0.17, 0.40, z=0.04, scale_z=1.35),
+                _box(0.36, 0.03, 0.42, z=0.06, y=0.415, mat="plastic")]
+    if cat == "urinal":
+        return [_box(0.36, 0.62, 0.30, z=-0.08, y=0.85)]
+    if cat == "sink":
+        return [_box(0.56, 0.16, 0.44, y=0.78), _cyl(0.08, 0.70, z=-0.08)]
+    if cat == "vanity":
+        return [_box(0.80, 0.82, 0.50, mat="wood"), _box(0.80, 0.04, 0.52, y=0.84), _cyl(0.18, 0.02, y=0.865, scale_z=0.8, mat="metal")]
+    if cat == "bathtub":
+        return [_box(1.70, 0.55, 0.75), _box(1.52, 0.02, 0.57, y=0.56, mat="water")]
+    if cat == "shower":
+        return [_box(0.90, 0.05, 0.90), _box(0.90, 2.00, 0.01, z=0.445, y=1.05, mat="glass"),
+                _box(0.01, 2.00, 0.90, x=0.445, y=1.05, mat="glass")]
+    if cat == "stove":
+        return [_box(0.60, 0.90, 0.60, mat="metal")] + [_cyl(0.08, 0.01, x=dx, z=dz, y=0.905, mat="metal")
+                                                         for dx in (-0.14, 0.14) for dz in (-0.14, 0.14)]
+    if cat in ("table", "desk"):
+        top = _box(1.20, 0.04, 0.70, y=0.73, mat="wood")
+        return [top] + [_box(0.05, 0.71, 0.05, x=dx, z=dz, mat="metal") for dx in (-0.55, 0.55) for dz in (-0.3, 0.3)]
+    if cat == "chair":
+        return [_box(0.45, 0.05, 0.45, y=0.45, mat="wood"), _box(0.45, 0.42, 0.04, z=-0.205, y=0.69, mat="wood")] + \
+               [_box(0.04, 0.43, 0.04, x=dx, z=dz, mat="metal") for dx in (-0.2, 0.2) for dz in (-0.2, 0.2)]
+    return None
+
+
+WALL_BACKED = {"toilet", "urinal", "sink", "vanity", "bathtub", "shower", "stove"}
+
+
 def _snap_ends(walls, tol):
     """join wall ends closer than tol (average them); extend a free end onto a wall it nearly touches (T-joint)."""
     if not walls: return 0
@@ -187,7 +228,12 @@ def realize(scene):
     sid = storey or "s"
     seg = lambda ws: (np.array([w["points"][0] for w in ws], float).reshape(-1, 2), np.array([w["points"][-1] for w in ws], float).reshape(-1, 2))
 
-    if kind == "ifc":    # real geometry: measure only
+    if kind == "ifc":    # real geometry: measure only (plus a simple 3D model for fixtures that have none)
+        for ob in objects:
+            mdl = fixture_model(ob.get("category"))
+            if mdl and not ob.get("model"):
+                ob["model"] = {"primitives": mdl, "frame": "local: x width, y up, z depth (front = +z); rotate by rotation_deg about y (three.js)",
+                               "note": "typical shape (MVP); position and rotation are from the IFC model"}
         A, B = seg(walls)
         cov = [float(_covered(_samples(_ring(r["polygon"], t / 4), step)[0], A, B, 2 * t).mean()) for r in rooms if len(r.get("polygon") or []) >= 3]
         scene["realism"] = {"changed": False, "note": "IFC geometry is real; measured only",
@@ -263,13 +309,30 @@ def realize(scene):
 
     # 6: fixtures inside a room, with a footprint
     in_room = 0
+    cents = [(r["id"], np.asarray(r["polygon"], float)) for r in rooms if len(r.get("polygon") or []) >= 3]
     for ob in objects:
         x, z = ob["position"][0], ob["position"][2]
         if not ob.get("room_id"):
-            for r in rooms:
-                if len(r.get("polygon") or []) >= 3 and _inside((x, z), r["polygon"]):
-                    ob["room_id"] = r["id"]; ob["room_method"] = "point-in-polygon"; break
+            for rid, poly in cents:
+                if _inside((x, z), poly):
+                    ob["room_id"] = rid; ob["room_method"] = "point-in-polygon"; break
+        if not ob.get("room_id") and cents:          # cubicles the drawing did not close: the nearest room within 2 m
+            dist = [float(_seg_dist(np.array([[x, z]]), poly, np.roll(poly, -1, 0))[0].min()) for _, poly in cents]
+            k = int(np.argmin(dist))
+            if dist[k] <= 2.0 * unit: ob["room_id"] = cents[k][0]; ob["room_method"] = "nearest room (within 2 m)"
         if ob.get("room_id"): in_room += 1
+        if ob.get("category") in WALL_BACKED and len(A):      # the back stands against the nearest wall
+            d, tt = _seg_dist(np.array([[x, z]]), A, B); j = int(np.argmin(d[0]))
+            q = A[j] + tt[0, j] * (B[j] - A[j]); f = np.array([x, z]) - q; n = float(np.hypot(*f))
+            if n > 1e-6:
+                fx, fz = f / n
+                ob["front_vector"] = [round(float(fx), 3), round(float(fz), 3)]
+                ob["rotation_deg"] = round(math.degrees(math.atan2(fx, fz)) % 360, 1)
+                ob["orientation_from"] = "back against the nearest wall"
+        mdl = fixture_model(ob.get("category"))
+        if mdl:
+            ob["model"] = {"primitives": mdl, "frame": "local: x width, y up, z depth (front = +z); rotate by rotation_deg about y (three.js)",
+                           "note": "typical shape and size (MVP), not measured"}
         size = FIXTURE_SIZE.get(ob.get("category"))
         if size and not (ob.get("footprint") or {}).get("width_m"):
             ob["footprint"] = {"width_m": size[0], "depth_m": size[1], "note": "typical size (MVP), not measured"}
