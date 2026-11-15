@@ -69,6 +69,7 @@ or after the user calibrates the scale.
 - Scans: door counts can overshoot when swing arcs are faint (flagged `uncertain` with alternatives); slab area by
   type on the sample slab plan reads one bay (30.84 m2) where a hand reading gives 61.7 m2.
 - Windows on raster plans: thin strips and joined windows remain the weakest category (57 %).
+- Scan counts: when the tile and whole-sheet readings disagree, a third count on another grid decides (median); the answer stays flagged and all readings are offered.
 - IFC: outlines are convex hulls in plan; L-shaped walls can read too close (`exact=false` when geometry is partly
   unsupported). Tallinn and Hitos models were not available to us for checking.
 - Coordinates follow web-ifc (Y up, Z = -y); a viewer that moves the model to the origin must add that offset.
@@ -83,6 +84,29 @@ Every input becomes one scene JSON for the viewer: storeys, rooms, walls, openin
 | IFC | wall bodies → centre line + thickness | IfcSpace profiles | placement + OverallWidth/Height, host wall via IfcRelFillsElement/IfcRelVoidsElement | fixture meshes, room by containment or position | Duplex bathroom: wall faces meet the room outline to the millimetre; 16/16 fixtures in the right room (`eval/scenes/`) |
 | vector PDF | solid wall fills | free space around each label, doors and windows closed | swing arcs (circle fit), window symbols | **repeated CAD blocks**: strokes of one layer grouped, rotation/mirror-invariant signature, clustered, each cluster named once (reviewer or Gemini) | school sheet: 11/11 WCs, no false WC (`symbols_school_wc_check.png`) |
 | scan | thick strokes → axis runs (deskewed); CubiCasa5K model walls on thin-wall plans | enclosed free space, area from the outer outline; CubiCasa5K room types on residential plans | swing / window candidates; CubiCasa5K openings as fallback | our detector (toilet 36/40, sink 29/40 answers on 40 plans; the official CubiCasa5K model: 29 and 22) | school scan vs vector: 38/50 rooms within 10 % area (`scan_plan_check.md`); model comparison in `eval/cubiseg_eval.md` |
+
+
+### Every answer shows where it comes from (`GET /evidence?answer_id=…`)
+
+- Each answer is drawn on its own source page:
+  - counted items as numbered boxes;
+  - measured rooms as outlines, each with its own area, so a sum can be checked room by room;
+  - distances as dimension lines with their values.
+- The header states the question, the answer, the confidence and the source file and page.
+- Vector sheets are re-rendered at high resolution around the items, so small symbols stay sharp.
+- The JSON `locations` give the page and bbox (0–1000 and PDF points) of every item, so the UI can jump to it.
+
+### Measuring named rooms on scans (`engine/scan_rooms.py`)
+
+- The room name is read from the label inside the room. The outline is the space enclosed by the traced walls. The scale comes from the user's calibration or from the printed ratio and paper size.
+- Offline check on the school scan, with labels taken from the vector sheet: area within 10 % for 14 of 17 uniquely named rooms; baseboard within 10 % for 13 of 17. `eval/scenes/scan_rooms_check.md`.
+- When several rooms share a name, all of them are outlined and the user is asked which one.
+- Without a scale the room is outlined and the value stays null.
+
+### Fixture clearances on vector sheets
+
+- For each WC or basin symbol, the shortest distance to the nearest cut wall is measured in each page direction. It is drawn as a dimension line (`evidence_wc_clearance_*.png`).
+- Example, the school's accessible WC: back wall 0.03 m, side wall 0.31 m, opposite wall 1.11 m.
 
 Scale rules:
 - A plan is `measured` only with a scale. That scale comes from the printed scale on vector sheets, or from a user calibration on scans.
