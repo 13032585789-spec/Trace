@@ -25,16 +25,23 @@ held-out data, and where it stops. Numbers come from files in this repo; the com
 | Sheet set (one building, many sheets) | title block classification (sheet no., discipline, level), rules or LLM pick the sheets, code combines | `sheetset.py`, `project.py` |
 
 Counting rules agreed with the domain lead: windows are counted per pane separated by a mullion (purchase view) and
-per opening (installation view) and both are returned; doors count only where a swing arc is drawn.
+per opening (installation view) and both are returned; doors count only where a swing arc is drawn, **per door leaf by
+default** (a double door = 2), with door sets returned as the alternative.
+
+Cross-check across sheets: a door count read from a plan is compared with the project's door schedule
+(`evidence.cross_check`). The schedule lists the whole building, so for one floor it is an upper bound. A plan count of
+0, a count above the schedule, or a whole-building count off by more than 10 % lowers the confidence to low and says
+why; the value is never changed. On raster sheets a whole-sheet reading of 0 doors / windows is not trusted: the sheet
+is counted tile by tile, and three readings are combined by median.
 
 ## 3. Results on held-out data
 
 | set | questions | correct | command |
 |---|---|---|---|
-| Swiss dwellings, test split | 7,724 | **99.97 %** | `python eval/run.py --source swiss_dwellings --split test` |
-| IFC models, all | 3,062 | **99.31 %** (test split 98.41 %) | `python eval/run.py --source ifc_models` |
-| CubiCasa5k, test split | 16,694 | **85.98 %** (was 85.02 % before nested-box suppression) | `python eval/run.py --source cubicasa5k --split test` |
-| CubiCasa5k, zero-API (no data leaves the machine) | | 80.84 % (last measured before suppression) | same, without GEMINI_API_KEY |
+| Swiss dwellings, test split | 7,724 | **99.97 %** (re-run 2026-11-15 05:00, unchanged) | `python eval/run.py --source swiss_dwellings --split test` |
+| IFC models, all | 3,062 | **99.31 %** (test split 98.41 %, re-run 05:00, unchanged) | `python eval/run.py --source ifc_models` |
+| CubiCasa5k, test split | 16,694 | **85.98 %** (was 85.02 % before nested-box suppression; re-run 05:00, unchanged) | `python eval/run.py --source cubicasa5k --split test` |
+| CubiCasa5k, zero-API (no data leaves the machine) | 16,694 | 81.80 % | same, with `JUNCTION_NO_VLM=1` |
 | Stoa vector sheets (3 PDFs) | 24 | 24/24 | `python tools/sheet_run.py` |
 | Stoa example sheets (4 low-res scans, not used for tuning) | 15 with a known answer | 13 exact; doors +7 %, windows -6 %, pipe supports +4 % | `python tools/stoa_samples_run.py`, `eval/stoa_samples_result.md` |
 

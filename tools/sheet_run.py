@@ -1,6 +1,10 @@
 """Run eval/sheet_set.jsonl (the tricky-question examples Stoa sent: piping, slab, school plan, dorm) through
 answer_sheet with the real model. Needs GEMINI_API_KEY.  python tools/sheet_run.py [index ...]"""
 import os, sys, json, time
+if not os.environ.get("GEMINI_API_KEY", "").strip():
+    import getpass
+    _k = getpass.getpass("GEMINI_API_KEY not set. Paste key (hidden): ").strip()
+    if _k: os.environ["GEMINI_API_KEY"] = _k
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, ROOT)
 from engine.answer import answer_sheet
 qs = [json.loads(l) for l in open(os.path.join(ROOT, "eval", "sheet_set.jsonl"))]

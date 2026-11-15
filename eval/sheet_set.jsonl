@@ -14,7 +14,7 @@
 {"path": "eval/sheets/us_aw_078-24-33_p056.pdf", "question": "What are the dimensions of the sump?", "answer": "600 x 600 x 300 deep", "confidence": "checked"}
 {"path": "eval/sheets/us_aw_078-24-33_p056.pdf", "question": "What is the area of the 300 mm slab-on-grade with D16 @ 300?", "answer": 214.5, "confidence": "my_reading: 3 bays (5800+7400+6300) x (5500+5500) mm"}
 {"path": "eval/sheets/us_aw_078-24-33_p056.pdf", "question": "What is the area of the 150 mm slab-on-grade with D13 @ 300?", "answer": 61.69, "confidence": "my_reading: 6200 x 9950 mm"}
-{"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "How many doors are shown on this plan?", "answer": 107, "confidence": "computed: door sets with a swing arc; arc-less doors not included"}
+{"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "How many doors are shown on this plan?", "answer": 129, "confidence": "computed: door leaves with a swing arc (door sets 107); arc-less doors not included"}
 {"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "How many group rooms are there?", "answer": 10, "confidence": "checked labels"}
 {"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "How many secondary classrooms are there, not counting severe-needs classrooms?", "answer": 6, "confidence": "checked labels"}
 {"path": "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf", "question": "What is the drawing scale?", "answer": "1:200", "confidence": "checked"}

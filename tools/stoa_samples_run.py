@@ -1,6 +1,10 @@
 """Run the Stoa example sheets (eval/stoa_samples/*.jpg, not in git, never used for training or tuning) through
 answer_sheet and write eval/stoa_samples_result.md.   python tools/stoa_samples_run.py [index ...]"""
 import os, sys, json, time
+if not os.environ.get("GEMINI_API_KEY", "").strip():
+    import getpass
+    _k = getpass.getpass("GEMINI_API_KEY not set. Paste key (hidden): ").strip()
+    if _k: os.environ["GEMINI_API_KEY"] = _k
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, ROOT)
 from engine.answer import answer_sheet
 qs = [json.loads(l) for l in open(os.path.join(ROOT, "eval", "stoa_samples_questions.jsonl"))]
