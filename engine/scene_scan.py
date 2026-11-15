@@ -29,8 +29,20 @@ def scene(path, page=1, rel_path=None):
         unit, quality = "m", "measured"
         warn.append(f"scale from the user's calibration ({cal.get('length_m')} m between two clicked points)")
     else:
-        fx = fz = 1.0; unit, quality = "norm1000", "illustrative"
-        warn.append("no calibration for this image: positions are 0-1000 image units, not metres; calibrate in the review panel to measure")
+        auto = None
+        try:
+            from . import llm, scan_scale
+            if llm.available(): auto = scan_scale.read(img, (W, H), llm.vision_json)
+        except Exception: auto = None
+        if auto and auto.get("m_per_px"):
+            k = auto["m_per_px"]; fx, fz = W / 1000 * k, H / 1000 * k
+            unit, quality = "m", "measured"
+            warn.append("scale read from the sheet: " + auto["basis"] + "; calibrate in the review panel to confirm")
+            warn += auto.get("warnings", [])
+        else:
+            fx = fz = 1.0; unit, quality = "norm1000", "illustrative"
+            warn.append("no calibration and no readable printed scale: positions are 0-1000 image units, not metres; calibrate in the review panel to measure")
+            if auto: warn += auto.get("warnings", [])
     P = lambda x, z: [round(float(x) * fx, 4), 0.0, round(float(z) * fz, 4)]
     src = lambda b: {"file": rel, "page": page, "bbox_norm1000": [round(float(v), 1) for v in b]}
     openings, objects = [], []

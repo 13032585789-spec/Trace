@@ -73,8 +73,26 @@ or after the user calibrates the scale.
   unsupported). Tallinn and Hitos models were not available to us for checking.
 - Coordinates follow web-ifc (Y up, Z = -y); a viewer that moves the model to the origin must add that offset.
 
+
+## 6. From drawings to a 2.5D measured scene (`GET /scene`)
+
+Every input becomes one scene JSON for the viewer: storeys, rooms, walls, openings, fixtures and pipe runs. Units are metres in a Y-up frame, and every element links back to its evidence (an IFC GUID, or a page plus bbox).
+
+| input | walls | rooms | doors / windows | WC / sink | check |
+|---|---|---|---|---|---|
+| IFC | wall bodies → centre line + thickness | IfcSpace profiles | placement + OverallWidth/Height, host wall via IfcRelFillsElement/IfcRelVoidsElement | fixture meshes, room by containment or position | Duplex bathroom: wall faces meet the room outline to the millimetre; 16/16 fixtures in the right room (`eval/scenes/`) |
+| vector PDF | solid wall fills | free space around each label, doors and windows closed | swing arcs (circle fit), window symbols | **repeated CAD blocks**: strokes of one layer grouped, rotation/mirror-invariant signature, clustered, each cluster named once (reviewer or Gemini) | school sheet: 11/11 WCs, no false WC (`symbols_school_wc_check.png`) |
+| scan | thick strokes → axis runs (deskewed); CubiCasa5K model walls on thin-wall plans | enclosed free space, area from the outer outline; CubiCasa5K room types on residential plans | swing / window candidates; CubiCasa5K openings as fallback | our detector (toilet 36/40, sink 29/40 answers on 40 plans; the official CubiCasa5K model: 29 and 22) | school scan vs vector: 38/50 rooms within 10 % area (`scan_plan_check.md`); model comparison in `eval/cubiseg_eval.md` |
+
+Scale rules:
+- A plan is `measured` only with a scale. That scale comes from the printed scale on vector sheets, or from a user calibration on scans.
+- On a scan, the printed ratio plus the paper size can also be read automatically when the scan shows the whole sheet. On the school scan, 1:200 on A2 gives 25.20 mm/px against 25.25 measured.
+- Otherwise the plan stays `illustrative`, in 0–1000 image units.
+- Heights are not on plans, so they stay null or are flagged as assumed.
+
 ## 5. Sponsor tech
 
 - **Gemini API**: vision counting and confirmation on scans, room types on raster plans, choosing sheet operations.
 - **Verda**: all detector training (A100); see `docs/08-verda-compute.md` for models, before/after and cost.
+- **Open source used**: CubiCasa5K official model (non-commercial demo use) for walls and room types on residential scans, compared head to head with our detector.
 - Data: the Stoa sample images were never used for training or tuning; ground-truth annotations are used only to measure.
