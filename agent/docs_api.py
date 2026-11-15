@@ -204,6 +204,8 @@ def _handle(method, path, query, headers, body, S=None):
             else:
                 from engine import scene_scan
                 r = scene_scan.scene(f, int(q.get("page", 1)), rel_path=rel)
+            if "error" not in r and q.get("realize", "1") != "0":
+                from engine import scene_realize; scene_realize.realize(r)    # buildable 2.5D: closed walls, hosted openings
             if "error" not in r: _normalise_scene(r)
             return _j(400 if "error" in r else 200, r)
         if path in ("/ifc/spaces", "/ifc/storeys", "/ifc/room_of", "/ifc/clearances"):
