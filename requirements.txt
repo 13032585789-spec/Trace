@@ -1,0 +1,8 @@
+# Trace engine (A side). Python 3.10+.
+numpy
+pillow
+opencv-python-headless
+pdfplumber
+pypdfium2
+# optional: fixture detector on scans (weights handed over directly, not redistributed)
+# ultralytics
