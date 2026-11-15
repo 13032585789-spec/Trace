@@ -89,14 +89,33 @@ def measure(image_bytes, question, call_model, file=None, page=0, analysis=None,
     if len(hits) > 1:
         return {**base, "value": None, "method": "scan:rooms:ambiguous",
                 "warnings": [f"{len(hits)} rooms are labelled '{name}': all are outlined; ask about one (e.g. by its number) or sum them"]}
-    mpp, basis, sw = _scale(image_bytes, W, H, call_model, file, page)
     r = rooms[0]
+    # a traced outline that also holds other rooms' labels leaked through an opening the tracer did not close:
+    # its area would be wrong, so show it and decline instead of answering
+    others = sorted({l["text"] for l in L if _norm(l["text"]) != _norm(name)
+                     and _inside([l["point"][0] * W / 1000, l["point"][1] * H / 1000], r["polygon"])})
+    if others:
+        return {**base, "value": None, "method": "scan:rooms:leak",
+                "warnings": [f"the traced outline of '{name}' also contains {', '.join(others[:4])}"
+                             + (" ..." if len(others) > 4 else "") + ": a wall or door between them was not closed; "
+                             "not measured - draw the outline in the review panel (/measure)"]}
+    import cv2, numpy as np
+    poly = np.array(r["polygon"], np.float32)
+    hull = cv2.contourArea(cv2.convexHull(poly)); solidity = cv2.contourArea(poly) / hull if hull else 0
+    if solidity < 0.8:                               # rooms are (near) convex; a ragged outline is a leak
+        return {**base, "value": None, "method": "scan:rooms:leak",
+                "warnings": [f"the traced outline of '{name}' is irregular (solidity {solidity:.2f}): it probably runs into a "
+                             "neighbouring space; not measured - draw the outline in the review panel (/measure)"]}
+    mpp, basis, sw = _scale(image_bytes, W, H, call_model, file, page)
     if mpp is None:
         return {**base, "value": None, "method": "scan:rooms:no_scale",
                 "warnings": [f"room '{name}' outlined on the drawing, but no scale: calibrate (two clicks on a known dimension) to measure"] + sw}
     area = r["area_px"] * mpp * mpp
     P = r["polygon"]; per = sum(math.dist(P[i], P[(i + 1) % len(P)]) for i in range(len(P))) * mpp
     warn = [f"scale: {basis}"] + sw + ["outline traced from the walls on the scan: net room area, check the outline"]
+    low = max(W, H) < 3000
+    if low: warn.append(f"low-resolution image ({max(W, H)} px): walls between small rooms may not be closed; on our test sheet "
+                        "at this resolution 4 of 6 measured rooms were within 10 % - check the outline before using the number")
     if BASE_Q.search(question):
         doors = []
         for d in scanqa.raster_doors(image_bytes):
@@ -109,12 +128,12 @@ def measure(image_bytes, question, call_model, file=None, page=0, analysis=None,
             if _inside(c, P) or edge < 0.25 / mpp: doors.append(round(w, 2))
         v = round(per - sum(doors), 2)
         warn.append(f"baseboard = perimeter {per:.2f} m - door openings {doors} m")
-        return {**base, "value": v, "unit": "m", "method": "scan:rooms+scale:baseboard", "warnings": warn,
+        return {**base, "value": v, "unit": "m", "method": "scan:rooms+scale:baseboard" + (":lowres" if low else ""), "warnings": warn,
                 "evidence": {**base["evidence"], "perimeter_m": round(per, 2), "doors_m": doors, "scale": basis}}
     if PERIM_Q.search(question):
-        return {**base, "value": round(per, 2), "unit": "m", "method": "scan:rooms+scale:perimeter", "warnings": warn,
+        return {**base, "value": round(per, 2), "unit": "m", "method": "scan:rooms+scale:perimeter" + (":lowres" if low else ""), "warnings": warn,
                 "evidence": {**base["evidence"], "scale": basis}}
     imperial = re.search(r"sq\.?\s?ft|square feet|\bsf\b", question, re.I)
     v = round(area / 0.09290304, 1) if imperial else round(area, 2)
-    return {**base, "value": v, "unit": "sq ft" if imperial else "m2", "method": "scan:rooms+scale:area", "warnings": warn,
+    return {**base, "value": v, "unit": "sq ft" if imperial else "m2", "method": "scan:rooms+scale:area" + (":lowres" if low else ""), "warnings": warn,
             "evidence": {**base["evidence"], "area_m2": round(area, 2), "perimeter_m": round(per, 2), "scale": basis}}

@@ -5,7 +5,7 @@ import sys, os, json, collections
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from engine import scan_plan, scan_rooms, sheet
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCAN = os.path.join(ROOT, "eval/scans_synth/school_L00_scan.jpg")
+SCAN = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "eval/scans_synth/school_L00_scan.jpg")
 PDF = os.path.join(ROOT, "eval/sheets/uk_dfe_sen-dfe-xx-00-d-x-0201-special_school_plan_level_00-a-c01_p001.pdf")
 img = open(SCAN, "rb").read(); A = scan_plan.analyse(img); W, H = A["size"]
 f = sheet.load(PDF, 0); vec = f.get("rooms") or []
@@ -37,7 +37,7 @@ for v in vec:
     ea = abs(a - v["area_m2"]) / v["area_m2"] if a else None; eb = abs(b - v["baseboard_m"]) / v["baseboard_m"] if b else None
     n += 1; ok_a += ea is not None and ea <= 0.10; ok_b += eb is not None and eb <= 0.10
     rows.append((v["name"], v["area_m2"], a, f"{100*ea:.1f}%" if ea is not None else (r or {}).get("method"), v["baseboard_m"], b, f"{100*eb:.1f}%" if eb is not None else "-"))
-out = os.path.join(ROOT, "eval/scenes/scan_rooms_check.md")
+out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, "eval/scenes/scan_rooms_check.md")
 with open(out, "w") as F:
     F.write("# I1 offline: named rooms measured on the school scan (labels from the vector sheet, scale 1:200 on A2)\n\n")
     F.write(f"**area within 10 %: {ok_a}/{n} uniquely named rooms; baseboard within 10 %: {ok_b}/{n}**\n\n")

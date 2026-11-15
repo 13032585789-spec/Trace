@@ -34,6 +34,9 @@ def analyse(image_bytes, dark=120, line=170):
     import cv2, numpy as np
     im0 = _load(image_bytes)
     if im0 is None: return None
+    H0, W0 = im0.shape; up = 1.0
+    if max(H0, W0) < 3000:                       # low-resolution exports: trace at ~4500 px, report in original pixels
+        up = 4500 / max(H0, W0); im0 = cv2.resize(im0, None, fx=up, fy=up, interpolation=cv2.INTER_CUBIC)
     im, M, Mi, ang = deskew(im0); H, W = im.shape
     b = (im < dark).astype(np.uint8)
     k = max(3, int(round(max(H, W) / 1000)))                      # thinnest wall ~ 3-5 px at ~4800 px per sheet
@@ -84,7 +87,15 @@ def analyse(image_bytes, dark=120, line=170):
         area = cv2.contourArea(c) + cv2.arcLength(c, True) * 1.5
         rooms.append({"polygon": _back(Mi, poly.tolist()), "area_px": int(area), "free_px": int(st3[i, cv2.CC_STAT_AREA]),
                       "label_px": _back(Mi, [cen[i]])[0], "bbox_px": [int(v) for v in st3[i, :4]]})
-    return {"angle_deg": ang, "wall_px": wall_px, "kernel_px": k, "size": [W, H], "walls": walls, "rooms": rooms}
+    if up != 1.0:
+        sc = lambda P: [[round(x / up, 1), round(y / up, 1)] for x, y in P]
+        for w in walls: w["points"] = sc(w["points"]); w["footprint"] = sc(w["footprint"]); w["thickness_px"] /= up
+        for r in rooms:
+            r["polygon"] = sc(r["polygon"]); r["label_px"] = [r["label_px"][0] / up, r["label_px"][1] / up]
+            r["area_px"] = int(r["area_px"] / up / up); r["free_px"] = int(r["free_px"] / up / up)
+            r["bbox_px"] = [int(v / up) for v in r["bbox_px"]]
+        W, H = W0, H0; wall_px = wall_px / up if wall_px else wall_px
+    return {"angle_deg": ang, "wall_px": wall_px, "kernel_px": k, "size": [W, H], "walls": walls, "rooms": rooms, "upscaled": round(up, 2)}
 
 def scale_from_ratio(ratio, image_size, paper_mm=None):
     """Metres per pixel from a printed ratio (1:N) and the paper size. paper_mm=(w, h); if None, the ISO A size whose

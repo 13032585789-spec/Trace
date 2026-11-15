@@ -1,6 +1,6 @@
 # I1 offline: named rooms measured on the school scan (labels from the vector sheet, scale 1:200 on A2)
 
-**area within 10 %: 14/17 uniquely named rooms; baseboard within 10 %: 13/17**
+**area within 10 %: 14/17 uniquely named rooms; baseboard within 10 %: 12/17**
 
 | room | vector m2 | scan m2 | error | vector baseboard m | scan baseboard m | error |
 |---|---|---|---|---|---|---|
@@ -9,7 +9,7 @@
 | Kitchen | 34.04 | 34.44 | 1.2% | 28.73 | 27.96 | 2.7% |
 | Enclosed Walkway | 110.45 | 109.85 | 0.5% | 70.46 | 72.22 | 2.5% |
 | Accessible Changing | 5.3 | 5.52 | 4.2% | 10.49 | 9.88 | 5.8% |
-| Changing and Showers | 13.88 | 16.26 | 17.1% | 21.62 | 23.44 | 8.4% |
+| Changing and Showers | 13.88 | None | scan:rooms:leak | 21.62 | None | - |
 | Sick Room | 1.79 | 1.41 | 21.2% | 6.74 | 3.82 | 43.3% |
 | Meeting Room | 11.84 | 11.8 | 0.3% | 14.79 | 13.89 | 6.1% |
 | Toilet | 1.87 | 2.24 | 19.8% | 5.06 | 5.57 | 10.1% |

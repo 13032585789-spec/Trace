@@ -45,6 +45,8 @@ def rate(r):
                      "sheet:lookup", "sheet:expr", "sheet:count", "docqa:")) and "vision" not in m:
         if soft: return "medium", "read from the file's own data, with a caveat: " + soft[0]
         return "high", "read from the file's own data (vector geometry, model quantities or a printed table)"
+    if m.startswith("scan:rooms+scale") and m.endswith(":lowres"):
+        return "low", "room outline traced on a low-resolution scan: walls between rooms may be missed; check the outline"
     if m.startswith("scan:rooms+scale"):
         cal = any("user calibration" in x for x in w)
         return ("medium", "room outline traced from the walls on the scan, scale from " +
