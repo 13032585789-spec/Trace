@@ -23,7 +23,11 @@ def _page_image(path, page0, max_side=2600):
     return im, s, "image", im.size
 
 def _geom(it, kind, size_units, W, H, s):
-    """-> ("box"|"poly", pixel coords) or None"""
+    """-> ("box"|"poly"|"line", pixel coords) or None"""
+    if it.get("line_norm1000"):
+        return "line", [(x * W / 1000, y * H / 1000) for x, y in it["line_norm1000"]]
+    if kind == "pdf" and it.get("line_pt"):
+        return "line", [(x * s, y * s) for x, y in it["line_pt"]]
     if it.get("box_norm1000"):
         b = it["box_norm1000"]; return "box", [b[0] * W / 1000, b[1] * H / 1000, b[2] * W / 1000, b[3] * H / 1000]
     if it.get("polygon_norm1000"):
@@ -32,6 +36,14 @@ def _geom(it, kind, size_units, W, H, s):
         b = it["box"]; return "box", [v * s for v in b]
     if kind == "pdf" and it.get("polygon"):
         return "poly", [(x * s, y * s) for x, y in it["polygon"]]
+    if kind == "image" and it.get("png_polygon"):
+        return "poly", [(x * s, y * s) for x, y in it["png_polygon"]]
+    if kind == "pdf" and it.get("pdf_polygon_pt"):
+        return "poly", [(x * s, y * s) for x, y in it["pdf_polygon_pt"]]
+    if kind == "image" and it.get("png_bbox"):                  # Swiss plans: DXF items mapped to the plan PNG
+        b = it["png_bbox"]; return "box", [v * s for v in b]
+    if kind == "pdf" and it.get("pdf_bbox_pt"):
+        b = it["pdf_bbox_pt"]; return "box", [v * s for v in b]
     if kind == "image" and it.get("box"):                       # pixel boxes on images
         b = it["box"]; return "box", [v * s for v in b]
     return None
@@ -50,6 +62,12 @@ def render(a, zoom_margin=0.08):
     items = [dict(it, _state="removed" if it.get("id") in set((a.get("review") or {}).get("removed") or []) else "item")
              for it in (a.get("items") or [])]
     items += [dict(it, _state="added") for it in ((a.get("review") or {}).get("added") or [])]
+    bd = (a.get("evidence") or {}).get("breakdown") or []
+    if bd and any(b.get("png_polygon") or b.get("pdf_polygon_pt") for b in bd):
+        # areas: outline each counted room with its own area, so the sum can be checked room by room
+        items = [{"id": i, "label": f"{b.get('number') or ''} {b.get('name') or ''}: {b.get('area_m2')} m2".strip(),
+                  "png_polygon": b.get("png_polygon"), "pdf_polygon_pt": b.get("pdf_polygon_pt"), "_state": "item"}
+                 for i, b in enumerate(bd)]
     cite = (a.get("evidence") or {}).get("cite")
     if not items and cite and str(path).lower().endswith(".pdf"):
         # values read from text (lookups, dimension strings): mark the cited text / dimensions on the sheet
@@ -62,6 +80,13 @@ def render(a, zoom_margin=0.08):
                     x = idx.get(cid.strip("[]()'\""))
                     if x: items.append({"id": cid, "label": x.get("t") or x.get("text"), "box": x["box"], "_state": "item"})
         except Exception as e: out["warnings"].append(f"cited text not located: {e!r}"[:120])
+    if path and str(path).lower().endswith(".dxf") and os.path.exists(os.path.splitext(str(path))[0] + ".png"):
+        try:
+            from . import swiss_view
+            for it in items:
+                if it.get("bbox_m") and not it.get("box"): it["box"] = swiss_view.to_png(str(path), it["bbox_m"])
+            path = os.path.splitext(str(path))[0] + ".png"
+        except Exception as e: out["warnings"].append(f"DXF items not mapped to the plan image: {e!r}"[:120])
     if not path or not os.path.exists(str(path)) or str(path).lower().endswith((".ifc", ".dxf")):
         for it in items:
             out["locations"].append({k: it.get(k) for k in ("id", "guid", "label", "name", "storey") if it.get(k) is not None})
@@ -76,7 +101,14 @@ def render(a, zoom_margin=0.08):
         g = _geom(it, kind, size_units, W, H, s)
         if g is None: continue
         c = COL["poly"] if g[0] == "poly" else COL[it["_state"]]
-        if g[0] == "box":
+        if g[0] == "line":                                   # a measured distance: dimension line with its value
+            P = [(x, y + head) for x, y in g[1]]; c = (230, 120, 0)
+            d.line(P, fill=c + (255,), width=4)
+            for q in P: d.ellipse([q[0] - 6, q[1] - 6, q[0] + 6, q[1] + 6], fill=c + (255,))
+            mx, my = (P[0][0] + P[-1][0]) / 2, (P[0][1] + P[-1][1]) / 2
+            d.text((mx + 6, my - 6 - H // 90), str(it.get("label") or ""), fill=(160, 70, 0), font=f_small)
+            xs = [p[0] for p in g[1]]; ys = [p[1] for p in g[1]]; bb = [min(xs), min(ys), max(xs), max(ys)]
+        elif g[0] == "box":
             x0, y0, x1, y1 = g[1]; y0 += head; y1 += head; pad = 3
             d.rectangle([x0 - pad, y0 - pad, x1 + pad, y1 + pad], outline=c + (255,), width=3, fill=c + (40,))
             if it["_state"] == "removed": d.line([x0, y0, x1, y1], fill=c, width=3)
