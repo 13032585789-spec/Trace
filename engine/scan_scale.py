@@ -21,7 +21,7 @@ def read(image_bytes, size_px, vision_json):
         except Exception as e: return {"m_per_px": None, "warnings": [f"scale reading failed: {e!r}"[:120]]}
         os.makedirs(CACHE, exist_ok=True); json.dump(r, open(cp, "w"))
     W, H = size_px; warn = []
-    ratio = r.get("ratio"); paper = str(r.get("paper") or "").upper().replace("SIZE", "").strip()
+    ratio = r.get("ratio"); paper = str(r.get("paper") or "").upper().replace("SIZE", "").replace("ISO", "").strip()
     try: ratio = float(ratio) if ratio else None
     except (TypeError, ValueError): ratio = None
     mm = next((v for k, v in ISO.items() if paper == k or paper.startswith(k + " ")), None)
