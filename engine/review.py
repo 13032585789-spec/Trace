@@ -27,7 +27,8 @@ def alternatives(a):
     ev = a.get("evidence") or {}; alt = list(a.get("alternatives") or [])
     rd = ev.get("readings") or []
     if len(rd) >= 2 and len({str(x) for x in rd}) > 1 and not alt:
-        names = ["tile-by-tile reading", "whole-sheet reading"] if "tiled" in str(a.get("method")) else ["first reading", "second reading"]
+        names = (["tile-by-tile reading", "whole-sheet reading", "tile-by-tile reading, second grid"] if "tiled" in str(a.get("method"))
+                 else ["first reading", "second reading", "third reading"])
         alt = [{"label": n, "value": v} for n, v in zip(names, rd)]
     return alt
 

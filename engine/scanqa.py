@@ -440,10 +440,31 @@ def _answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ
         items = count_tiled(image_bytes, question, call_model, grid)
         for i, it in enumerate(items): it["id"] = i
         a = len(items)
-        agree = b is not None and abs(a - b) <= max(1, 0.1 * a)
-        warn = [] if agree else [f"uncertain: tile-by-tile count {a}, whole-sheet count {whole['value']}; please review the boxes"]
-        return {"value": a, "unit": "count", "items": items, "method": f"scan:vlm:tiled{grid[0]}x{grid[1]}" + ("" if agree else ":uncertain"),
-                "warnings": warn, "evidence": {"reason": whole["reason"], "readings": [a, whole["value"]], "agree": agree,
+        close = lambda x, y: x is not None and y is not None and abs(x - y) <= max(1, 0.1 * max(x, y))
+        agree = close(a, b)
+        readings = [a, whole["value"]]; method = f"scan:vlm:tiled{grid[0]}x{grid[1]}"; value = a; warn = []
+        if not agree:
+            # two readings disagree: a third, independent tile-by-tile count on a different grid decides (median of
+            # three); the answer stays flagged and every reading is offered for review
+            g2 = (grid[0] + 1, grid[1] + 1) if grid[0] * grid[1] < 9 else (grid[0] - 1, grid[1] - 1)
+            try: items2 = count_tiled(image_bytes, question, call_model, g2)
+            except Exception: items2 = None
+            c = len(items2) if items2 is not None else None
+            if c is not None:
+                readings.append(c)
+                trio = sorted([(a, "tiles", items), (b if b is not None else -1, "whole", whole["items"]), (c, "tiles2", items2)], key=lambda t: t[0])
+                value, src_name, src_items = trio[1]
+                items = src_items
+                for i, it in enumerate(items): it["id"] = i
+                pair = close(a, c) or close(b, c) or close(a, b)
+                method += ":median3" + ("" if pair else ":uncertain")
+                warn.append(f"readings disagreed (tiles {grid[0]}x{grid[1]}: {a}, whole sheet: {whole['value']}, tiles {g2[0]}x{g2[1]}: {c}); "
+                            f"answer = median ({src_name})" + ("" if pair else "; still uncertain, please review the boxes"))
+            else:
+                method += ":uncertain"
+                warn.append(f"uncertain: tile-by-tile count {a}, whole-sheet count {whole['value']}; please review the boxes")
+        return {"value": value, "unit": "count", "items": items, "method": method,
+                "warnings": warn, "evidence": {"reason": whole["reason"], "readings": readings, "agree": agree,
                                                "whole_sheet_items": whole["items"]}}
     return answer_single(_shrink(image_bytes), question, call_model, votes)
 
