@@ -120,6 +120,21 @@ def handle(method, path, query, headers, body, S=None):
             pj = a.get("project") or proj
             if path == "/project/sheets": return _j(200, {"project": pj, "sheets": docs_tools.project_sheets(pj, S)})
             if path == "/project/ask": return _j(200, docs_tools.ask_project(pj, a.get("question", ""), S))
+        if path == "/evidence" and method == "GET":
+            from engine import review as R, evidence as E
+            a = R.get(q.get("answer_id", ""))
+            if a is None: return _j(404, {"error": "no such answer"})
+            ev = E.render(a); view = q.get("view", "json")
+            if view in ("full", "zoom"):
+                png = ev["full_png"] if view == "full" else (ev["zoom_png"] or ev["full_png"])
+                if png is None: return _j(404, {"error": "no drawing image for this answer", "locations": ev["locations"]})
+                return 200, {"Content-Type": "image/png", "X-Content-Type-Options": "nosniff"}, png
+            return _j(200, {"answer_id": a["answer_id"], "question": a.get("question"), "value": a.get("value"), "unit": a.get("unit"),
+                            "confidence": a.get("confidence"), "confidence_reason": a.get("confidence_reason"),
+                            "source": {"file": os.path.basename(str(a.get("file"))), "page": ev["page"]},
+                            "locations": ev["locations"], "warnings": ev["warnings"],
+                            "images": {"full": f"/evidence?answer_id={a['answer_id']}&view=full",
+                                       "zoom": f"/evidence?answer_id={a['answer_id']}&view=zoom"}})
         if path in ("/scene", "/api/scene") and method == "GET":
             f, _ = _resolve_path(str(q.get("path", "")))
             if f is None: return _j(400, {"error": "path must be under data/ or uploads/ and exist"})
