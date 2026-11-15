@@ -428,6 +428,8 @@ def _answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ
         m = (_marks_answer(groups, raw) if groups else None) or (_windows_answer(ws, raw) if ws else None) or (_doors_answer(ds, raw) if ds else None)
         if m: return _door_check(m, image_bytes, question, call_model)
         whole = normalise(raw, True)
+        if whole["found"] and _num(whole["value"]) == 0 and (DOOR_Q.search(question) or WINDOW_Q.search(question)):
+            whole = {**whole, "found": False}   # "0 doors" on a shrunk big sheet = not seen; check tile by tile
         if not whole["found"]:
             # the shrunk whole sheet can miss small symbols entirely: count tile by tile before saying "not shown"
             try: probe = count_tiled(image_bytes, question, call_model, grid)

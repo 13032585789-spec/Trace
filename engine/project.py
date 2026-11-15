@@ -143,6 +143,9 @@ def _cross_check_doors(out, sheets, question, ask_sheet):
     if v is None:
         cc["status"] = "plan gave no number"
         w.append(f"the plan gave no count; the door schedule ({cc['sheet_no']}) lists {int(n)} doors for the whole building")
+    elif v == 0 and n > 0:
+        cc["status"] = "plan count is 0 but the schedule lists doors"
+        w.append(f"the plan count is 0, but the door schedule ({cc['sheet_no']}) lists {int(n)} doors: the plan reading is probably wrong, please review")
     elif one_floor and v > n:
         cc["status"] = "plan count exceeds the whole-building schedule"
         w.append(f"plan count {v:g} is more than the {int(n)} doors in the whole-building schedule ({cc['sheet_no']}): please review")
