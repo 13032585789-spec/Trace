@@ -208,7 +208,21 @@ def answer_sheet(path, question, page=None, source=None):
     page: 1-based PDF page (same as the 'file.pdf#pN' suffix; the suffix wins if both are given)."""
     from .confidence import attach
     if page is not None and not re.search(r"#p\d+$", path): path = f"{path}#p{int(page)}"
-    return attach(_answer_sheet(path, question, source))
+    return attach(_numeric_value(_answer_sheet(path, question, source)))
+
+_AREA_UNIT = re.compile(r"^\s*(-?[\d][\d,]*(?:\.\d+)?)\s*(sf|sq\.?\s*ft\.?|ft2|ft²|square feet|m2|m²|sqm|sq\.?\s*m)\s*$", re.I)
+
+def _numeric_value(r):
+    """'29690 SF' read from a schedule -> value 29690, unit 'sq ft' (an area is a number; the unit goes in 'unit').
+    Only area units are split: text answers such as 1:50, 16" or 600 X 600 X 300 DEEP stay as read."""
+    v = r.get("value")
+    m = _AREA_UNIT.match(v) if isinstance(v, str) else None
+    if m:
+        num = float(m.group(1).replace(",", ""))
+        r["value"] = int(num) if num.is_integer() else num
+        r["unit"] = "m2" if re.search(r"m", m.group(2), re.I) and not re.search(r"ft|sf|feet", m.group(2), re.I) else "sq ft"
+        r.setdefault("evidence", {})["value_as_read"] = v
+    return r
 
 def _answer_sheet(path, question, source=None):
     from . import llm

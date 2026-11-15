@@ -3,6 +3,11 @@ counts exact; area/length/volume within 2%; text not scored here.
 usage: python eval/run.py [--source swiss_dwellings] [--split dev|test|all] [--limit N]"""
 import sys, os, json, argparse, hashlib, collections, time, traceback
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if not os.environ.get("GEMINI_API_KEY", "").strip() and "--no-key" not in sys.argv:
+    import getpass
+    _k = getpass.getpass("GEMINI_API_KEY not set. Paste key (hidden, Enter to skip): ").strip()
+    if _k: os.environ["GEMINI_API_KEY"] = _k
+if "--no-key" in sys.argv: sys.argv.remove("--no-key")
 from engine.answer import answer, DATA
 
 def split_of(path):  # split by drawing, not by question: 80% dev / 20% test, stable
