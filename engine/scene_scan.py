@@ -63,7 +63,9 @@ def scene(path, page=1, rel_path=None):
     seg = None                                   # CubiCasa5K multi-task model output (tools/cubiseg_run.py), if present
     for cand in (path + ".cubiseg.json", os.path.join(os.path.dirname(path), "cubiseg", os.path.basename(path) + ".cubiseg.json")):
         if os.path.exists(cand): seg = json.load(open(cand)); break
-    if seg:
+    # fixtures: our CubiCasa detector beats the official CubiCasa5K model on the same 40 plans (eval/cubiseg_eval.md:
+    # toilet 36 vs 29, sink 29 vs 22 of 40 answers), so the official model's icons are only a fallback
+    if seg and not any(o.get("category") in ("toilet", "sink") for o in objects):
         for i, ic in enumerate(seg.get("icons", [])):
             cat = {"Toilet": "toilet", "Sink": "sink", "Bathtub": "bathtub"}.get(ic["class"])
             if not cat: continue
@@ -71,7 +73,13 @@ def scene(path, page=1, rel_path=None):
             objects.append({"id": f"s{page}-cubiseg-{cat}-{i}", "category": cat, "position": P((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2),
                             "rotation_deg": None, "footprint": {"width_m": round((max(xs) - min(xs)) * fx, 3), "depth_m": round((max(ys) - min(ys)) * fz, 3)} if unit == "m" else None,
                             "confidence": 0.7, "method": "CubiCasa5K model", "source": src([min(xs), min(ys), max(xs), max(ys)])})
-        warn.append(f"fixtures from the CubiCasa5K model ({seg.get('model')})")
+        warn.append(f"fixtures from the CubiCasa5K model ({seg.get('model')}); fallback, our detector was not available")
+    def _rect(poly):
+        """4-corner polygon (norm1000) -> (centre, long-side vector, long length, short length) in image units"""
+        q = poly[:4]; e1 = (q[1][0] - q[0][0], q[1][1] - q[0][1]); e2 = (q[2][0] - q[1][0], q[2][1] - q[1][1])
+        L1, L2 = (e1[0] ** 2 + e1[1] ** 2) ** .5, (e2[0] ** 2 + e2[1] ** 2) ** .5
+        c = (sum(p[0] for p in q) / 4, sum(p[1] for p in q) / 4)
+        return (c, e1, L1, L2) if L1 >= L2 else (c, e2, L2, L1)
     rooms, walls = [], []
     try:
         from . import scan_plan
@@ -94,6 +102,27 @@ def scene(path, page=1, rel_path=None):
                           "area_m2": round(r["area_px"] * (fx * 1000 / W) * (fz * 1000 / H), 2) if unit == "m" else None,
                           "label_point": [lp[0], 0.0, lp[1]], "confidence": 0.7,
                           "source": src([bx[0] * 1000 / W, bx[1] * 1000 / H, (bx[0] + bx[2]) * 1000 / W, (bx[1] + bx[3]) * 1000 / H])})
+        if seg and len(seg.get("walls", [])) > 3 * max(1, len(walls)):     # thin residential walls: use the model's walls
+            walls = []
+            for i, w in enumerate(seg["walls"]):
+                if len(w["polygon"]) < 4: continue
+                (cx, cy), v, L, t = _rect(w["polygon"]); n = (L or 1)
+                a = (cx - v[0] / n * L / 2, cy - v[1] / n * L / 2); b = (cx + v[0] / n * L / 2, cy + v[1] / n * L / 2)
+                xs = [p[0] for p in w["polygon"]]; ys = [p[1] for p in w["polygon"]]
+                walls.append({"id": f"s{page}-wall-{i}", "storey_id": f"s{page}", "points": [P(*a)[::2], P(*b)[::2]],
+                              "thickness_m" if unit == "m" else "thickness_norm1000": round(t * (fx if unit == "m" else 1), 3),
+                              "base_y_m": 0.0, "height_m": None, "footprint": [P(*p)[::2] for p in w["polygon"]],
+                              "confidence": 0.7, "method": "CubiCasa5K model", "source": src([min(xs), min(ys), max(xs), max(ys)])})
+            warn.append("walls from the CubiCasa5K model (thin walls the rule-based tracer misses)")
+        if seg and not openings and seg.get("openings"):
+            for i, o in enumerate(seg["openings"]):
+                if len(o["polygon"]) < 4: continue
+                (cx, cy), v, L, t = _rect(o["polygon"]); xs = [p[0] for p in o["polygon"]]; ys = [p[1] for p in o["polygon"]]
+                import math as _m
+                openings.append({"id": f"s{page}-cubiseg-{o['class'].lower()}-{i}", "kind": o["class"].lower(), "wall_id": None,
+                                 "position": P(cx, cy), "rotation_deg": round(_m.degrees(_m.atan2(-v[1], v[0])) % 180, 1),
+                                 "width_m": round(L * fx, 3) if unit == "m" else None, "height_m": None, "confidence": 0.6,
+                                 "method": "CubiCasa5K model", "source": src([min(xs), min(ys), max(xs), max(ys)])})
         if seg and seg.get("rooms"):
             def _in(pt, poly):
                 x, y = pt; c = False
@@ -104,6 +133,21 @@ def scene(path, page=1, rel_path=None):
                 q = [r["label_px"][0] * 1000 / W, r["label_px"][1] * 1000 / H]
                 hit = next((x for x in seg["rooms"] if x["class"] not in ("Background", "Outdoor", "Wall") and _in(q, x["polygon"])), None)
                 if hit: rm["name"] = hit["class"]; rm["name_source"] = "CubiCasa5K room class"
+        if seg and seg.get("rooms"):                 # use the model's rooms when they cover more of the plan than ours
+            def _area(poly): return abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(poly, poly[1:] + poly[:1]))) / 2
+            sr = [x for x in seg["rooms"] if x["class"] not in ("Background", "Outdoor", "Wall", "Railing") and len(x["polygon"]) >= 3]
+            ours = sum(r["area_px"] * 1e6 / (W * H) for r in A["rooms"]); theirs = sum(_area(x["polygon"]) for x in sr)
+            if theirs > 1.2 * ours:
+                rooms = []
+                for i, x in enumerate(sr):
+                    xs = [p[0] for p in x["polygon"]]; ys = [p[1] for p in x["polygon"]]
+                    rooms.append({"id": f"s{page}-cubiseg-room-{i}", "name": x["class"], "name_source": "CubiCasa5K room class",
+                                  "number": None, "storey_id": f"s{page}", "polygon": [P(*p)[::2] for p in x["polygon"]],
+                                  "floor_y_m": 0.0, "height_m": None,
+                                  "area_m2": round(_area(x["polygon"]) * fx * fz, 2) if unit == "m" else None,
+                                  "label_point": P(sum(xs) / len(xs), sum(ys) / len(ys)), "confidence": 0.6,
+                                  "method": "CubiCasa5K model", "source": src([min(xs), min(ys), max(xs), max(ys)])})
+                warn.append(f"rooms from the CubiCasa5K model ({len(rooms)}; they cover more of the plan than the rule-based tracing)")
         warn.append(f"walls = thick strokes ({len(walls)} axis-aligned runs, deskew {A['angle_deg']:.2f} deg); rooms = enclosed free space "
                     f"({len(rooms)}), unnamed. Checked on the school sheet: 38/50 rooms within 10 % of the vector areas, small rooms (< 6 m2) can merge")
     else:

@@ -27,14 +27,14 @@ def main():
     a = ap.parse_args()
     sys.path.insert(0, os.path.abspath(a.repo))
     import numpy as np, cv2, torch, torch.nn.functional as F
-    from floortrans.models import get_model
+    from floortrans.models.hg_furukawa_original import hg_furukawa_original
     from floortrans.post_prosessing import split_prediction, get_polygons
     torch.set_grad_enabled(False)
-    model = get_model("hg_furukawa_original", 51)
+    model = hg_furukawa_original(n_classes=51)       # no init_weights(): its pose-net file is not needed, we load the full checkpoint
     n_classes, split = 44, [21, 12, 11]
     model.conv4_ = torch.nn.Conv2d(256, n_classes, bias=True, kernel_size=1)
     model.upsample = torch.nn.ConvTranspose2d(n_classes, n_classes, kernel_size=4, stride=4)
-    ck = torch.load(a.weights or os.path.join(a.repo, "model_best_val_loss_var.pkl"), map_location="cpu")
+    ck = torch.load(a.weights or os.path.join(a.repo, "model_best_val_loss_var.pkl"), map_location="cpu", weights_only=False)
     model.load_state_dict(ck["model_state"]); model.eval()
     files = sorted(f for e in ("*.png", "*.jpg", "*.jpeg") for f in glob.glob(os.path.join(a.inp, e)))
     print(f"{len(files)} images")
@@ -72,8 +72,11 @@ def main():
                 (openings if name in ("Window", "Door") else icon_out).append({"class": name, "polygon": pts})
         room_out = []
         for P, T in zip(room_polys, room_types):
-            c = int(T["class"]); xs, ys = P.exterior.coords.xy
-            room_out.append({"class": ROOM[c] if 0 <= c < len(ROOM) else str(c), "polygon": [n(px, py) for px, py in zip(xs, ys)]})
+            c = int(T["class"])
+            for part in (list(P.geoms) if hasattr(P, "geoms") else [P]):      # a room class can come back as a MultiPolygon
+                if not hasattr(part, "exterior") or part.is_empty: continue
+                xs, ys = part.exterior.coords.xy
+                room_out.append({"class": ROOM[c] if 0 <= c < len(ROOM) else str(c), "polygon": [n(px, py) for px, py in zip(xs, ys)]})
         json.dump({"image": os.path.basename(fp), "image_size": [W0, H0], "model_input_size": [W, H],
                    "model": "CubiCasa5K hg_furukawa_original (official weights)", "tta": a.tta,
                    "walls": walls, "openings": openings, "icons": icon_out, "rooms": room_out}, open(out, "w"))
