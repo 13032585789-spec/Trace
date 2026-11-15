@@ -74,7 +74,7 @@ or after the user calibrates the scale.
 - Coordinates follow web-ifc (Y up, Z = -y); a viewer that moves the model to the origin must add that offset.
 
 
-## 6. From drawings to a 2.5D measured scene (`GET /scene`)
+## 5. From drawings to a 2.5D measured scene (`GET /scene`)
 
 Every input becomes one scene JSON for the viewer: storeys, rooms, walls, openings, fixtures and pipe runs. Units are metres in a Y-up frame, and every element links back to its evidence (an IFC GUID, or a page plus bbox).
 
@@ -90,7 +90,7 @@ Scale rules:
 - Otherwise the plan stays `illustrative`, in 0–1000 image units.
 - Heights are not on plans, so they stay null or are flagged as assumed.
 
-## 5. Sponsor tech
+## 6. Sponsor tech
 
 - **Gemini API**: vision counting and confirmation on scans, room types on raster plans, choosing sheet operations.
 - **Verda**: all detector training (A100); see `docs/08-verda-compute.md` for models, before/after and cost.
