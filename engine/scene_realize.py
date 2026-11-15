@@ -179,6 +179,36 @@ def fixture_model(cat):
 
 
 WALL_BACKED = {"toilet", "urinal", "sink", "vanity", "bathtub", "shower", "stove"}
+FRONT_ALONG_LONG_AXIS = {"toilet", "urinal"}       # a toilet symbol is long front-to-back; a bath / sink / stove is long sideways
+
+
+def _wall_dist(pt, A, B):
+    d, _ = _seg_dist(np.array([pt], float), A, B); return float(d.min())
+
+
+def _orient(ob, x, z, A, B, unit):
+    """Turn a wall-backed fixture so its back is against a wall. The drawn symbol fixes the axis (rotation_deg = its long
+    axis, 0-180 deg ambiguous); only the two directions on that axis are tried, so a toilet never ends up facing a
+    cubicle partition. Without a symbol axis (IFC or scans) the current front is kept unless it points into the wall."""
+    cat = ob.get("category"); depth = 0.35 * unit
+    r = ob.get("rotation_deg")
+    if ob.get("symbol_cluster") is not None and r is not None:
+        a = np.array([math.cos(math.radians(r)), -math.sin(math.radians(r))])     # long axis (three.js rotation about y)
+        axis = a if cat in FRONT_ALONG_LONG_AXIS else np.array([-a[1], a[0]])
+        cands = [axis, -axis]; how = "symbol axis, back toward the nearer wall"
+    elif ob.get("front_vector"):
+        f0 = np.array(ob["front_vector"], float); cands = [f0, -f0]; how = "model front kept unless it faced the wall"
+    else:
+        d, tt = _seg_dist(np.array([[x, z]]), A, B); j = int(np.argmin(d[0]))
+        q = A[j] + tt[0, j] * (B[j] - A[j]); f = np.array([x, z]) - q
+        if np.hypot(*f) < 1e-9: return
+        cands = [f / np.hypot(*f)]; how = "back against the nearest wall"
+    back = [_wall_dist((x - c[0] * depth, z - c[1] * depth), A, B) for c in cands]
+    f = cands[int(np.argmin(back))]
+    flipped = how.startswith("model") and int(np.argmin(back)) == 1
+    ob["front_vector"] = [round(float(f[0]), 3), round(float(f[1]), 3)]
+    ob["model_rotation_deg"] = round(math.degrees(math.atan2(f[0], f[1])) % 360, 1)   # own rotation_deg is left as read
+    ob["orientation_from"] = how + (" (flipped: the model's front faced the wall)" if flipped else "")
 
 
 def _snap_ends(walls, tol):
@@ -229,11 +259,15 @@ def realize(scene):
     seg = lambda ws: (np.array([w["points"][0] for w in ws], float).reshape(-1, 2), np.array([w["points"][-1] for w in ws], float).reshape(-1, 2))
 
     if kind == "ifc":    # real geometry: measure only (plus a simple 3D model for fixtures that have none)
+        A0, B0 = seg(walls)
         for ob in objects:
+            if ob.get("category") in WALL_BACKED and len(A0) and ob.get("front_vector"):
+                _orient(ob, ob["position"][0], ob["position"][2], A0, B0, 1.0)
             mdl = fixture_model(ob.get("category"))
             if mdl and not ob.get("model"):
-                ob["model"] = {"primitives": mdl, "frame": "local: x width, y up, z depth (front = +z); rotate by rotation_deg about y (three.js)",
-                               "note": "typical shape (MVP); position and rotation are from the IFC model"}
+                ob["model"] = {"primitives": mdl, "frame": "local: x width, y up, z depth (front = +z); rotate by model_rotation_deg about y (three.js)",
+                               "rotation_deg": ob.get("model_rotation_deg", ob.get("rotation_deg")),
+                               "note": "typical shape (MVP); position is from the IFC model"}
         A, B = seg(walls)
         cov = [float(_covered(_samples(_ring(r["polygon"], t / 4), step)[0], A, B, 2 * t).mean()) for r in rooms if len(r.get("polygon") or []) >= 3]
         scene["realism"] = {"changed": False, "note": "IFC geometry is real; measured only",
@@ -321,17 +355,12 @@ def realize(scene):
             k = int(np.argmin(dist))
             if dist[k] <= 2.0 * unit: ob["room_id"] = cents[k][0]; ob["room_method"] = "nearest room (within 2 m)"
         if ob.get("room_id"): in_room += 1
-        if ob.get("category") in WALL_BACKED and len(A):      # the back stands against the nearest wall
-            d, tt = _seg_dist(np.array([[x, z]]), A, B); j = int(np.argmin(d[0]))
-            q = A[j] + tt[0, j] * (B[j] - A[j]); f = np.array([x, z]) - q; n = float(np.hypot(*f))
-            if n > 1e-6:
-                fx, fz = f / n
-                ob["front_vector"] = [round(float(fx), 3), round(float(fz), 3)]
-                ob["rotation_deg"] = round(math.degrees(math.atan2(fx, fz)) % 360, 1)
-                ob["orientation_from"] = "back against the nearest wall"
+        if ob.get("category") in WALL_BACKED and len(A):
+            _orient(ob, x, z, A, B, unit)
         mdl = fixture_model(ob.get("category"))
         if mdl:
-            ob["model"] = {"primitives": mdl, "frame": "local: x width, y up, z depth (front = +z); rotate by rotation_deg about y (three.js)",
+            ob["model"] = {"primitives": mdl, "frame": "local: x width, y up, z depth (front = +z); rotate by model_rotation_deg about y (three.js)",
+                           "rotation_deg": ob.get("model_rotation_deg", ob.get("rotation_deg") or 0),
                            "note": "typical shape and size (MVP), not measured"}
         size = FIXTURE_SIZE.get(ob.get("category"))
         if size and not (ob.get("footprint") or {}).get("width_m"):
