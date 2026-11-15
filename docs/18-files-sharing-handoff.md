@@ -7,6 +7,23 @@ A **Files** button in the Demo workspace opens the existing `DocsLibrary` in a s
 - the team sees which version is current;
 - one click asks Trace about that sheet.
 
+## Before you start – keep your local work safe
+Your local `claude/night` has commits that are not on GitHub yet (up to `e74132b`). Make this change **on top of them**, never over them:
+
+1. `git status` – commit anything open first: `git add -A && git commit -m "wip before files drawer"`.
+2. Stay on your branch: `git switch claude/night`. Do **not** run `git pull`, `git reset` or `git checkout origin/...` – they can replace your newer local files with the older GitHub copy.
+3. Edit only these files:
+   - `web/src/App.tsx` (button + drawer, step 2)
+   - `web/src/styles.css` (the CSS)
+
+   No backend change is needed: `/docs` is already proxied in `agent/app.py`.
+4. Do **not** copy anything from Xinran's engine repo (`13032585789-spec/Trace`) over your `agent/` folder. Your `agent/docs_api.py` copy already works with your app.
+5. Build and check: `cd web && npm run build`, then do step 3 in the browser.
+6. Commit: `git commit -am "feat: Files drawer in the workspace"`.
+7. Push when you are ready: `git push org claude/night`, as planned.
+
+If something breaks: `git revert HEAD` undoes only this commit; your earlier work stays.
+
 ## Already built – no new backend code
 | Piece | Where (branch `claude/night`) | Status |
 |---|---|---|
