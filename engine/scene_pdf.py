@@ -70,6 +70,31 @@ def _fixtures(pdf_path, p0, mpp, k, M, src, out_rooms, rooms, warn):
     else: warn.append(f"fixtures from repeated CAD symbols: {named}/{len(cl)} symbol types named ({how}); a fixture drawn only once on a sheet is not found")
     return objs
 
+def clearances(b, fills, mpp, reach_m=3.0):
+    """Fixture box (PDF points) -> nearest solid wall in each page direction within reach:
+    [{dir, distance_m, wall_bbox_pt, line_pt: [[x, y], [x, y]]}] (line_pt = the measured segment, for drawing)."""
+    x0, y0, x1, y1 = b; reach = reach_m / mpp; out = []
+    for d in ("left", "right", "up", "down"):
+        best = None
+        for F in fills:
+            fx0, fy0, fx1, fy1 = F[:4]
+            if d in ("left", "right"):
+                if fy1 < y0 or fy0 > y1: continue                       # must overlap the fixture's vertical extent
+                gap = x0 - fx1 if d == "left" else fx0 - x1
+                if -0.5 <= gap <= reach and (best is None or gap < best[0]):
+                    yy = (max(y0, fy0) + min(y1, fy1)) / 2
+                    best = (max(gap, 0), F, [[x0, yy], [fx1, yy]] if d == "left" else [[x1, yy], [fx0, yy]])
+            else:
+                if fx1 < x0 or fx0 > x1: continue
+                gap = y0 - fy1 if d == "up" else fy0 - y1
+                if -0.5 <= gap <= reach and (best is None or gap < best[0]):
+                    xx = (max(x0, fx0) + min(x1, fx1)) / 2
+                    best = (max(gap, 0), F, [[xx, y0], [xx, fy1]] if d == "up" else [[xx, y1], [xx, fy0]])
+        if best:
+            out.append({"dir": "page-" + d, "distance_m": round(best[0] * mpp, 3), "wall_bbox_pt": [round(v, 1) for v in best[1][:4]],
+                        "line_pt": [[round(v, 1) for v in p] for p in best[2]]})
+    return sorted(out, key=lambda c: c["distance_m"])
+
 def _inside(pt, poly):
     x, y = pt; c = False; n = len(poly)
     for i in range(n):
@@ -153,6 +178,15 @@ def scene(pdf_path, page=1, rel_path=None):
         near = [(min(math.dist((x, z), p) for p in wl["points"]), wl["id"]) for wl in walls]
         o["wall_id"] = min(near)[1] if near and min(near)[0] <= (o["width_m"] or 1) else None
     objects = _fixtures(pdf_path, p0, mpp, k, M, src, out_rooms, rooms, warn)
+    if mpp and fills:
+        for o in objects:
+            if o["category"] in ("toilet", "sink", "urinal", "shower", "bathtub"):
+                o["clearances"] = clearances(o["source"]["bbox_pt"], fills, mpp)
+                for c in o["clearances"]:                         # same segment on the page image (any render size)
+                    c["line_norm1000"] = [[round(x * 1000 / size[0], 1), round(y * 1000 / size[1], 1)] for x, y in c["line_pt"]]
+                    c["line_m"] = [M(*q) for q in c["line_pt"]]
+        if any(o.get("clearances") for o in objects):
+            warn.append("clearances: shortest distance from the fixture symbol's outline to the nearest cut wall in each page direction (page-up = plan-up); walls drawn only as outlines are not considered")
     warn.append("door/window heights and storey height are not on a plan: null")
     return {"project_id": os.path.splitext(os.path.basename(pdf_path))[0], "source_kind": "pdf_vector",
             "unit": "m" if mpp else "pt", "scale": f["scale"],

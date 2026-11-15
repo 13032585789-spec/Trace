@@ -132,10 +132,51 @@ def render(a, zoom_margin=0.08):
     d.text((10, 6 + 2 * head // 3), f"source: {os.path.basename(str(path))}, page {page}   items: {len(boxes)} marked"[:180],
            fill=(60, 60, 60), font=f_big)
     bio = io.BytesIO(); canvas.save(bio, "PNG"); out["full_png"] = bio.getvalue()
-    if boxes:
+    if boxes and kind == "pdf":
+        try:
+            out["zoom_png"] = _zoom_pdf(path, page, items, size_units, boxes, s, canvas.crop((0, 0, W, head)))
+        except Exception as e: out["warnings"].append(f"high-resolution zoom failed: {e!r}"[:120])
+    if boxes and out["zoom_png"] is None:
         x0 = min(b[0] for b in boxes); y0 = min(b[1] for b in boxes); x1 = max(b[2] for b in boxes); y1 = max(b[3] for b in boxes)
         m = zoom_margin * max(W, H) * 0.5
         crop = canvas.crop([max(0, x0 - m), max(head, y0 + head - m), min(W, x1 + m), min(H + head, y1 + head + m)])
         bio = io.BytesIO(); crop.save(bio, "PNG"); out["zoom_png"] = bio.getvalue()
     else: out["warnings"].append("this answer has no located items (a value read from text or a table): see evidence.cite / rule")
     return out
+
+
+def _zoom_pdf(path, page, items, size_units, boxes_px, s, header, target=1600):
+    """Vector sheets: re-render only the region around the items at high resolution (small symbols stay sharp)."""
+    import pypdfium2 as pdfium
+    from PIL import Image, ImageDraw
+    wpt, hpt = size_units
+    x0 = min(b[0] for b in boxes_px) / s; y0 = min(b[1] for b in boxes_px) / s
+    x1 = max(b[2] for b in boxes_px) / s; y1 = max(b[3] for b in boxes_px) / s
+    m = max(25.0, 0.4 * max(x1 - x0, y1 - y0))
+    rx0, ry0, rx1, ry1 = max(0, x0 - m), max(0, y0 - m), min(wpt, x1 + m), min(hpt, y1 + m)
+    s2 = min(16.0, target / max(rx1 - rx0, ry1 - ry0))
+    im = pdfium.PdfDocument(path)[page - 1].render(scale=s2, crop=(rx0, hpt - ry1, wpt - rx1, ry0)).to_pil().convert("RGB")
+    d = ImageDraw.Draw(im, "RGBA"); f = _font(max(14, im.size[0] // 55))
+    T = lambda x, y: ((x - rx0) * s2, (y - ry0) * s2)
+    for n, it in enumerate(items, 1):
+        g = _geom(it, "pdf", size_units, wpt, hpt, 1.0)            # geometry in PDF points
+        if g is None: continue
+        if g[0] == "line":
+            P = [T(*q) for q in g[1]]; c = (230, 120, 0)
+            d.line(P, fill=c + (255,), width=5)
+            for q in P: d.ellipse([q[0] - 7, q[1] - 7, q[0] + 7, q[1] + 7], fill=c + (255,))
+            mx, my = (P[0][0] + P[-1][0]) / 2, (P[0][1] + P[-1][1]) / 2
+            lab = str(it.get("label") or ""); tw = d.textlength(lab, font=f)
+            d.rectangle([mx + 8, my - f.size - 4, mx + 12 + tw, my + 2], fill=(255, 255, 255, 220))
+            d.text((mx + 10, my - f.size - 2), lab, fill=(170, 70, 0), font=f)
+        elif g[0] == "box":
+            (a0, b0), (a1, b1) = T(*g[1][:2]), T(*g[1][2:])
+            c = COL.get(it.get("_state", "item"), COL["item"])
+            d.rectangle([a0 - 3, b0 - 3, a1 + 3, b1 + 3], outline=c + (255,), width=4, fill=c + (35,))
+            d.text((a0, b0 - f.size - 6), str(it.get("label") or it.get("id", n)), fill=c, font=f)
+        else:
+            P = [T(*q) for q in g[1]]; d.polygon(P, outline=COL["poly"] + (255,), fill=COL["poly"] + (30,))
+    hh = int(header.size[1] * im.size[0] / header.size[0]) if header.size[0] > im.size[0] else header.size[1]
+    hdr = header.resize((im.size[0], max(40, hh)))
+    outi = Image.new("RGB", (im.size[0], im.size[1] + hdr.size[1]), "white"); outi.paste(hdr, (0, 0)); outi.paste(im, (0, hdr.size[1]))
+    bio = io.BytesIO(); outi.save(bio, "PNG"); return bio.getvalue()
