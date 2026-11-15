@@ -14,7 +14,7 @@ Repo: https://github.com/13032585789-spec/Trace (branch `main`). Freeze ~07:30, 
 
 ## Changes since the samples were captured (engine side, already pushed)
 1. **Doors are counted per door leaf** by default (a double door = 2). Door sets stay in `alternatives[]`.
-   The school vector sample therefore becomes `129` (was `107` in `integration/ask_pdf_vector.json`).
+   The school vector sample is `129` (door sets 107 as the alternative).
 2. **Door schedule cross-check** on project door counts → `evidence.cross_check`; disagreement lowers confidence to
    `low` and adds a warning. The value itself is never changed.
 3. Raster sheets: no more "not shown on this drawing" when only the shrunk whole-sheet read missed the doors.

@@ -81,4 +81,4 @@ Always JSON `{"error": "<message>", ...context}`.
   (weights are not redistributed); positions not metric until calibrated; small rooms (< 6 m²) can merge.
 - Vector PDF: walls only from solid cut fills; fixtures only from symbols drawn ≥ 2 times; no heights.
 - IFC: some walls lack base quantities (fields left empty); no true north in the Duplex model.
-- Sports Complex A-101 is a raster-in-PDF floor plan: counting there is unreliable (null in the sample, 28 uncertain earlier; schedule says 38).
+- Sports Complex A-101 is a raster-in-PDF floor plan: counting there is unreliable (readings 50 / 20 / 28, answer 28, low; schedule lists 38 for the whole building).
