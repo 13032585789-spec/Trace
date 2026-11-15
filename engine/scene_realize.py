@@ -247,6 +247,58 @@ def _inside(pt, poly):
     return inside
 
 
+def _cut_walls(walls, openings):
+    """Split every wall into solid pieces around the doors and windows it hosts, so a viewer can draw real holes
+    without boolean geometry: full-height pieces between openings, a lintel above a door, a sill wall below and a
+    lintel above a window. wall["pieces"] = [{"from": [x, z], "to": [x, z], "y0": m, "y1": m}]."""
+    by = {}
+    for o in openings:
+        if o.get("wall_id"): by.setdefault(o["wall_id"], []).append(o)
+    for w in walls:
+        a, b = np.array(w["points"][0], float), np.array(w["points"][-1], float)
+        L = float(np.hypot(*(b - a))); H = w.get("height_m") or WALL_H
+        if L < 1e-9: continue
+        u = (b - a) / L; cuts = []
+        for o in by.get(w["id"], []):
+            c = float(np.dot(np.array([o["position"][0], o["position"][2]]) - a, u)); half = (o.get("width_m") or 0.9) / 2
+            s0, s1 = max(0.0, c - half), min(L, c + half)
+            if s1 - s0 < 1e-3: continue
+            y0 = o.get("sill_y_m") or 0.0; y1 = min(H, y0 + (o.get("height_m") or (DOOR_H if o.get("kind") == "door" else WIN_H)))
+            cuts.append((s0, s1, y0, y1))
+        if not cuts: continue
+        cuts.sort(); pieces = []; pos = 0.0
+        P = lambda t: [round(float(v), 4) for v in (a + u * t)]
+        for s0, s1, y0, y1 in cuts:
+            if s0 > pos + 1e-3: pieces.append({"from": P(pos), "to": P(s0), "y0": 0.0, "y1": H})
+            if y0 > 1e-3: pieces.append({"from": P(s0), "to": P(s1), "y0": 0.0, "y1": round(y0, 3)})
+            if y1 < H - 1e-3: pieces.append({"from": P(s0), "to": P(s1), "y0": round(y1, 3), "y1": H})
+            pos = max(pos, s1)
+        if pos < L - 1e-3: pieces.append({"from": P(pos), "to": P(L), "y0": 0.0, "y1": H})
+        w["pieces"] = pieces
+
+
+def _door_leaves(openings, unit):
+    """An open door leaf for every door: hinge at the jamb, swung 90 deg to the side the drawing shows (swing arc),
+    else to the door's front side with the hinge on its left (assumed)."""
+    for o in openings:
+        if o.get("kind") != "door": continue
+        x, z = o["position"][0], o["position"][2]; wdt = (o.get("width_m") or 0.9) * unit
+        th = math.radians(-(o.get("rotation_deg") or 0)); along = np.array([math.cos(th), math.sin(th)])
+        normal = np.array([-along[1], along[0]])
+        hinge, tip, src = None, None, "assumed: hinge left, opening to the front"
+        if o.get("hinge") and o.get("swing_ends"):
+            hg = np.array([o["hinge"][0], o["hinge"][2]], float)
+            ends = [np.array(e, float) for e in o["swing_ends"]]
+            off = [abs(float(np.dot(e - hg, normal))) for e in ends]          # the end that leaves the wall line = open leaf
+            tip_pt = ends[int(np.argmax(off))]
+            hinge, tip, src = hg, hg + (tip_pt - hg) / (np.hypot(*(tip_pt - hg)) or 1) * wdt, "swing arc on the drawing"
+        else:
+            f = np.array(o.get("front_vector") or normal, float); f = f / (np.hypot(*f) or 1)
+            hinge = np.array([x, z]) - along * wdt / 2; tip = hinge + f * wdt
+        o["leaf"] = {"hinge": [round(float(v), 4) for v in hinge], "tip": [round(float(v), 4) for v in tip],
+                     "open_deg": 90, "thickness_m": 0.04, "height_m": o.get("height_m") or DOOR_H, "from": src}
+
+
 def realize(scene):
     kind = scene.get("source_kind")
     walls, rooms = scene.get("walls") or [], scene.get("rooms") or []
@@ -270,7 +322,8 @@ def realize(scene):
                                "note": "typical shape (MVP); position is from the IFC model"}
         A, B = seg(walls)
         cov = [float(_covered(_samples(_ring(r["polygon"], t / 4), step)[0], A, B, 2 * t).mean()) for r in rooms if len(r.get("polygon") or []) >= 3]
-        scene["realism"] = {"changed": False, "note": "IFC geometry is real; measured only",
+        _cut_walls(walls, openings); _door_leaves(openings, 1.0)
+        scene["realism"] = {"changed": False, "note": "IFC geometry is real; measured only (walls split around openings for drawing)",
                             "room_edge_coverage": round(float(np.mean(cov)), 3) if cov else None}
         return scene
 
@@ -340,6 +393,8 @@ def realize(scene):
                 o["height_m"] = DOOR_H if o.get("kind") == "door" else WIN_H; o["height_from"] = "typical (MVP)"
             if o.get("kind") == "window" and o.get("sill_y_m") is None: o["sill_y_m"] = WIN_SILL
             if o.get("kind") == "door" and o.get("sill_y_m") is None: o["sill_y_m"] = 0.0
+
+    _cut_walls(walls, openings); _door_leaves(openings, unit)
 
     # 6: fixtures inside a room, with a footprint
     in_room = 0
