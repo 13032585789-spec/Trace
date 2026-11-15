@@ -45,6 +45,10 @@ def rate(r):
                      "sheet:lookup", "sheet:expr", "sheet:count", "docqa:")) and "vision" not in m:
         if soft: return "medium", "read from the file's own data, with a caveat: " + soft[0]
         return "high", "read from the file's own data (vector geometry, model quantities or a printed table)"
+    if m.startswith("scan:rooms+scale"):
+        cal = any("user calibration" in x for x in w)
+        return ("medium", "room outline traced from the walls on the scan, scale from " +
+                ("the user's calibration" if cal else "the printed ratio and paper size (confirm with a calibration)"))
     if m.startswith("scan:") or "vision" in m:
         if "+dims" in m: return "medium", "area from printed dimension strings read by the vision model"
         if "+vlm" in m and m.split(":")[1].split("+")[0] in ("marks", "windows", "doors"):

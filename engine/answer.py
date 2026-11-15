@@ -236,7 +236,7 @@ def _answer_sheet(path, question, source=None):
                 if img is None: return {**base, "method": "sheet:cannot_read_pdf", "warnings": ["install pdfplumber or pypdfium2"]}
                 r = scanqa.answer(img, question, llm.vision_json); r["sources"] = [{"file": path, "page": 1}]; return r
         from . import scanqa
-        r = scanqa.answer(open(full, "rb").read(), question, llm.vision_json)     # full resolution: tiled when needed
+        r = scanqa.answer(open(full, "rb").read(), question, llm.vision_json, file=full)     # full resolution: tiled when needed
         r["sources"] = [{"file": path}]; return r
     except RuntimeError as e:
         return {**base, "method": "sheet:model_error", "warnings": [str(e)]}

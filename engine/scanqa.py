@@ -397,7 +397,20 @@ def count_tiled(image_bytes, question, call_model, grid):
 
 SMALL_COUNT = int(os.environ.get("JUNCTION_SMALL_COUNT", 12))   # below this the whole-sheet count is kept (no tiling)
 
-def answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.get("JUNCTION_TILE_FROM", 2600))):
+def answer(image_bytes, question, call_model, votes=2, file=None, page=0):
+    """Scans: counts and reads (below); areas / lengths of a named room that are not printed are measured from the
+    traced room outline when a scale is known (engine.scan_rooms), with the outline as evidence."""
+    r = _answer(image_bytes, question, call_model, votes)
+    if r.get("value") is None and MEASURE_Q.search(question):
+        try:
+            from . import scan_rooms
+            m = scan_rooms.measure(image_bytes, question, call_model, file=file, page=page)
+        except Exception as e:
+            m = None; r.setdefault("warnings", []).append(f"room measuring failed: {e!r}"[:120])
+        if m: return m
+    return r
+
+def _answer(image_bytes, question, call_model, votes=2, tile_from=int(os.environ.get("JUNCTION_TILE_FROM", 2600))):
     """Large scans + count questions: the whole sheet is read once (legend, context) and counted again tile by tile
     at full resolution, because small symbols vanish when a big sheet is shrunk for the model. The tiled count is the
     answer; the whole-sheet count is the second reading."""
